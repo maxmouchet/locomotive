@@ -1,28 +1,14 @@
 language: python
-<<<<<<< HEAD
-script: pip install -e .
-script: pip install black pylint pytest-cov
-script: black locomotive
-script: pylint locomotive
-script: coverage run --source locomotive/ -m pytest
+python:
+  - "3.6"
+
+install:
+  - pip install pytest-cov coverage
+  - python setup.py install
+
+script:
+- coverage run --source locomotive/ -m pytest
+  
 branches:
   only:
     - master
-=======
-
-python:
-  - '3.6'
-
-install:
-  - pip install pytest pytest-cov
-
-script:
-  - coverage run --source locomotive/ -m pytest
-
-#after_success:
-#  - python3 setup.py sdist bdist_wheel
-#  - coveralls
-
-notifications:
-  email: false
->>>>>>> 71c32a79930074a9ec14aa1296dd451ebe5e14ea
