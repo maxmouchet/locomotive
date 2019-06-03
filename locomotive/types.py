@@ -31,7 +31,7 @@ class Passenger:
         self.phone_number = None
         self.han_information = None
 
-    def sncf_dict(self):
+    def sncf_dict(self) -> dict:
         return {
             "travelerId": self.traveler_id,
             "profile": self.profile.name,
@@ -67,10 +67,10 @@ class Location:
         self.station_label = None
 
     @classmethod
-    def from_station_code(cls, station_code: str):
+    def from_station_code(cls, station_code: str) -> Location:
         return cls(LocationType.G, station_code)
 
-    def sncf_dict(self):
+    def sncf_dict(self) -> dict:
         return {
             "id": self.id,
             "label": self.label,
@@ -89,7 +89,7 @@ class TravelClass(Enum):
     # TODO: Implement other types
 
     @classmethod
-    def from_str(cls, str):
+    def from_str(cls, str: str) -> TravelClass:
         return cls[str.upper()]
 
 
@@ -143,7 +143,7 @@ class SNCFTravelRequest:
         self.inward_schedule_type = "BY_DEPARTURE_DATE"
         self.currency = None
 
-    def sncf_dict(self):
+    def sncf_dict(self) -> dict:
         return {
             "origin": self.origin,
             "origin_code": self.origin_code,

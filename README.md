@@ -28,9 +28,10 @@ sncf-cli search FRBES FRPAR
 
 ```bash
 pip install -e .
-pip install black pylint pytest-cov
+pip install black mypy pylint pytest-cov
 
 black locomotive  # Code formatter
+mypy locomotive   # Type checking
 pylint locomotive # Linter
 pytest            # Unit tests
 ```
