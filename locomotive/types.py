@@ -67,7 +67,7 @@ class Location:
         self.station_label = None
 
     @classmethod
-    def from_station_code(cls, station_code: str) -> Location:
+    def from_station_code(cls, station_code: str) -> 'Location':
         return cls(LocationType.G, station_code)
 
     def sncf_dict(self) -> dict:
@@ -89,7 +89,7 @@ class TravelClass(Enum):
     # TODO: Implement other types
 
     @classmethod
-    def from_str(cls, str: str) -> TravelClass:
+    def from_str(cls, str: str) -> 'TravelClass':
         return cls[str.upper()]
 
 
