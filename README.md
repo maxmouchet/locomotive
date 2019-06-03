@@ -8,7 +8,7 @@
 
 - [ ] Travis-CI
 - [ ] Coverage
-- [ ] PyPI push (+ badge)
+- [ ] PyPI push (https://docs.travis-ci.com/user/deployment/pypi/, + badge)
 - [ ] Improve README (screenshot, https://carbon.now.sh/)
 
 <img src="/assets/carbon.png">
@@ -31,5 +31,5 @@ pip install -e .
 pip install black pylint pytest
 black locomotive
 pylint locomotive
-pytest
+coverage run --source locomotive/ -m pytest
 ```
