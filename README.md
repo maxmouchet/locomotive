@@ -26,7 +26,7 @@ sncf-cli search FRBES FRPAR
 
 ```bash
 pip install -e .
-pip install black pylint pytest
+pip install black pylint pytest-cov
 black locomotive
 pylint locomotive
 coverage run --source locomotive/ -m pytest
