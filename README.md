@@ -29,6 +29,5 @@ pip install -e .
 pip install black pylint pytest
 black locomotive
 pylint locomotive
-pytest
 coverage run --source locomotive/ -m pytest
 ```
