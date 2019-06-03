@@ -10,13 +10,7 @@ import dateparser
 import requests
 
 from .formatters import PrettyFormatter, RawFormatter
-from .types import (
-    Location,
-    Passenger,
-    PassengerProfile,
-    SNCFTravelRequest,
-    TravelClass,
-)
+from .types import Location, Passenger, PassengerProfile, SNCFTravelRequest, TravelClass
 
 ENDPOINT = "https://www.oui.sncf/proposition/rest/search-travels/outward"
 
