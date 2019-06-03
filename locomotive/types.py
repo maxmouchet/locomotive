@@ -66,6 +66,10 @@ class Location:
         self.country = None
         self.station_label = None
 
+    @classmethod
+    def from_station_code(cls, station_code: str):
+        return cls(LocationType.G, station_code)
+
     def sncf_dict(self):
         return {
             "id": self.id,
@@ -83,6 +87,10 @@ class TravelClass(Enum):
     FIRST = auto()
     SECOND = auto()
     # TODO: Implement other types
+
+    @classmethod
+    def from_str(cls, str):
+        return cls[str.upper()]
 
 
 class SNCFTravelRequest:

@@ -9,15 +9,14 @@ import click
 import dateparser
 import requests
 
+from .formatters import PrettyFormatter, RawFormatter
 from .types import (
     Location,
-    LocationType,
     Passenger,
     PassengerProfile,
     SNCFTravelRequest,
     TravelClass,
 )
-from .utils import pretty_train_proposal
 
 ENDPOINT = "https://www.oui.sncf/proposition/rest/search-travels/outward"
 
@@ -41,8 +40,8 @@ def cli():
 @click.option(
     "--class", "travel_class", type=click.Choice(["first", "second"]), default="second"
 )
-@click.option("--raw-output", is_flag=True)
-def search(origin_code, destination_code, age, date, travel_class, raw_output):
+@click.option("--formatter", type=click.Choice(["pretty", "raw"]), default="pretty")
+def search(**args):
     """
     Search for trains.
 
@@ -50,23 +49,23 @@ def search(origin_code, destination_code, age, date, travel_class, raw_output):
     sncf-cli search FRBES FRPAR
     sncf-cli search FRBES FRPAR --class second --date 2019-06-01
     """
-    passengers = [Passenger(PassengerProfile.ADULT, age)]
-    origin = Location(LocationType.G, origin_code)
-    destination = Location(LocationType.G, destination_code)
-    klass = TravelClass[travel_class.upper()]
+    if isinstance(args["date"], str):
+        date = dateparser.parse(args["date"])
 
-    if isinstance(date, str):
-        date = dateparser.parse(date)
+    passengers = [Passenger(PassengerProfile.ADULT, args["age"])]
+    origin = Location.from_station_code(args["origin_code"])
+    destination = Location.from_station_code(args["destination_code"])
+    travel_class = TravelClass.from_str(args["travel_class"])
 
-    sncf_req = SNCFTravelRequest(origin, destination, passengers, date, klass)
+    sncf_req = SNCFTravelRequest(origin, destination, passengers, date, travel_class)
     res = requests.post(ENDPOINT, json=sncf_req.sncf_dict())
 
-    if raw_output:
-        print(res.content)
+    if args["formatter"] == "pretty":
+        formatter = PrettyFormatter()
     else:
-        for proposal in res.json()["trainProposals"]:
-            print(pretty_train_proposal(proposal))
-            print("\n")
+        formatter = RawFormatter()
+
+    print(formatter.get_str(res))
 
 
 if __name__ == "__main__":
