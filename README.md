@@ -10,7 +10,6 @@
 
 ## TODO
 
-- [ ] PyPI push (https://docs.travis-ci.com/user/deployment/pypi/, + badge)
 - [ ] Improve README
 - [ ] Test on Windows
 
