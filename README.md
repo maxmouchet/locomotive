@@ -6,22 +6,24 @@
 [![Build Status](https://travis-ci.org/yafeunteun/sncf-cli.svg?branch=master)](https://travis-ci.org/yafeunteun/sncf-cli)
 [![Coverage Status](https://coveralls.io/repos/github/yafeunteun/sncf-cli/badge.svg?branch=master)](https://coveralls.io/github/yafeunteun/sncf-cli?branch=master)
 
+<img src="/assets/carbon.png">
+
 ## TODO
 
 - [ ] PyPI push (https://docs.travis-ci.com/user/deployment/pypi/, + badge)
 - [ ] Improve README
 - [ ] Test on Windows
 
-<img src="/assets/carbon.png">
+## Installation
+
+```bash
+pip install sncf-cli
+```
 
 ## Usage
 
 ```bash
-pip install sncf-cli
 sncf-cli search --help
-```
-
-```bash
 sncf-cli search FRBES FRPAR
 ```
 
