@@ -3,11 +3,12 @@ python:
   - "3.6"
 
 install:
-  - pip install pytest-cov coverage
+  - pip install pytest-cov coverage coveralls
   - python setup.py install
 
 script:
 - coverage run --source locomotive/ -m pytest
+- coveralls
   
 branches:
   only:
