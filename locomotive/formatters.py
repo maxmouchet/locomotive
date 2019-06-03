@@ -3,8 +3,10 @@ Output formatters.
 """
 
 import datetime as dt
+import os
 from abc import ABC, abstractmethod
 
+import chevron
 from requests import Response
 
 from .stations import Stations
@@ -34,54 +36,88 @@ class PrettyFormatter(Formatter):
     def __init__(self, stations: Stations):
         self.stations = stations
 
+    @classmethod
+    def __parse_sncf_date(cls, str):
+        return dt.datetime.strptime(str, SNCF_DATE_FORMAT)
+
+    @classmethod
+    def __format_datetime(cls, obj):
+        # TODO: Format dates according to user locale
+        # TODO: Do this formatting inside the templates ?
+        return obj.strftime("%d/%m/%Y %Hh%M")
+
+    @classmethod
+    def __format_time(cls, obj):
+        return obj.strftime("%Hh%M")
+
+    def __data_for_price(self, obj):
+        return {
+            "amount": obj["amount"],
+            "currency": obj["currency"],  # Show currency sign instead (€, $) ?
+            "type": obj["type"],
+            "seats": obj.get("remainingSeat", "?"),
+        }
+
+    def __data_for_segment(self, obj):
+        origin_station = self.stations.find(obj["originStationCode"])
+        destination_station = self.stations.find(obj["destinationStationCode"])
+
+        # TODO: Cleanup...
+        if origin_station is not None:
+            origin_station_name = origin_station["name"]
+        else:
+            origin_station_name = obj["originStationCode"]
+
+        if destination_station is not None:
+            destination_station_name = destination_station["name"]
+        else:
+            destination_station_name = obj["destinationStationCode"]
+
+        departure_date = self.__format_datetime(
+            self.__parse_sncf_date(obj["departureDate"])
+        )
+        arrival_date = self.__format_datetime(
+            self.__parse_sncf_date(obj["arrivalDate"])
+        )
+
+        return {
+            "transporter": obj["transporter"],
+            "train_number": obj["trainNumber"],
+            "origin_station": origin_station_name,
+            "destination_station": destination_station_name,
+            "departure_date": departure_date,
+            "arrival_date": arrival_date,
+        }
+
+    def __data_for_proposal(self, obj):
+        departure_date = self.__format_datetime(
+            self.__parse_sncf_date(obj["departureDate"])
+        )
+        arrival_date = self.__format_datetime(
+            self.__parse_sncf_date(obj["arrivalDate"])
+        )
+
+        prices = list(map(self.__data_for_price, obj["priceProposals"]))
+        segments = list(map(self.__data_for_segment, obj["segments"]))
+
+        return {
+            "departure_date": departure_date,
+            "arrival_date": arrival_date,
+            "prices": prices,
+            "segments": segments,
+        }
+
     def get_str(self, res: Response) -> str:
-        outs = []
-        for obj in res.json()["trainProposals"]:
-            out = "\033[1mProposal {} - {}\033[0m".format(
-                dt.datetime.strptime(obj["departureDate"], SNCF_DATE_FORMAT).strftime(
-                    "%d/%m/%Y %Hh%M"
-                ),
-                dt.datetime.strptime(obj["arrivalDate"], SNCF_DATE_FORMAT).strftime(
-                    "%d/%m/%Y %Hh%M"
-                ),
-            )
+        proposals = list(map(self.__data_for_proposal, res.json()["trainProposals"]))
 
-            out += "\n\033[1mPrices\033[0m"
-            for price_proposal in obj["priceProposals"]:
-                remaining_seats = price_proposal.get("remainingSeat", "?")
-                out += "\n+ {} {} ({}) [{} remaining seats]".format(
-                    price_proposal["amount"],
-                    price_proposal["currency"],  # Show currency sign instead (€, $) ?
-                    price_proposal["type"],
-                    remaining_seats,
-                )
+        args = {
+            "template": "{{>proposals}}",
+            "partials_path": os.path.join(os.path.dirname(__file__), "templates"),
+            "data": {"proposals": proposals},
+        }
 
-            out += "\n\033[1mTrains\033[0m"
-            for segment in obj["segments"]:
-                origin_station = self.stations.find(segment["originStationCode"])
-                destination_station = self.stations.find(
-                    segment["destinationStationCode"]
-                )
-
-                out += "\n+ {} {} from {} to {}".format(
-                    segment["transporter"],
-                    segment["trainNumber"],
-                    origin_station["name"]
-                    if origin_station is not None
-                    else segment["originStationCode"],
-                    destination_station["name"]
-                    if destination_station is not None
-                    else segment["destinationStationCode"],
-                )
-                out += "\n  {} - {}".format(
-                    dt.datetime.strptime(
-                        segment["departureDate"], SNCF_DATE_FORMAT
-                    ).strftime("%Hh%M"),
-                    dt.datetime.strptime(
-                        segment["arrivalDate"], SNCF_DATE_FORMAT
-                    ).strftime("%Hh%M"),
-                )
-
-            outs.append(out)
-
-        return "\n\n\n".join(outs)
+        # TODO: Strip format escape codes if outputing to text file (> in shell)
+        out = chevron.render(**args)
+        out = out.replace("<b>", "\033[1m")
+        out = out.replace("</b>", "\033[0m")
+        return out

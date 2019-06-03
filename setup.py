@@ -18,6 +18,7 @@ setup(
         '': ['*.csv'],
     },
     install_requires=[
+        'chevron',
         'Click',
         'dateparser',
         'geopy',
