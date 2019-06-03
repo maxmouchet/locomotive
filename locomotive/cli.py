@@ -4,6 +4,7 @@ Locomotive CLI.
 """
 
 import datetime as dt
+import sys
 
 import click
 import dateparser
@@ -20,7 +21,7 @@ ENDPOINT = "https://www.oui.sncf/proposition/rest/search-travels/outward"
 @click.group()
 def cli():
     """
-    🚆 Search for trains from your terminal.
+    🚆 Search SNCF journeys from your terminal.
 
     \b
     Examples:
@@ -51,8 +52,16 @@ def search(**args):
         date = args["date"]
 
     stations = Stations()
+
     origin_station = stations.find(args["origin"])
+    if origin_station is None:
+        print("Train station for {} not found :(".format(args["origin"]))
+        sys.exit(1)
+
     destination_station = stations.find(args["destination"])
+    if destination_station is None:
+        print("Train station for {} not found :(".format(args["destination"]))
+        sys.exit(1)
 
     print(
         "{} → {} ({:.0f}km) on {}\n".format(
