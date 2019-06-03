@@ -10,6 +10,7 @@
 - [ ] Coverage
 - [ ] PyPI push (https://docs.travis-ci.com/user/deployment/pypi/, + badge)
 - [ ] Improve README (screenshot, https://carbon.now.sh/)
+- [ ] Test on Windows
 
 <img src="/assets/carbon.png">
 
