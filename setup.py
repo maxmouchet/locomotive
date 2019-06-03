@@ -8,7 +8,6 @@ setup(
     install_requires=[
         'Click',
         'dateparser',
-        'numpy',
         'requests',
     ],
     entry_points='''
