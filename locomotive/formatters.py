@@ -7,6 +7,7 @@ from abc import ABC, abstractmethod
 
 from requests import Response
 
+from .stations import Stations
 from .types import SNCF_DATE_FORMAT
 
 
@@ -29,6 +30,9 @@ class PrettyFormatter(Formatter):
     """
     Human-readable pretty-printed output.
     """
+
+    def __init__(self, stations: Stations):
+        self.stations = stations
 
     def get_str(self, res: Response) -> str:
         outs = []
@@ -54,11 +58,20 @@ class PrettyFormatter(Formatter):
 
             out += "\nTrains:"
             for segment in obj["segments"]:
+                origin_station = self.stations.find(segment["originStationCode"])
+                destination_station = self.stations.find(
+                    segment["destinationStationCode"]
+                )
+
                 out += "\n+ {} {} from {} to {}".format(
                     segment["transporter"],
                     segment["trainNumber"],
-                    segment["originStationCode"],
-                    segment["destinationStationCode"],
+                    origin_station["name"]
+                    if origin_station is not None
+                    else segment["originStationCode"],
+                    destination_station["name"]
+                    if destination_station is not None
+                    else segment["destinationStationCode"],
                 )
                 out += "\n  {} - {}".format(
                     dt.datetime.strptime(

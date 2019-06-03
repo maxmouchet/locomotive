@@ -7,9 +7,11 @@ import datetime as dt
 
 import click
 import dateparser
+import pandas as pd
 import requests
 
 from .formatters import PrettyFormatter, RawFormatter
+from .stations import Stations
 from .types import Location, Passenger, PassengerProfile, SNCFTravelRequest, TravelClass
 
 ENDPOINT = "https://www.oui.sncf/proposition/rest/search-travels/outward"
@@ -27,8 +29,8 @@ def cli():
 
 
 @cli.command()
-@click.argument("origin_code")
-@click.argument("destination_code")
+@click.argument("origin")
+@click.argument("destination")
 @click.option("--age", default=26)
 @click.option("--date", default=dt.date.today())
 @click.option(
@@ -45,17 +47,32 @@ def search(**args):
     """
     if isinstance(args["date"], str):
         date = dateparser.parse(args["date"])
+    else:
+        date = args["date"]
+
+    stations = Stations()
+    origin_station = stations.find(args["origin"])
+    destination_station = stations.find(args["destination"])
+
+    print(
+        "{} → {} ({:.0f}km) on {}\n".format(
+            origin_station["name"],
+            destination_station["name"],
+            Stations.distance(origin_station, destination_station),
+            date.strftime("%b %d %Y"),
+        )
+    )
 
     passengers = [Passenger(PassengerProfile.ADULT, args["age"])]
-    origin = Location.from_station_code(args["origin_code"])
-    destination = Location.from_station_code(args["destination_code"])
+    origin = Location.from_station_code(origin_station["sncf_id"])
+    destination = Location.from_station_code(destination_station["sncf_id"])
     travel_class = TravelClass.from_str(args["travel_class"])
 
     sncf_req = SNCFTravelRequest(origin, destination, passengers, date, travel_class)
     res = requests.post(ENDPOINT, json=sncf_req.sncf_dict())
 
     if args["formatter"] == "pretty":
-        formatter = PrettyFormatter()
+        formatter = PrettyFormatter(stations=stations)
     else:
         formatter = RawFormatter()
 

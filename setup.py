@@ -14,9 +14,14 @@ setup(
     ],
     packages=find_packages(),
     include_package_data=True,
+    package_data={
+        '': ['*.csv'],
+    },
     install_requires=[
         'Click',
         'dateparser',
+        'geopy',
+        'pandas',
         'requests',
     ],
     entry_points='''
