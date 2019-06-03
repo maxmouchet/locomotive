@@ -37,7 +37,7 @@ class PrettyFormatter(Formatter):
     def get_str(self, res: Response) -> str:
         outs = []
         for obj in res.json()["trainProposals"]:
-            out = "Proposal {} - {}".format(
+            out = "\033[1mProposal {} - {}\033[0m".format(
                 dt.datetime.strptime(obj["departureDate"], SNCF_DATE_FORMAT).strftime(
                     "%d/%m/%Y %Hh%M"
                 ),
@@ -46,7 +46,7 @@ class PrettyFormatter(Formatter):
                 ),
             )
 
-            out += "\nPrices:"
+            out += "\n\033[1mPrices\033[0m"
             for price_proposal in obj["priceProposals"]:
                 remaining_seats = price_proposal.get("remainingSeat", "?")
                 out += "\n+ {} {} ({}) [{} remaining seats]".format(
@@ -56,7 +56,7 @@ class PrettyFormatter(Formatter):
                     remaining_seats,
                 )
 
-            out += "\nTrains:"
+            out += "\n\033[1mTrains\033[0m"
             for segment in obj["segments"]:
                 origin_station = self.stations.find(segment["originStationCode"])
                 destination_station = self.stations.find(
