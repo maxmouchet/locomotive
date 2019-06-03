@@ -25,6 +25,7 @@ ENDPOINT = "https://www.oui.sncf/proposition/rest/search-travels/outward"
 @click.group()
 def cli():
     """
+    🚆 Search for trains from your terminal.
 
     \b
     Examples:
