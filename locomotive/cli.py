@@ -1,19 +1,35 @@
 #!/usr/bin/env python3
+"""
+Locomotive CLI.
+"""
+
+import datetime as dt
 
 import click
-import requests
-import datetime as dt
 import dateparser
+import requests
 
-from .types import *
-from .utils import *
+from .types import (
+    Location,
+    LocationType,
+    Passenger,
+    PassengerProfile,
+    SNCFTravelRequest,
+    TravelClass,
+)
+from .utils import pretty_train_proposal
 
 ENDPOINT = "https://www.oui.sncf/proposition/rest/search-travels/outward"
 
 
 @click.group()
 def cli():
-    pass
+    """
+
+    \b
+    Examples:
+    sncf-cli search FRBES FRPAR
+    """
 
 
 @cli.command()
@@ -38,16 +54,16 @@ def search(origin_code, destination_code, age, date, travel_class, raw_output):
     destination = Location(LocationType.G, destination_code)
     klass = TravelClass[travel_class.upper()]
 
-    if type(date) is str:
+    if isinstance(date, str):
         date = dateparser.parse(date)
 
     sncf_req = SNCFTravelRequest(origin, destination, passengers, date, klass)
-    r = requests.post(ENDPOINT, json=sncf_req.sncf_dict())
+    res = requests.post(ENDPOINT, json=sncf_req.sncf_dict())
 
     if raw_output:
-        print(r.content)
+        print(res.content)
     else:
-        for proposal in r.json()["trainProposals"]:
+        for proposal in res.json()["trainProposals"]:
             print(pretty_train_proposal(proposal))
             print("\n")
 

@@ -1,5 +1,4 @@
 import datetime as dt
-
 from enum import Enum, auto
 from typing import List
 
@@ -11,7 +10,7 @@ class PassengerProfile(Enum):
     # TODO: Add other types
 
 
-class Passenger(object):
+class Passenger:
     def __init__(self, profile: PassengerProfile, age: int):
         self.profile = profile
         self.age = age
@@ -50,7 +49,7 @@ class LocationType(Enum):
     # TODO: Implement other types
 
 
-class Location(object):
+class Location:
     def __init__(self, t: LocationType, station_code: str):
         self.t = t
         self.station_code = station_code
@@ -82,7 +81,7 @@ class TravelClass(Enum):
     # TODO: Implement other types
 
 
-class SNCFTravelRequest(object):
+class SNCFTravelRequest:
     def __init__(
         self,
         origin: Location,

@@ -1,9 +1,16 @@
+"""
+Utilities.
+"""
+
 import datetime as dt
 
 from .types import SNCF_DATE_FORMAT
 
 
 def pretty_train_proposal(obj):
+    """
+    Pretty print a train proposal.
+    """
     out = "Proposal {} - {}".format(
         dt.datetime.strptime(obj["departureDate"], SNCF_DATE_FORMAT).strftime(
             "%d/%m/%Y %Hh%M"
