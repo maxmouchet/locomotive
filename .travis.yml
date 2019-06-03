@@ -1,0 +1,9 @@
+language: python
+script: pip install -e .
+script: pip install black pylint pytest-cov
+script: black locomotive
+script: pylint locomotive
+script: coverage run --source locomotive/ -m pytest
+branches:
+  only:
+    - master
