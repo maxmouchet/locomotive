@@ -8,7 +8,7 @@
 
 - [ ] Travis-CI
 - [ ] Coverage
-- [ ] PyPI push (+ badge)
+- [ ] PyPI push (https://docs.travis-ci.com/user/deployment/pypi/, + badge)
 - [ ] Improve README (screenshot, https://carbon.now.sh/)
 
 ## Usage
