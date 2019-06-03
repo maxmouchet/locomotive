@@ -120,4 +120,5 @@ class PrettyFormatter(Formatter):
         out = chevron.render(**args)
         out = out.replace("<b>", "\033[1m")
         out = out.replace("</b>", "\033[0m")
+        out = out.strip()
         return out
