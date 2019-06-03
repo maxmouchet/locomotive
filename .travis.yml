@@ -1,0 +1,17 @@
+language: python
+
+python:
+  - '3.6'
+
+install:
+  - pip install pytest pytest-cov
+
+script:
+  - coverage run --source locomotive/ -m pytest
+
+#after_success:
+#  - python3 setup.py sdist bdist_wheel
+#  - coveralls
+
+notifications:
+  email: false
