@@ -18,9 +18,13 @@ class Stations:
     def distance(cls, s1, s2):
         return gp.distance(cls.coords(s1), cls.coords(s2)).km
 
-    def find(self, str):
-        res = self.df[self.df.sncf_id == str]
-        if len(res) > 0:
-            return res.iloc[0]
-        else:
-            return None
+    def find(self, q):
+        # Try to find matching IDs
+        # TODO: Optimize...
+        if q in self.df.sncf_id.values:
+            return self.df[self.df.sncf_id == q].iloc[0]
+        # Try to find matching name
+        # TODO: Partial search and rank results...
+        if q in self.df.name.values:
+            return self.df[self.df.name == q].iloc[0]
+        return None
