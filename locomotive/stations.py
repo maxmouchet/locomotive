@@ -7,7 +7,7 @@ import pandas as pd
 class Stations:
     def __init__(self, fp=None):
         if fp is None:
-            fp = os.path.join(os.path.dirname(__file__), "stations-lite.csv")
+            fp = os.path.join(os.path.dirname(__file__), "data", "stations-lite.csv")
         self.df = pd.read_csv(fp, sep=";")
 
     @classmethod
