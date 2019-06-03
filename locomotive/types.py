@@ -1,3 +1,7 @@
+"""
+Python objects mapping to SNCF API types.
+"""
+
 import datetime as dt
 from enum import Enum, auto
 from typing import List
