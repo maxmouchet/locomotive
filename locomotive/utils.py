@@ -22,8 +22,12 @@ def pretty_train_proposal(obj):
 
     out += "\nPrices:"
     for price_proposal in obj["priceProposals"]:
-        out += "\n+ {} {} ({})".format(
-            price_proposal["amount"], price_proposal["currency"], price_proposal["type"]
+        remaining_seats = price_proposal.get("remainingSeat", "?")
+        out += "\n+ {} {} ({}) [{} remaining seats]".format(
+            price_proposal["amount"],
+            price_proposal["currency"],
+            price_proposal["type"],
+            remaining_seats,
         )
 
     out += "\nTrains:"
