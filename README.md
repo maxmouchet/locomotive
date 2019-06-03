@@ -11,6 +11,8 @@
 - [ ] PyPI push (+ badge)
 - [ ] Improve README (screenshot, https://carbon.now.sh/)
 
+<img src="/assets/carbon.png">
+
 ## Usage
 
 ```bash
