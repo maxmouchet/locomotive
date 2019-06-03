@@ -8,7 +8,7 @@
 
 - [ ] Travis-CI
 - [ ] Coverage
-- [ ] PyPI push (+ badge)
+- [ ] PyPI push (https://docs.travis-ci.com/user/deployment/pypi/, + badge)
 - [ ] Improve README (screenshot, https://carbon.now.sh/)
 
 ## Usage
@@ -26,8 +26,8 @@ sncf-cli search FRBES FRPAR
 
 ```bash
 pip install -e .
-pip install black pylint pytest
+pip install black pylint pytest-cov
 black locomotive
 pylint locomotive
-pytest
+coverage run --source locomotive/ -m pytest
 ```
