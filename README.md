@@ -24,6 +24,7 @@ pip install sncf-cli
 
 ```bash
 sncf-cli search --help
+sncf-cli search Amsterdam Paris
 sncf-cli search FRBES FRPAR
 ```
 
