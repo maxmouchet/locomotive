@@ -9,8 +9,8 @@ from abc import ABC, abstractmethod
 import chevron
 from requests import Response
 
+from .api.oui_v1 import SNCF_DATE_FORMAT
 from .stations import Stations
-from .types import SNCF_DATE_FORMAT
 
 
 class Formatter(ABC):

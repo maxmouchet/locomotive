@@ -10,11 +10,9 @@ import click
 import dateparser
 import requests
 
+from .api.oui_v1 import Client
 from .formatters import PrettyFormatter, RawFormatter
 from .stations import Stations
-from .types import Location, Passenger, PassengerProfile, SNCFTravelRequest, TravelClass
-
-ENDPOINT = "https://www.oui.sncf/proposition/rest/search-travels/outward"
 
 
 @click.group()
@@ -74,19 +72,21 @@ def search(**args):
         err=True,
     )
 
-    passengers = [Passenger(PassengerProfile.ADULT, args["age"])]
-    origin = Location.from_station_code(origin_station["sncf_id"])
-    destination = Location.from_station_code(destination_station["sncf_id"])
-    travel_class = TravelClass.from_str(args["travel_class"])
-
-    sncf_req = SNCFTravelRequest(origin, destination, passengers, date, travel_class)
-    res = requests.post(ENDPOINT, json=sncf_req.sncf_dict())
+    client = Client()
+    res = client.simple_request(
+        args["age"], origin_station, destination_station, date, args["travel_class"]
+    )
 
     if args["formatter"] == "pretty":
         formatter = PrettyFormatter(stations=stations)
     else:
         formatter = RawFormatter()
 
+    # We use click.echo because:
+    # > Click’s echo() function will automatically strip ANSI color codes if the stream is not connected to a terminal.
+    # > the echo() function will transparently connect to the terminal on Windows and translate ANSI codes to terminal API calls.
+    # > This means that colors will work on Windows the same way they do on other operating systems.
+    # https://click.palletsprojects.com/en/7.x/utils/#ansi-colors
     click.echo(formatter.get_str(res))
 
 
