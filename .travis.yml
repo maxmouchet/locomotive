@@ -6,6 +6,8 @@ install:
 - python setup.py install
 script:
 - coverage run --source locomotive/ -m pytest
+after_success:
+- python setup.py sdist bdist_wheel
 - coveralls
 branches:
   only:
@@ -15,3 +17,4 @@ deploy:
   user: yfeunteun
   password:
     secure: rtbVPLXeYACNBDmKW6/tBCFb+4H1N2+H+HnW2R4mtlj3WTZms7A/qKLswqEDAE/nTAl5I+dypg74XY7KLz1sAFj76BS/16fMK70E6WyLUF9GDwfkljtO/wfojbKUmlOOI7FFei5Hw2Zvx3MKGN/ET74RNsBnJMMjoGi89wqO3kuKmQbXp0QXokwUUUKcP5hqmOWYqUSLTtfANyMMPwfsXyc+5TEfgiQ/eWVX4Mis/U+dPrClxn/o0Acuw4oCwtLGRwHUQ9dg0BhS++cjpW95oXH8xEGAzGi13WD9Z3szHuCi0IWvHEXEsuK1jX+Igxj9tOo35HTauh2/V6JUaoCBIwUFuwqoSgDGPudMpD1YImatNN2MycaLovvy+5YAysfUHUN3qPP3M3hOx5t7lyK1BC+eN+4LupEQKGg0APTWDlRY1m3AD2P0tfOmK0oY5q2jpq8eb276Ct8YtUOtLUM+mnKty+hWYuTWw4vHCU6bD5u2rFWC6MgRgz4RrWHP67/UjhBNrZWiyZ9cT1dkjA0tihaYF0ICCxBp8L6g7LelUChiHIqOmkFgWqECqJKcqnknv3Wa3ZwpMUkSlrs4XstcRa5yFn8Oo2ff2rRJLsbidM3LAd10Mx6yYdi3d6rth369QdCmX3cdSKjkiIHNzsxecqkUaoTmh4a3FdtFLhul734=
+  distributions: 'sdist bdist_wheel'
