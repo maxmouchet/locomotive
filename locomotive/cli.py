@@ -54,21 +54,24 @@ def search(**args):
 
     origin_station = stations.find(args["origin"])
     if origin_station is None:
-        print("Train station for {} not found :(".format(args["origin"]))
+        click.echo("Train station for {} not found :(".format(args["origin"]), err=True)
         sys.exit(1)
 
     destination_station = stations.find(args["destination"])
     if destination_station is None:
-        print("Train station for {} not found :(".format(args["destination"]))
+        click.echo(
+            "Train station for {} not found :(".format(args["destination"]), err=True
+        )
         sys.exit(1)
 
-    print(
+    click.echo(
         "{} → {} ({:.0f}km) on {}\n".format(
             origin_station["name"],
             destination_station["name"],
             Stations.distance(origin_station, destination_station),
             date.strftime("%b %d %Y"),
-        )
+        ),
+        err=True,
     )
 
     passengers = [Passenger(PassengerProfile.ADULT, args["age"])]
@@ -84,7 +87,7 @@ def search(**args):
     else:
         formatter = RawFormatter()
 
-    print(formatter.get_str(res))
+    click.echo(formatter.get_str(res))
 
 
 if __name__ == "__main__":

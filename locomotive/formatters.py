@@ -17,6 +17,7 @@ class Formatter(ABC):
     """
     Abstract class for API response formatters.
     """
+
     @abstractmethod
     def get_str(self, res: Response) -> str:
         raise NotImplementedError
@@ -119,7 +120,6 @@ class PrettyFormatter(Formatter):
             "data": {"proposals": proposals},
         }
 
-        # TODO: Strip format escape codes if outputing to text file (> in shell)
         out = chevron.render(**args)
         out = out.replace("<b>", "\033[1m")
         out = out.replace("</b>", "\033[0m")

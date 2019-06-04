@@ -1,0 +1,56 @@
+Proposal 12/06/2019 06h27 - 12/06/2019 12h56
+Prices
++ 115.0 EUR (NOFLEX) [18 remaining seats]
++ 126.9 EUR (SEMIFLEX) [19 remaining seats]
++ 192.0 EUR (UPSELL) [32 remaining seats]
+Trains
++ TGV INOUI 8604 from Brest to Paris Montparnasse
+  12/06/2019 06h27 - 12/06/2019 10h09
++ TGV INOUI 6611 from Paris Gare de Lyon to Lyon Part-Dieu
+  12/06/2019 10h59 - 12/06/2019 12h56
+
+
+Proposal 12/06/2019 07h18 - 12/06/2019 14h56
+Prices
++ 142.0 EUR (SEMIFLEX) [13 remaining seats]
++ 229.5 EUR (UPSELL) [1 remaining seats]
+Trains
++ TGV 8606 from Brest to Paris Montparnasse
+  12/06/2019 07h18 - 12/06/2019 11h08
++ TGV INOUI 6615 from Paris Gare de Lyon to Lyon Part-Dieu
+  12/06/2019 12h59 - 12/06/2019 14h56
+
+
+Proposal 12/06/2019 09h05 - 12/06/2019 17h04
+Prices
++ 153.8 EUR (SEMIFLEX) [29 remaining seats]
++ 202.9 EUR (UPSELL) [7 remaining seats]
+Trains
++ TGV 8610 from Brest to Rennes
+  12/06/2019 09h05 - 12/06/2019 11h25
++ TGV 5280 from Rennes to Marne-la-Vallée—Chessy
+  12/06/2019 12h23 - 12/06/2019 14h57
++ TGV 9831 from Marne-la-Vallée—Chessy to Lyon Part-Dieu
+  12/06/2019 15h10 - 12/06/2019 17h04
+
+
+Proposal 12/06/2019 09h05 - 12/06/2019 17h21
+Prices
++ 160.7 EUR (SEMIFLEX) [40 remaining seats]
++ 223.3 EUR (UPSELL) [3 remaining seats]
+Trains
++ TGV 8610 from Brest to Paris Montparnasse
+  12/06/2019 09h05 - 12/06/2019 13h09
++ TGV INOUI 6619 from Paris Gare de Lyon to Lyon Perrache
+  12/06/2019 14h59 - 12/06/2019 17h21
+
+
+Proposal 12/06/2019 11h30 - 12/06/2019 18h16
+Prices
++ 160.7 EUR (SEMIFLEX) [90 remaining seats]
++ 235.5 EUR (UPSELL) [30 remaining seats]
+Trains
++ TGV INOUI 8620 from Brest to Paris Montparnasse
+  12/06/2019 11h30 - 12/06/2019 15h09
++ TGV INOUI 6659 from Paris Gare de Lyon to Lyon Part-Dieu
+  12/06/2019 16h19 - 12/06/2019 18h16

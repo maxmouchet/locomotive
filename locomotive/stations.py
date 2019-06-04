@@ -13,6 +13,7 @@ class Stations:
     A train stations database.
     See https://github.com/trainline-eu/stations.
     """
+
     def __init__(self, fp=None):
         if fp is None:
             fp = os.path.join(os.path.dirname(__file__), "data", "stations-lite.csv")
