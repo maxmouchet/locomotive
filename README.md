@@ -40,6 +40,10 @@ pylint locomotive # Linter
 pytest            # Unit tests
 ```
 
+### Future plans
+
+Currently the `Formatter`s are tightly coupled with the API response format. In the future we may implement an abstraction over different APIs versions.
+
 ## Licenses
 
 sncf-cli is released under the [MIT license](https://github.com/yafeunteun/sncf-cli/blob/master/LICENSE).  
