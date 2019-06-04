@@ -14,6 +14,9 @@ from .types import SNCF_DATE_FORMAT
 
 
 class Formatter(ABC):
+    """
+    Abstract class for API response formatters.
+    """
     @abstractmethod
     def get_str(self, res: Response) -> str:
         raise NotImplementedError
@@ -37,8 +40,8 @@ class PrettyFormatter(Formatter):
         self.stations = stations
 
     @classmethod
-    def __parse_sncf_date(cls, str):
-        return dt.datetime.strptime(str, SNCF_DATE_FORMAT)
+    def __parse_sncf_date(cls, string):
+        return dt.datetime.strptime(string, SNCF_DATE_FORMAT)
 
     @classmethod
     def __format_datetime(cls, obj):

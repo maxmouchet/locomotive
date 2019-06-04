@@ -1,0 +1,5 @@
+[MASTER]
+ignore=types.py
+
+[MESSAGES_CONTROL]
+disable=too-few-public-methods

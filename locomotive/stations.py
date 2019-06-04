@@ -1,3 +1,7 @@
+"""
+Train stations.
+"""
+
 import os
 
 import geopy.distance as gp
@@ -5,6 +9,10 @@ import pandas as pd
 
 
 class Stations:
+    """
+    A train stations database.
+    See https://github.com/trainline-eu/stations.
+    """
     def __init__(self, fp=None):
         if fp is None:
             fp = os.path.join(os.path.dirname(__file__), "data", "stations-lite.csv")
@@ -12,10 +20,16 @@ class Stations:
 
     @classmethod
     def coords(cls, station):
+        """
+        Get train station coordinates in geopy format.
+        """
         return (station["latitude"], station["longitude"])
 
     @classmethod
     def distance(cls, s1, s2):
+        """
+        Get distance in kilometers between two train stations.
+        """
         return gp.distance(cls.coords(s1), cls.coords(s2)).km
 
     def find(self, q):

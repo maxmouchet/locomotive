@@ -8,7 +8,6 @@ import sys
 
 import click
 import dateparser
-import pandas as pd
 import requests
 
 from .formatters import PrettyFormatter, RawFormatter
