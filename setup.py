@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='sncf-cli',
-    version='0.1',
+    version='0.2',
     description='Search SNCF journeys from the CLI',
     url='https://github.com/yafeunteun/sncf-cli',
     author='Yann Feunteun, Maxime Mouchet',
