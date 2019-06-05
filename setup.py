@@ -1,9 +1,17 @@
-from setuptools import setup, find_packages
+import os
+
+from setuptools import find_packages, setup
+
+fp = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md')
+with open(fp, encoding='utf-8') as f:
+    long_description = f.read()
 
 setup(
     name='sncf-cli',
     version='0.2',
     description='Search SNCF journeys from the CLI',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     url='https://github.com/yafeunteun/sncf-cli',
     author='Yann Feunteun, Maxime Mouchet',
     license='MIT',
