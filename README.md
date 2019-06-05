@@ -12,6 +12,7 @@
 
 - [ ] Improve README
 - [ ] Test on Windows
+- [ ] User profiles, loyalty cards, ...
 
 ## Installation
 
