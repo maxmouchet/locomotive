@@ -12,7 +12,8 @@
 
 - [ ] Improve README
 - [ ] Test on Windows
-- [ ] User profiles, loyalty cards, ...
+- [ ] Passengers profiles, loyalty cards, ...
+- [ ] User-agent, referers
 
 ## Installation
 
