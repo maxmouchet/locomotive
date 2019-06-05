@@ -39,6 +39,12 @@ pylint locomotive # Linter
 pytest            # Unit tests
 ```
 
+### Releases
+
+```bash
+git tag vX.Y.Z # e.g. v0.4.0
+```
+
 ### Future plans
 
 Currently the `Formatter`s are tightly coupled with the API response format. In the future we may implement an abstraction over different APIs versions.
