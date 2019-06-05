@@ -6,6 +6,12 @@
 [![Build Status](https://travis-ci.org/yafeunteun/sncf-cli.svg?branch=master)](https://travis-ci.org/yafeunteun/sncf-cli)
 [![Coverage Status](https://coveralls.io/repos/github/yafeunteun/sncf-cli/badge.svg?branch=master)](https://coveralls.io/github/yafeunteun/sncf-cli?branch=master)
 
+
+[![GitHub issues](https://img.shields.io/github/issues/yafeunteun/sncf-cli.svg)](https://github.com/yafeunteun/sncf-cli/issues)
+[![GitHub forks](https://img.shields.io/github/forks/yafeunteun/sncf-cli.svg)](https://github.com/yafeunteun/sncf-cli/network)
+[![GitHub stars](https://img.shields.io/github/stars/yafeunteun/sncf-cli.svg)](https://github.com/yafeunteun/sncf-cli/stargazers)
+
+
 <img src="https://raw.githubusercontent.com/yafeunteun/sncf-cli/master/assets/carbon.png">
 
 ## TODO
