@@ -4,6 +4,7 @@
 [![PyPI](https://img.shields.io/pypi/v/sncf-cli.svg)](https://pypi.org/project/sncf-cli/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/yafeunteun/sncf-cli/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/yafeunteun/sncf-cli.svg?branch=master)](https://travis-ci.org/yafeunteun/sncf-cli)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b748a90ca24d52447502/maintainability)](https://codeclimate.com/github/yafeunteun/sncf-cli/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/yafeunteun/sncf-cli/badge.svg?branch=master)](https://coveralls.io/github/yafeunteun/sncf-cli?branch=master)
 
 
