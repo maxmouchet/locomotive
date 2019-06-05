@@ -8,7 +8,6 @@ with open(fp, encoding='utf-8') as f:
 
 setup(
     name='sncf-cli',
-    version='0.3',
     description='Search SNCF journeys from the CLI',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -20,6 +19,8 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3'
     ],
+    use_scm_version=True,
+    setup_requires=['setuptools_scm'],
     packages=find_packages(),
     include_package_data=True,
     package_data={
