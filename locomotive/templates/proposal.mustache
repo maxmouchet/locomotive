@@ -1,4 +1,4 @@
-<b>Proposal {{departure_date}} - {{arrival_date}}</b>
+<b>Proposal {{departure_date}} - {{arrival_date}} ({{duration}})</b>
 <b>Prices</b>
 {{#prices}}
 + {{amount}} {{currency}} ({{type}}) [{{seats}} remaining seats]
@@ -6,5 +6,5 @@
 <b>Trains</b>
 {{#segments}}
 + {{transporter}} {{train_number}} from {{origin_station}} to {{destination_station}}
-  {{departure_date}} - {{arrival_date}}
+  {{departure_date}} - {{arrival_date}} ({{duration}})
 {{/segments}}
