@@ -9,9 +9,6 @@ script:
 after_success:
 - python setup.py sdist bdist_wheel
 - coveralls
-branches:
-  only:
-  - master
 deploy:
   provider: pypi
   user: yfeunteun
