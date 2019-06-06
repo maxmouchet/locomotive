@@ -54,6 +54,18 @@ class PrettyFormatter(Formatter):
     def __format_time(cls, obj):
         return obj.strftime("%Hh%M")
 
+    @classmethod
+    def __timedelta(cls, start, end):
+        start = dt.datetime.strptime(start, "%d/%m/%Y %Hh%M")
+        end = dt.datetime.strptime(end, "%d/%m/%Y %Hh%M")
+        delta = end - start
+        delta = delta.seconds
+
+        hours, remainder = divmod(delta, 3600)
+        minutes, _ = divmod(remainder, 60)
+
+        return "{:02}h{:02}m".format(int(hours), int(minutes))
+
     def __data_for_price(self, obj):
         return {
             "amount": obj["amount"],
@@ -84,6 +96,10 @@ class PrettyFormatter(Formatter):
             self.__parse_sncf_date(obj["arrivalDate"])
         )
 
+        duration = self.__timedelta(departure_date, arrival_date)
+        print(duration)
+        print(departure_date, arrival_date)
+
         return {
             "transporter": obj["transporter"],
             "train_number": obj["trainNumber"],
@@ -91,6 +107,7 @@ class PrettyFormatter(Formatter):
             "destination_station": destination_station_name,
             "departure_date": departure_date,
             "arrival_date": arrival_date,
+            "duration": duration,
         }
 
     def __data_for_proposal(self, obj):
@@ -104,9 +121,14 @@ class PrettyFormatter(Formatter):
         prices = list(map(self.__data_for_price, obj["priceProposals"]))
         segments = list(map(self.__data_for_segment, obj["segments"]))
 
+        print("Global: ", departure_date, arrival_date)
+        duration = self.__timedelta(departure_date, arrival_date)
+        print(duration)
+
         return {
             "departure_date": departure_date,
             "arrival_date": arrival_date,
+            "duration": duration,
             "prices": prices,
             "segments": segments,
         }
