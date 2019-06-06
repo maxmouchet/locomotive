@@ -8,7 +8,7 @@ with open(fp, encoding='utf-8') as f:
 
 setup(
     name='sncf-cli',
-    description='Search SNCF journeys from the CLI',
+    description='Search SNCF journeys from the CLI.',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/yafeunteun/sncf-cli',
