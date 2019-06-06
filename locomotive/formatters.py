@@ -97,8 +97,6 @@ class PrettyFormatter(Formatter):
         )
 
         duration = self.__timedelta(departure_date, arrival_date)
-        print(duration)
-        print(departure_date, arrival_date)
 
         return {
             "transporter": obj["transporter"],
@@ -120,10 +118,7 @@ class PrettyFormatter(Formatter):
 
         prices = list(map(self.__data_for_price, obj["priceProposals"]))
         segments = list(map(self.__data_for_segment, obj["segments"]))
-
-        print("Global: ", departure_date, arrival_date)
         duration = self.__timedelta(departure_date, arrival_date)
-        print(duration)
 
         return {
             "departure_date": departure_date,
