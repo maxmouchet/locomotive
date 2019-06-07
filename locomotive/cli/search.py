@@ -18,7 +18,7 @@ def err_station_not_found(string):
 @click.argument("origin")
 @click.argument("destination")
 @click.option("--age", default=26)
-@click.option("--date", default=dt.date.today())
+@click.option("--date", default="now")
 @click.option(
     "--class", "travel_class", type=click.Choice(["first", "second"]), default="second"
 )
@@ -31,10 +31,7 @@ def search(**args):
     sncf-cli search FRBES FRPAR
     sncf-cli search FRBES FRPAR --class second --date 2019-06-01
     """
-    if isinstance(args["date"], str):
-        date = dateparser.parse(args["date"])
-    else:
-        date = args["date"]
+    date = dateparser.parse(args["date"])
 
     stations = Stations()
 
