@@ -6,6 +6,7 @@ import os
 
 import geopy.distance as gp
 import pandas as pd
+import difflib
 
 
 class Stations:
@@ -39,7 +40,10 @@ class Stations:
         if q in self.df.sncf_id.values:
             return self.df[self.df.sncf_id == q].iloc[0]
         # Try to find matching name
-        # TODO: Partial search and rank results...
-        if q in self.df.name.values:
-            return self.df[self.df.name == q].iloc[0]
+        else:
+            try:
+                best_match = difflib.get_close_matches(q, self.df.name.values, n=1)[0]
+                return self.df[self.df.name == best_match].iloc[0]
+            except:
+                pass
         return None
