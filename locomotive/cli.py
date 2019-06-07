@@ -8,7 +8,6 @@ import sys
 
 import click
 import dateparser
-import requests
 
 from .api.oui_v1 import Client
 from .formatters import PrettyFormatter, RawFormatter
