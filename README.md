@@ -24,6 +24,8 @@
 
 ## Installation
 
+`sncf-cli` require Python 3 and can be installed using pip:
+
 ```bash
 pip install sncf-cli
 ```
@@ -39,8 +41,7 @@ sncf-cli search FRBES FRPAR
 ## Development
 
 ```bash
-pip install -e .
-pip install black mypy pylint pytest-cov
+pip install -e .[dev]
 
 black locomotive  # Code formatter
 mypy locomotive   # Type checking

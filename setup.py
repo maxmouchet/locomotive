@@ -17,6 +17,7 @@ setup(
     classifiers=[
         'Environment :: Console',
         'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent',
         'Programming Language :: Python :: 3'
     ],
     use_scm_version=True,
@@ -34,6 +35,15 @@ setup(
         'pandas',
         'requests',
     ],
+    extras_require={
+        'dev': [
+            'black',
+            'mypy',
+            'pylint',
+            'pytest-cov'
+        ]
+    },
+    python_requires='>=3',
     entry_points='''
         [console_scripts]
         sncf-cli=locomotive.cli:cli
