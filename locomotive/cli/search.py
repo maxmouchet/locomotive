@@ -1,31 +1,20 @@
-#!/usr/bin/env python3
-"""
-Locomotive CLI.
-"""
-
 import datetime as dt
 import sys
 
 import click
 import dateparser
 
-from .api.oui_v1 import Client
-from .formatters import PrettyFormatter, RawFormatter
-from .stations import Stations
+from ..api.oui_v1 import Client
+from ..formatters import PrettyFormatter, RawFormatter
+from ..stations import Stations
 
 
-@click.group()
-def cli():
-    """
-    🚆 Search SNCF journeys from your terminal.
-
-    \b
-    Examples:
-    sncf-cli search FRBES FRPAR
-    """
+def err_station_not_found(string):
+    click.echo("Train station for {} not found :(".format(string), err=True)
+    sys.exit(1)
 
 
-@cli.command()
+@click.command()
 @click.argument("origin")
 @click.argument("destination")
 @click.option("--age", default=26)
@@ -50,16 +39,13 @@ def search(**args):
     stations = Stations()
 
     origin_station = stations.find(args["origin"])
-    if origin_station is None:
-        click.echo("Train station for {} not found :(".format(args["origin"]), err=True)
-        sys.exit(1)
-
     destination_station = stations.find(args["destination"])
+
+    if origin_station is None:
+        err_station_not_found(args["origin"])
+
     if destination_station is None:
-        click.echo(
-            "Train station for {} not found :(".format(args["destination"]), err=True
-        )
-        sys.exit(1)
+        err_station_not_found(args["destination"])
 
     click.echo(
         "{} → {} ({:.0f}km) on {}\n".format(
@@ -87,7 +73,3 @@ def search(**args):
     # > This means that colors will work on Windows the same way they do on other operating systems.
     # https://click.palletsprojects.com/en/7.x/utils/#ansi-colors
     click.echo(formatter.get_str(res))
-
-
-if __name__ == "__main__":
-    cli()
