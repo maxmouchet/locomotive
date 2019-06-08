@@ -1,0 +1,22 @@
+{
+  "default": {
+    "t": "material",
+    "bg": "rgba(239,40,44,0)",
+    "wt": "none",
+    "wc": true,
+    "fm": "Hack",
+    "fs": "14",
+    "ln": false,
+    "ds": true,
+    "dsyoff": "20px",
+    "dsblur": "27",
+    "wa": false,
+    "lh": "143",
+    "pv": "45",
+    "ph": "38",
+    "si": false,
+    "wm": false,
+    "es": "4x",
+    "type": "png"
+  }
+}
