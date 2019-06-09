@@ -17,7 +17,7 @@ class Stations:
 
     def __init__(self, path=None):
         if path is None:
-            self.path = self.default_path()
+            path = self.default_path()
         self.df = pd.read_csv(path, sep=";")
 
     @classmethod

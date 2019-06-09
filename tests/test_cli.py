@@ -45,14 +45,6 @@ def test_search_with_date_provided():
     assert result.exit_code == 0
 
 
-def test_search_with_age_provided():
-    runner = CliRunner()
-    result = runner.invoke(search, ["FRBES", "FRPAR", "--age", 42])
-
-    assert "km) on" in result.output
-    assert result.exit_code == 0
-
-
 def test_search_with_class_provided():
     runner = CliRunner()
     result = runner.invoke(search, ["FRBES", "FRPAR", "--class", "first"])

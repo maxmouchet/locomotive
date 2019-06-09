@@ -9,6 +9,9 @@ from ..formatters import PrettyFormatter, RawFormatter
 from ..passengers import Passenger
 from ..stations import Stations
 
+def err_passenger_not_found(string):
+    click.echo("Passenger {} not found :(".format(string), err=True)
+    sys.exit(1)
 
 def err_station_not_found(string):
     click.echo("Train station for {} not found :(".format(string), err=True)
