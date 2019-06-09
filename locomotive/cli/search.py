@@ -35,8 +35,11 @@ def search(ctx, **args):
     """
     date = dateparser.parse(args["date"])
 
-    origin_station = ctx.obj["stations"].find(args["origin"])
-    destination_station = ctx.obj["stations"].find(args["destination"])
+    passengers = ctx.obj["passengers"]
+    stations = ctx.obj["stations"]
+
+    origin_station = stations.find(args["origin"])
+    destination_station = stations.find(args["destination"])
 
     if origin_station is None:
         err_station_not_found(args["origin"])
@@ -45,7 +48,7 @@ def search(ctx, **args):
         err_station_not_found(args["destination"])
 
     if args["passenger"]:
-        passenger = Passenger.find(args["passenger"])
+        passenger = passengers.find(args["passenger"])
         if passenger is None:
             err_passenger_not_found(args["passenger"])
     else:
