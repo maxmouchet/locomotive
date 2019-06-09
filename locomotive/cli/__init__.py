@@ -4,11 +4,9 @@ Locomotive CLI.
 
 import click
 
-# from ..config import Config
 from ..passengers import Passengers
 from ..stations import Stations
 
-from .config import config
 from .passengers import passengers
 from .search import search
 
@@ -42,6 +40,5 @@ def cli(ctx, **args):
     ctx.obj["stations"] = Stations(path=args["stations_file"])
 
 
-# cli.add_command(config)
 cli.add_command(passengers)
 cli.add_command(search)
