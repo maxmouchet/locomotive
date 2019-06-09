@@ -2,11 +2,11 @@
 Train stations.
 """
 
-import os
+import difflib
+from pathlib import Path
 
 import geopy.distance as gp
 import pandas as pd
-import difflib
 
 
 class Stations:
@@ -15,10 +15,14 @@ class Stations:
     See https://github.com/trainline-eu/stations.
     """
 
-    def __init__(self, fp=None):
-        if fp is None:
-            fp = os.path.join(os.path.dirname(__file__), "data", "stations-lite.csv")
-        self.df = pd.read_csv(fp, sep=";")
+    def __init__(self, path=None):
+        if path is None:
+            self.path = self.default_path()
+        self.df = pd.read_csv(path, sep=";")
+
+    @classmethod
+    def default_path(cls):
+        return Path(__file__).parent.joinpath("data", "stations-lite.csv")
 
     @classmethod
     def coords(cls, station):

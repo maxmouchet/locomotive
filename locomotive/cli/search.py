@@ -35,10 +35,8 @@ def search(ctx, **args):
     """
     date = dateparser.parse(args["date"])
 
-    stations = Stations()
-
-    origin_station = stations.find(args["origin"])
-    destination_station = stations.find(args["destination"])
+    origin_station = ctx.obj["stations"].find(args["origin"])
+    destination_station = ctx.obj["stations"].find(args["destination"])
 
     if origin_station is None:
         err_station_not_found(args["origin"])
