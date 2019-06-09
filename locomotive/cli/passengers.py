@@ -19,11 +19,10 @@ def add(ctx, **args):
     passengers.add(passenger)
     passengers.save()
 
+
 @passengers.command()
 @click.pass_context
 def show(ctx, **args):
     passengers = ctx.obj["passengers"]
     for passenger in passengers:
-        print(passenger)
-
-    
+        click.echo(passenger)
