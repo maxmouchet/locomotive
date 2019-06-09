@@ -6,6 +6,7 @@ import dateparser
 
 from ..api.oui_v1 import Client
 from ..formatters import PrettyFormatter, RawFormatter
+from ..passengers import Passenger
 from ..stations import Stations
 
 
@@ -17,13 +18,14 @@ def err_station_not_found(string):
 @click.command()
 @click.argument("origin")
 @click.argument("destination")
-@click.option("--age", default=26)
 @click.option("--date", default="now")
 @click.option(
     "--class", "travel_class", type=click.Choice(["first", "second"]), default="second"
 )
+@click.option("--passenger")
 @click.option("--formatter", type=click.Choice(["pretty", "raw"]), default="pretty")
-def search(**args):
+@click.pass_context
+def search(ctx, **args):
     """
     Search for trains.
 
@@ -44,8 +46,15 @@ def search(**args):
     if destination_station is None:
         err_station_not_found(args["destination"])
 
+    if args["passenger"]:
+        passenger = Passenger.find(args["passenger"])
+        if passenger is None:
+            err_passenger_not_found(args["passenger"])
+    else:
+        passenger = Passenger.dummy()
+
     click.echo(
-        "{} → {} ({:.0f}km) on {}\n".format(
+        "{} → {} ({:.0f}km) on {}".format(
             origin_station["name"],
             destination_station["name"],
             Stations.distance(origin_station, destination_station),
@@ -54,9 +63,11 @@ def search(**args):
         err=True,
     )
 
+    click.echo("{} ({} years old)\n".format(passenger.name, passenger.age), err=True)
+
     client = Client()
     res = client.simple_request(
-        args["age"], origin_station, destination_station, date, args["travel_class"]
+        passenger.age, origin_station, destination_station, date, args["travel_class"]
     )
 
     if args["formatter"] == "pretty":
