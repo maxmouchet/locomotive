@@ -15,7 +15,7 @@ def test_helper():
 
 def test_search_with_origin_and_destination():
     runner = CliRunner()
-    result = runner.invoke(search, ["FRBES", "FRPAR"])
+    result = runner.invoke(cli, ["search", "FRBES", "FRPAR"])
 
     assert "km) on" in result.output
     assert result.exit_code == 0
@@ -23,7 +23,7 @@ def test_search_with_origin_and_destination():
 
 def test_search_display_error_when_origin_not_found():
     runner = CliRunner()
-    result = runner.invoke(search, ["This station doesn't exist", "FRPAR"])
+    result = runner.invoke(cli, ["search", "This station doesn't exist", "FRPAR"])
 
     assert "not found :(" in result.output
     assert result.exit_code == 1
@@ -31,7 +31,7 @@ def test_search_display_error_when_origin_not_found():
     
 def test_search_display_error_when_destination_not_found():
     runner = CliRunner()
-    result = runner.invoke(search, ["FRBES", "This station doesn't exist"])
+    result = runner.invoke(cli, ["search", "FRBES", "This station doesn't exist"])
 
     assert "not found :(" in result.output
     assert result.exit_code == 1
@@ -39,7 +39,7 @@ def test_search_display_error_when_destination_not_found():
 
 def test_search_with_date_provided():
     runner = CliRunner()
-    result = runner.invoke(search, ["FRBES", "FRPAR", "--date", str(dt.date.today())])
+    result = runner.invoke(cli, ["search", "FRBES", "FRPAR", "--date", str(dt.date.today())])
 
     assert "km) on" in result.output
     assert result.exit_code == 0
@@ -47,7 +47,7 @@ def test_search_with_date_provided():
 
 def test_search_with_class_provided():
     runner = CliRunner()
-    result = runner.invoke(search, ["FRBES", "FRPAR", "--class", "first"])
+    result = runner.invoke(cli, ["search", "FRBES", "FRPAR", "--class", "first"])
 
     assert "km) on" in result.output
     assert result.exit_code == 0
@@ -55,7 +55,7 @@ def test_search_with_class_provided():
 
 def test_search_with_formatter_provided():
     runner = CliRunner()
-    result = runner.invoke(search, ["FRBES", "FRPAR", "--formatter", "raw"])
+    result = runner.invoke(cli, ["search", "FRBES", "FRPAR", "--formatter", "raw"])
 
     assert "km) on" in result.output
     assert result.exit_code == 0
