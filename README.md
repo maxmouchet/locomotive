@@ -51,11 +51,16 @@ pylint locomotive # Linter
 pytest            # Unit tests
 ```
 
+```bash
+# Cleanup (use with care !)
+git clean -dfx
+```
+
 ### Releases
 
 ```bash
 git tag vX.Y.Z # e.g. v0.4.0
-git push
+git push --tags
 ```
 
 **Checklist:**
