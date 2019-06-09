@@ -28,6 +28,7 @@ setup(
         '': ['*.csv', '*.mustache'],
     },
     install_requires=[
+        'attrs',
         'chevron',
         'Click',
         'dateparser',
