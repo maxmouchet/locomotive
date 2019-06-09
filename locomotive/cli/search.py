@@ -28,8 +28,8 @@ def search(**args):
     Search for trains.
 
     \b
-    sncf-cli search FRBES FRPAR
-    sncf-cli search FRBES FRPAR --class second --date 2019-06-01
+    sncf-cli search Brest Paris
+    sncf-cli search Brest Paris --class second --date 2019-06-01
     """
     date = dateparser.parse(args["date"])
 

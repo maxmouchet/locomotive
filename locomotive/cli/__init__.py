@@ -22,7 +22,7 @@ def cli(ctx, **args):
 
     \b
     Examples:
-    sncf-cli search FRBES FRPAR
+    sncf-cli search Brest Paris
     """
     ctx.ensure_object(dict)
     # Load global configuration object
