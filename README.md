@@ -22,6 +22,7 @@
 - [ ] Test on Windows
 - [ ] Passengers profiles, loyalty cards, ...
 - [ ] User-agent, referers
+- [ ] Test Python 3.5, 3.6 compatibility
 
 ## Installation
 
@@ -54,11 +55,18 @@ pytest            # Unit tests
 
 ```bash
 git tag vX.Y.Z # e.g. v0.4.0
+git push
 ```
 
-### Future plans
+**Checklist:**
+
+- [ ] Screenshot in README is up to date.
+
+### Design notes & future plans
 
 Currently the `Formatter`s are tightly coupled with the API response format. In the future we may implement an abstraction over different APIs versions.
+
+We use `attrs` instead of `@dataclass` for Python 3.6 compatibility.
 
 ## Licenses
 
