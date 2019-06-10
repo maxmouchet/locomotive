@@ -45,7 +45,7 @@ setup(
             'pytest-cov'
         ]
     },
-    python_requires='>=3',
+    python_requires='>=3.6',
     entry_points='''
         [console_scripts]
         sncf-cli=locomotive.cli:cli

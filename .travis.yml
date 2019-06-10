@@ -1,6 +1,10 @@
 language: python
 python:
 - '3.6'
+- 'nightly'
+matrix:
+  allow_failures:
+    - python: nightly
 install:
 - pip install pytest-cov coverage coveralls
 - python setup.py install
@@ -17,3 +21,4 @@ deploy:
   distributions: 'sdist bdist_wheel'
   on:
     tags: true
+    python: '3.6'

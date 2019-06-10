@@ -1,6 +1,6 @@
 # :train2: sncf-cli
 
-[![Python Version](https://img.shields.io/badge/python-3-blue.svg?style=flat)](https://www.python.org/downloads/)
+[![Python Version](https://img.shields.io/badge/python-3.6+-blue.svg?style=flat)](https://www.python.org/downloads/)
 [![PyPI](https://img.shields.io/pypi/v/sncf-cli.svg)](https://pypi.org/project/sncf-cli/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/yafeunteun/sncf-cli/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/yafeunteun/sncf-cli.svg?branch=master)](https://travis-ci.org/yafeunteun/sncf-cli)
@@ -17,15 +17,13 @@
 
 ## TODO
 
-- [ ] Improve README
 - [ ] Update carbon cli example (image in readme) with latest version of sncf-cli
 - [ ] Test on Windows
 - [ ] Passengers profiles, loyalty cards, ...
-- [ ] Test Python 3.5, 3.6 compatibility
 
 ## Installation
 
-`sncf-cli` require Python 3 and can be installed using pip:
+`sncf-cli` requires Python 3.6+ and can be installed using pip:
 
 ```bash
 pip install sncf-cli
