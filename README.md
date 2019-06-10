@@ -2,27 +2,15 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.6+-blue.svg?style=flat)](https://www.python.org/downloads/)
 [![PyPI](https://img.shields.io/pypi/v/sncf-cli.svg)](https://pypi.org/project/sncf-cli/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/yafeunteun/sncf-cli/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/yafeunteun/sncf-cli.svg?branch=master)](https://travis-ci.org/yafeunteun/sncf-cli)
-[![Maintainability](https://api.codeclimate.com/v1/badges/b748a90ca24d52447502/maintainability)](https://codeclimate.com/github/yafeunteun/sncf-cli/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/yafeunteun/sncf-cli/badge.svg?branch=master&service=github)](https://coveralls.io/github/yafeunteun/sncf-cli?branch=master)
-
-
-[![GitHub issues](https://img.shields.io/github/issues/yafeunteun/sncf-cli.svg)](https://github.com/yafeunteun/sncf-cli/issues)
-[![GitHub forks](https://img.shields.io/github/forks/yafeunteun/sncf-cli.svg)](https://github.com/yafeunteun/sncf-cli/network)
-[![GitHub stars](https://img.shields.io/github/stars/yafeunteun/sncf-cli.svg)](https://github.com/yafeunteun/sncf-cli/stargazers)
-
+[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/yafeunteun/sncf-cli.svg)]((https://codeclimate.com/github/yafeunteun/sncf-cli/maintainability))
 
 <img src="https://raw.githubusercontent.com/yafeunteun/sncf-cli/master/assets/carbon.png">
 
-## TODO
-
-- [ ] Update carbon cli example (image in readme) with latest version of sncf-cli
-- [ ] Passengers profiles, loyalty cards, ...
-
 ## Installation
 
-`sncf-cli` requires Python 3.6+ and can be installed using pip:
+`sncf-cli` requires Python 3.6+ and can be installed using [pip](https://pip.pypa.io/en/stable/):
 
 ```bash
 pip install sncf-cli
