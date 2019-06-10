@@ -29,7 +29,6 @@ setup(
     },
     install_requires=[
         'attrs',
-        'cattrs',
         'chevron',
         'Click',
         'dateparser',
