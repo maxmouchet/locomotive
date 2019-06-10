@@ -18,7 +18,6 @@
 ## TODO
 
 - [ ] Update carbon cli example (image in readme) with latest version of sncf-cli
-- [ ] Test on Windows
 - [ ] Passengers profiles, loyalty cards, ...
 
 ## Installation
