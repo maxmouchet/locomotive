@@ -40,6 +40,12 @@ pytest            # Unit tests
 git clean -dfx
 ```
 
+```
+assets/      # Images used in the README
+locomotive/  # Python module (see locomotive/README.md)
+tests/       # Unit tests
+```
+
 ### Releases
 
 ```bash
