@@ -4,10 +4,10 @@ import sys
 import click
 import dateparser
 
-from ..api.oui_v1 import Client
+from ...api.oui_v1 import Client
+from ...models.passengers import Passenger
+from ...models.stations import Stations
 from ..formatters import PrettyFormatter, RawFormatter
-from ..passengers import Passenger
-from ..stations import Stations
 
 
 def err_passenger_not_found(string):
@@ -61,9 +61,9 @@ def search(ctx, **args):
 
     click.echo(
         "{} → {} ({:.0f}km) on {}".format(
-            origin_station["name"],
-            destination_station["name"],
-            Stations.distance(origin_station, destination_station),
+            origin_station.name,
+            destination_station.name,
+            origin_station.distance_to(destination_station),
             date.strftime("%b %d %Y"),
         ),
         err=True,

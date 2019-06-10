@@ -21,8 +21,8 @@ class Client:
         self, age, origin_station, destination_station, date, travel_class
     ):
         passengers = [Passenger(PassengerProfile.ADULT, age)]
-        origin = Location.from_station_code(origin_station["sncf_id"])
-        destination = Location.from_station_code(destination_station["sncf_id"])
+        origin = Location.from_station_code(origin_station.sncf_id)
+        destination = Location.from_station_code(destination_station.sncf_id)
         travel_class = TravelClass.from_str(travel_class)
         return self.request(
             SNCFTravelRequest(origin, destination, passengers, date, travel_class)

@@ -9,8 +9,8 @@ from abc import ABC, abstractmethod
 import chevron
 from requests import Response
 
-from .api.oui_v1 import SNCF_DATE_FORMAT
-from .stations import Stations
+from ..api.oui_v1 import SNCF_DATE_FORMAT
+from ..models.stations import Stations
 
 
 class Formatter(ABC):
@@ -41,17 +41,17 @@ class PrettyFormatter(Formatter):
         self.stations = stations
 
     @classmethod
-    def __parse_sncf_date(cls, string):
+    def __parse_sncf_date(cls, string: str) -> dt.datetime:
         return dt.datetime.strptime(string, SNCF_DATE_FORMAT)
 
     @classmethod
-    def __format_datetime(cls, obj):
+    def __format_datetime(cls, obj: dt.datetime) -> str:
         # TODO: Format dates according to user locale
         # TODO: Do this formatting inside the templates ?
         return obj.strftime("%d/%m/%Y %Hh%M")
 
     @classmethod
-    def __format_time(cls, obj):
+    def __format_time(cls, obj: dt.datetime) -> str:
         return obj.strftime("%Hh%M")
 
     @classmethod
@@ -80,12 +80,12 @@ class PrettyFormatter(Formatter):
 
         # TODO: Cleanup...
         if origin_station is not None:
-            origin_station_name = origin_station["name"]
+            origin_station_name = origin_station.name
         else:
             origin_station_name = obj["originStationCode"]
 
         if destination_station is not None:
-            destination_station_name = destination_station["name"]
+            destination_station_name = destination_station.name
         else:
             destination_station_name = obj["destinationStationCode"]
 

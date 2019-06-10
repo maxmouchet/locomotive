@@ -1,6 +1,6 @@
 import click
 
-from ..passengers import Passenger
+from ...models.passengers import Passenger
 
 
 @click.group()

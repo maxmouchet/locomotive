@@ -4,11 +4,11 @@ Locomotive CLI.
 
 import click
 
-from ..passengers import Passengers
-from ..stations import Stations
+from ..models.passengers import Passengers
+from ..models.stations import Stations
 
-from .passengers import passengers
-from .search import search
+from .commands.passengers import passengers
+from .commands.search import search
 
 
 @click.group()
@@ -35,7 +35,6 @@ def cli(ctx, **args):
     sncf-cli search Brest Paris
     """
     ctx.ensure_object(dict)
-    # Load global objects
     ctx.obj["passengers"] = Passengers(path=args["passengers_file"])
     ctx.obj["stations"] = Stations(path=args["stations_file"])
 

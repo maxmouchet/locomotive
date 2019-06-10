@@ -1,5 +1,5 @@
 import os
-from locomotive.stations import Stations
+from locomotive.models.stations import Stations
 
 def test_can_load_default_data_if_no_path_provided():
     stations = Stations()
@@ -54,7 +54,7 @@ def test_can_retrieve_coords():
 
     station = stations.find("FRFEV")
 
-    coords = stations.coords(station)
+    coords = station.coords
 
     assert len(coords) == 2
 
@@ -69,11 +69,7 @@ def test_can_compute_distance_between_two_stations():
     origin = stations.find("FRFEV")
     destination = stations.find("FRJFU")
 
-    distance = stations.distance(origin, destination)
+    distance = origin.distance_to(destination)
 
     assert distance > 456
     assert distance < 457
-    
-
-    
-    
