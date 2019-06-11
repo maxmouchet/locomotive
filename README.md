@@ -6,6 +6,8 @@
 [![Build Status](https://travis-ci.org/yafeunteun/sncf-cli.svg?branch=master)](https://travis-ci.org/yafeunteun/sncf-cli)
 [![Coverage Status](https://coveralls.io/repos/github/yafeunteun/sncf-cli/badge.svg?branch=master&service=github)](https://coveralls.io/github/yafeunteun/sncf-cli?branch=master)
 
+You love SNCF. You love command line tools. sncf-cli is made for you !
+
 <img src="https://raw.githubusercontent.com/yafeunteun/sncf-cli/master/assets/carbon.png">
 
 ## Installation
@@ -18,10 +20,22 @@ pip install sncf-cli
 
 ## Usage
 
+sncf-cli is easy to use. Find below simple examples:
+
 ```bash
+# RTFM bro (just kidding)
 sncf-cli search --help
+# Search by city name
 sncf-cli search Amsterdam Paris
-sncf-cli search FRBES FRPAR
+# Search by train station code (Amsterdam to Paris here)
+sncf-cli search NLAMA FRPAR
+# Pick a date and even a travel class B-)
+sncf-cli search Brest Paris --date 2019/07/14 --class first 
+```
+
+**PRO TIP** By default, results are formatted to look simple. Consequently it filters many information you might want to have access. Use the following option to get the complete JSON API response:
+ ```bash
+sncf-cli search Brest Paris --date 2019/07/14 --formatter raw
 ```
 
 ## Development
