@@ -35,7 +35,7 @@ sncf-cli search Brest Paris --date 2019/07/14 --class first
 
 **PRO TIP** By default, results are formatted to look simple. Consequently it filters many information you might want to have access. Use the following option to get the complete JSON API response:
  ```bash
-sncf-cli search Brest Paris --date 2019/07/14 --formatter raw
+sncf-cli search Brest Paris --date 2019/07/14 --format raw
 ```
 
 ## Development

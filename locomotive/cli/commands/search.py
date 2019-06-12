@@ -1,40 +1,53 @@
-import datetime as dt
-import sys
-
 import click
 import dateparser
 
 from ...api.oui_v1 import Client
-from ...models.passengers import Passenger
-from ...models.stations import Stations
 from ..formatters import PrettyFormatter, RawFormatter
 
 
-def err_passenger_not_found(string):
-    click.echo("Passenger {} not found :(".format(string), err=True)
-    sys.exit(1)
+class PassengerNotFoundException(click.ClickException):
+    def __init__(self, passenger):
+        super().__init__("Passenger {} not found".format(string))
 
 
-def err_station_not_found(string):
-    click.echo("Train station for {} not found :(".format(string), err=True)
-    sys.exit(1)
+class StationNotFoundException(click.ClickException):
+    def __init__(self, station):
+        super().__init__("Train station for {} not found".format(station))
 
 
 @click.command()
 @click.argument("origin")
 @click.argument("destination")
-@click.option("--date", default="now")
 @click.option(
-    "--class", "travel_class", type=click.Choice(["first", "second"]), default="second"
+    "--date", default="now", help="Date (e.g 2019-06-01, 1st of June, 1er Juin ...)."
 )
-@click.option("--passenger")
-@click.option("--formatter", type=click.Choice(["pretty", "raw"]), default="pretty")
+@click.option(
+    "--class",
+    "travel_class",
+    type=click.Choice(["first", "second"]),
+    default="second",
+    help="Travel class.",
+)
+@click.option(
+    "--passenger", metavar="NAME", help="Passenger profile (see `sncf-cli passengers`)."
+)
+@click.option(
+    "--format",
+    type=click.Choice(["pretty", "raw"]),
+    default="pretty",
+    help="Output format.",
+)
 @click.pass_context
 def search(ctx, **args):
     """
     Search for trains.
 
+    Origin and destination can be city names (Paris),
+    train station names (Paris Montparnasse),
+    or train station codes (FRPMO).
+
     \b
+    Examples:
     sncf-cli search Brest Paris
     sncf-cli search Brest Paris --class second --date 2019-06-01
     """
@@ -47,17 +60,17 @@ def search(ctx, **args):
     destination_station = stations.find(args["destination"])
 
     if origin_station is None:
-        err_station_not_found(args["origin"])
+        raise StationNotFoundException(args["origin"])
 
     if destination_station is None:
-        err_station_not_found(args["destination"])
+        raise StationNotFoundException(args["destination"])
 
     if args["passenger"]:
         passenger = passengers.find(args["passenger"])
         if passenger is None:
-            err_passenger_not_found(args["passenger"])
+            raise PassengerNotFoundException(args["passenger"])
     else:
-        passenger = Passenger.dummy()
+        passenger = passengers.default()
 
     click.echo(
         "{} → {} ({:.0f}km) on {}".format(
@@ -76,7 +89,7 @@ def search(ctx, **args):
         passenger.age, origin_station, destination_station, date, args["travel_class"]
     )
 
-    if args["formatter"] == "pretty":
+    if args["format"] == "pretty":
         formatter = PrettyFormatter(stations=stations)
     else:
         formatter = RawFormatter()

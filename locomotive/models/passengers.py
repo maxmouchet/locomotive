@@ -55,6 +55,9 @@ class Passengers:
     def add(self, passenger: Passenger) -> None:
         self.passengers.append(passenger)
 
+    def default(self) -> Passenger:
+        return Passenger.dummy()
+
     def save(self) -> Path:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         obj = list(map(attr.asdict, self.passengers))
