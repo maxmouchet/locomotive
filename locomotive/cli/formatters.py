@@ -20,6 +20,9 @@ class Formatter(ABC):
 
     @abstractmethod
     def get_str(self, res: Response) -> str:
+        """
+        Returns a textual representation of an API response.
+        """
         raise NotImplementedError
 
 

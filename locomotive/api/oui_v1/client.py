@@ -1,3 +1,7 @@
+"""
+Client for the oui.sncf/proposition/rest/search-travels/outward API.
+"""
+
 import requests
 
 from .types import Location, Passenger, PassengerProfile, SNCFTravelRequest, TravelClass
