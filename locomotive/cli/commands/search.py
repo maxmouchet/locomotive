@@ -7,7 +7,7 @@ from ..formatters import PrettyFormatter, RawFormatter
 
 class PassengerNotFoundException(click.ClickException):
     def __init__(self, passenger):
-        super().__init__("Passenger {} not found".format(string))
+        super().__init__("Passenger {} not found".format(passenger))
 
 
 class StationNotFoundException(click.ClickException):
