@@ -4,8 +4,7 @@ Locomotive CLI.
 
 import click
 
-from ..models.passengers import Passengers
-from ..models.stations import Stations
+from ..stores import Passengers, Stations
 
 from .commands.passengers import passengers
 from .commands.search import search

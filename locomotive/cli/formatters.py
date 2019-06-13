@@ -3,14 +3,14 @@ Output formatters.
 """
 
 import datetime as dt
-import os
 from abc import ABC, abstractmethod
+from pathlib import Path
+from typing import List
 
 import chevron
-from requests import Response
 
-from ..api.oui_v1 import SNCF_DATE_FORMAT
-from ..models.stations import Stations
+from ..models import Journey, Segment, Proposal
+from ..stores import Stations
 
 
 class Formatter(ABC):
@@ -19,20 +19,20 @@ class Formatter(ABC):
     """
 
     @abstractmethod
-    def get_str(self, res: Response) -> str:
+    def get_str(self, journeys: List[Journey]) -> str:
         """
         Returns a textual representation of an API response.
         """
         raise NotImplementedError
 
 
-class RawFormatter(Formatter):
-    """
-    Raw response from the API.
-    """
+# class RawFormatter(Formatter):
+#     """
+#     Raw response from the API.
+#     """
 
-    def get_str(self, res: Response) -> str:
-        return res.content.decode("utf-8")
+#     def get_str(self, res: Response) -> str:
+#         return res.content.decode("utf-8")
 
 
 class PrettyFormatter(Formatter):
@@ -42,10 +42,6 @@ class PrettyFormatter(Formatter):
 
     def __init__(self, stations: Stations):
         self.stations = stations
-
-    @classmethod
-    def __parse_sncf_date(cls, string: str) -> dt.datetime:
-        return dt.datetime.strptime(string, SNCF_DATE_FORMAT)
 
     @classmethod
     def __format_datetime(cls, obj: dt.datetime) -> str:
@@ -58,86 +54,57 @@ class PrettyFormatter(Formatter):
         return obj.strftime("%Hh%M")
 
     @classmethod
-    def __timedelta(cls, start, end):
-        start = dt.datetime.strptime(start, "%d/%m/%Y %Hh%M")
-        end = dt.datetime.strptime(end, "%d/%m/%Y %Hh%M")
-        delta = end - start
-        delta = delta.seconds
-
+    def __format_timedelta(cls, td: dt.timedelta) -> str:
+        delta = td.seconds
         hours, remainder = divmod(delta, 3600)
         minutes, _ = divmod(remainder, 60)
-
         return "{:02}h{:02}m".format(int(hours), int(minutes))
 
-    def __data_for_price(self, obj):
+    def __data_for_proposal(self, proposal: Proposal) -> dict:
         return {
-            "amount": obj["amount"],
-            "currency": obj["currency"],  # Show currency sign instead (€, $) ?
-            "type": obj["type"],
-            "seats": obj.get("remainingSeat", "?"),
+            "amount": proposal.price,
+            "currency": "EUR",  # TODO
+            "type": proposal.flexibility_level,
         }
 
-    def __data_for_segment(self, obj):
-        origin_station = self.stations.find(obj["originStationCode"])
-        destination_station = self.stations.find(obj["destinationStationCode"])
-
-        # TODO: Cleanup...
-        if origin_station is not None:
-            origin_station_name = origin_station.name
-        else:
-            origin_station_name = obj["originStationCode"]
-
-        if destination_station is not None:
-            destination_station_name = destination_station.name
-        else:
-            destination_station_name = obj["destinationStationCode"]
-
-        departure_date = self.__format_datetime(
-            self.__parse_sncf_date(obj["departureDate"])
-        )
-        arrival_date = self.__format_datetime(
-            self.__parse_sncf_date(obj["arrivalDate"])
-        )
-
-        duration = self.__timedelta(departure_date, arrival_date)
+    def __data_for_segment(self, segment: Segment) -> dict:
+        departure_date = self.__format_datetime(segment.departure_date)
+        arrival_date = self.__format_datetime(segment.arrival_date)
+        duration = self.__format_timedelta(segment.duration)
 
         return {
-            "transporter": obj["transporter"],
-            "train_number": obj["trainNumber"],
-            "origin_station": origin_station_name,
-            "destination_station": destination_station_name,
+            "transporter": segment.train_label,
+            "train_number": segment.train_number,
+            "origin_station": segment.departure_station.name,
+            "destination_station": segment.destination_station.name,
             "departure_date": departure_date,
             "arrival_date": arrival_date,
             "duration": duration,
         }
 
-    def __data_for_proposal(self, obj):
-        departure_date = self.__format_datetime(
-            self.__parse_sncf_date(obj["departureDate"])
-        )
-        arrival_date = self.__format_datetime(
-            self.__parse_sncf_date(obj["arrivalDate"])
-        )
+    def __data_for_journey(self, journey: Journey) -> dict:
+        departure_date = self.__format_datetime(journey.departure_date)
+        arrival_date = self.__format_datetime(journey.arrival_date)
+        duration = self.__format_timedelta(journey.duration)
 
-        prices = list(map(self.__data_for_price, obj["priceProposals"]))
-        segments = list(map(self.__data_for_segment, obj["segments"]))
-        duration = self.__timedelta(departure_date, arrival_date)
+        proposals = list(map(self.__data_for_proposal, journey.proposals))
+        segments = list(map(self.__data_for_segment, journey.segments))
 
         return {
             "departure_date": departure_date,
             "arrival_date": arrival_date,
             "duration": duration,
-            "prices": prices,
+            "proposals": proposals,
             "segments": segments,
         }
 
-    def get_str(self, res: Response) -> str:
-        proposals = list(map(self.__data_for_proposal, res.json()["trainProposals"]))
+    def get_str(self, journeys: List[Journey]) -> str:
+        data = list(map(self.__data_for_journey, journeys))
 
         args = {
-            "template": "{{>proposals}}",
-            "partials_path": os.path.join(os.path.dirname(__file__), "templates"),
-            "data": {"proposals": proposals},
+            "template": "{{>journeys}}",
+            "partials_path": str(Path(__file__).parent.joinpath("templates")),
+            "data": {"journeys": data},
         }
 
         out = chevron.render(**args)

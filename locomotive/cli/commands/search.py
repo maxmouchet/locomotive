@@ -4,9 +4,11 @@ CLI command for searching train journeys.
 
 import click
 import dateparser
+from requests.exceptions import HTTPError
 
 from ...api.oui_v1 import Client
-from ..formatters import PrettyFormatter, RawFormatter
+
+from ..formatters import PrettyFormatter
 
 
 class PassengerNotFoundException(click.ClickException):
@@ -88,15 +90,20 @@ def search(ctx, **args):
 
     click.echo("{} ({} years old)\n".format(passenger.name, passenger.age), err=True)
 
-    client = Client()
-    res = client.simple_request(
-        passenger.age, origin_station, destination_station, date, args["travel_class"]
-    )
+    client = Client(stations)
+
+    try:
+        res = client.travel_request(
+            origin_station, destination_station, [passenger], date, args["travel_class"]
+        )
+    except HTTPError as e:
+        click.echo(e.response.content, err=True)
+        raise e
 
     if args["format"] == "pretty":
         formatter = PrettyFormatter(stations=stations)
-    else:
-        formatter = RawFormatter()
+    # TODO: JSONFormatter, ...
+    # TODO: Option to print raw api response
 
     # We use click.echo because:
     # > Click’s echo() function will automatically strip ANSI color codes if the stream is not
