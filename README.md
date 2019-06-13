@@ -6,7 +6,8 @@
 [![Build Status](https://travis-ci.org/yafeunteun/sncf-cli.svg?branch=master)](https://travis-ci.org/yafeunteun/sncf-cli)
 [![Coverage Status](https://coveralls.io/repos/github/yafeunteun/sncf-cli/badge.svg?branch=master&service=github)](https://coveralls.io/github/yafeunteun/sncf-cli?branch=master)
 
-You love SNCF. You love command line tools. sncf-cli is made for you !
+You love SNCF. You love command line tools. sncf-cli is made for you !  
+An handcrafted API client and command line interface for France's national railways :sparkles:
 
 <img src="https://raw.githubusercontent.com/yafeunteun/sncf-cli/master/assets/carbon.png">
 
