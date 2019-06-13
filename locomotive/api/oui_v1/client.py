@@ -19,7 +19,9 @@ class Client:
             "Referer": self.ORIGIN,
             "User-Agent": self.USER_AGENT,
         }
-        return requests.post(self.ENDPOINT, json=req.sncf_dict())
+        return requests.post(
+            self.ENDPOINT, headers=headers, json=req.sncf_dict(), timeout=10
+        )
 
     def simple_request(
         self, age, origin_station, destination_station, date, travel_class
