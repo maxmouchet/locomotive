@@ -9,6 +9,10 @@
 You love SNCF. You love command line tools. sncf-cli is made for you !  
 An handcrafted API client and command line interface for France's national railways :sparkles:
 
+<a href="#installation">Installation</a> •
+<a href="#usage">Usage</a> •
+<a href="#development">Development</a>
+
 <img src="https://raw.githubusercontent.com/yafeunteun/sncf-cli/master/assets/carbon.png">
 
 ## Installation
