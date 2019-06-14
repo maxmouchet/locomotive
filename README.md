@@ -38,25 +38,18 @@ sncf-cli search NLAMA FRPAR
 sncf-cli search Brest Paris --date 2019/07/14 --class first 
 ```
 
-**PRO TIP** By default, results are formatted to look simple. Consequently it filters many information you might want to have access. Use the following option to get the complete JSON API response:
- ```bash
-sncf-cli search Brest Paris --date 2019/07/14 --format raw
-```
-
 ## Development
 
 ```bash
 pip install -e .[dev]
-
-black locomotive  # Code formatter
-mypy locomotive   # Type checking
-pylint locomotive # Linter
-pytest            # Unit tests
-```
-
-```bash
-# Cleanup (use with care !)
-git clean -dfx
+# Code formatter
+black locomotive/ stubs/ tests/
+# Linter
+pylint --rcfile=setup.cfg locomotive/
+# Type checker
+env MYPYPATH=stubs/ mypy locomotive/
+# Unit tests
+pytest
 ```
 
 ```
