@@ -7,7 +7,7 @@ import dateparser
 from requests.exceptions import HTTPError
 
 from ...api.oui_v1 import Client
-from ..formatters import PrettyFormatter
+from ..formatters import JSONFormatter, PrettyFormatter
 
 
 @click.command()
@@ -28,7 +28,7 @@ from ..formatters import PrettyFormatter
 )
 @click.option(
     "--format",
-    type=click.Choice(["pretty", "raw"]),
+    type=click.Choice(["pretty", "json"]),
     default="pretty",
     help="Output format.",
 )
@@ -48,6 +48,7 @@ def search(ctx: click.Context, **args: str) -> None:
     """
     passengers = ctx.obj["passengers"]
     stations = ctx.obj["stations"]
+    client = Client(stations)
 
     date = dateparser.parse(args["date"])
     if date is None:
@@ -73,8 +74,6 @@ def search(ctx: click.Context, **args: str) -> None:
 
     click.echo("{} ({} years old)\n".format(passenger.name, passenger.age), err=True)
 
-    client = Client(stations)
-
     try:
         res = client.travel_request(
             origin_station, destination_station, [passenger], date, args["travel_class"]
@@ -83,10 +82,11 @@ def search(ctx: click.Context, **args: str) -> None:
         click.echo(exception.response.content, err=True)
         raise exception
 
-    if args["format"] == "pretty":
-        formatter = PrettyFormatter(stations=stations)
-    # TODO: JSONFormatter, ...
     # TODO: Option to print raw api response
+    if args["format"] == "pretty":
+        formatter = PrettyFormatter()
+    else:
+        formatter = JSONFormatter()
 
     # We use click.echo because:
     # > Click’s echo() function will automatically strip ANSI color codes if the stream is not

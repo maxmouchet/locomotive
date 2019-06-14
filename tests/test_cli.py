@@ -3,7 +3,8 @@ from click.testing import CliRunner
 
 import datetime as dt
 
-from locomotive.cli import *
+from locomotive.cli import cli
+
 
 def test_helper():
     runner = CliRunner()
@@ -28,7 +29,7 @@ def test_search_display_error_when_origin_not_found():
     assert "not found" in result.output
     assert result.exit_code == 1
 
-    
+
 def test_search_display_error_when_destination_not_found():
     runner = CliRunner()
     result = runner.invoke(cli, ["search", "FRBES", "This station doesn't exist"])
@@ -39,7 +40,9 @@ def test_search_display_error_when_destination_not_found():
 
 def test_search_with_date_provided():
     runner = CliRunner()
-    result = runner.invoke(cli, ["search", "FRBES", "FRPAR", "--date", str(dt.date.today())])
+    result = runner.invoke(
+        cli, ["search", "FRBES", "FRPAR", "--date", str(dt.date.today())]
+    )
 
     assert "km) on" in result.output
     assert result.exit_code == 0
@@ -55,7 +58,7 @@ def test_search_with_class_provided():
 
 def test_search_with_formatter_provided():
     runner = CliRunner()
-    result = runner.invoke(cli, ["search", "FRBES", "FRPAR", "--format", "raw"])
+    result = runner.invoke(cli, ["search", "FRBES", "FRPAR", "--format", "json"])
 
     assert "km) on" in result.output
     assert result.exit_code == 0

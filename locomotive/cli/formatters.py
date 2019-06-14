@@ -3,10 +3,12 @@ Output formatters.
 """
 
 import datetime as dt
+import json
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import List
+from typing import Any, List, Union
 
+import attr
 import chevron
 
 from ..models import Journey, Proposal, Segment
@@ -26,22 +28,27 @@ class Formatter(ABC):
         raise NotImplementedError
 
 
-# class RawFormatter(Formatter):
-#     """
-#     Raw response from the API.
-#     """
+class JSONFormatter(Formatter):
+    """
+    JSON output.
+    """
 
-#     def get_str(self, res: Response) -> str:
-#         return res.content.decode("utf-8")
+    @classmethod
+    def __serialize(cls, obj: Any) -> Union[dict, str]:
+        if hasattr(obj, "__attrs_attrs__"):
+            return attr.asdict(obj)
+        elif isinstance(obj, dt.datetime):
+            return obj.isoformat()
+        raise TypeError
+
+    def get_str(self, journeys: List[Journey]) -> str:
+        return json.dumps(journeys, default=self.__serialize, indent=4)
 
 
 class PrettyFormatter(Formatter):
     """
     Human-readable pretty-printed output.
     """
-
-    def __init__(self, stations: Stations):
-        self.stations = stations
 
     @classmethod
     def __format_datetime(cls, obj: dt.datetime) -> str:
