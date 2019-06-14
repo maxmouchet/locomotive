@@ -1,3 +1,0 @@
-import pandas as pd
-
-def read_csv(filepath_or_buffer: str, sep: str) -> pd.DataFrame: ...
