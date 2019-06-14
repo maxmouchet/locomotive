@@ -1,17 +1,20 @@
 import os
-from locomotive.models.stations import Stations
+import pytest
+from locomotive.exceptions import StationNotFoundException
+from locomotive.stores import Stations
+
 
 def test_can_load_default_data_if_no_path_provided():
     stations = Stations()
-    assert len(stations.df) > 0
+    assert len(stations.frame) > 0
 
-    
+
 def test_can_load_data():
     fp = os.path.join(os.path.dirname(__file__), "test-stations.csv")
     stations = Stations(fp)
-    assert len(stations.df) == 10
+    assert len(stations.frame) == 10
 
-    
+
 def test_can_find_station_by_name():
     fp = os.path.join(os.path.dirname(__file__), "test-stations.csv")
     stations = Stations(fp)
@@ -21,13 +24,11 @@ def test_can_find_station_by_name():
     assert station is not None
 
 
-def test_return_none_when_cannot_find_station_by_a_given_name():
+def test_raises_exception_when_cannot_find_station_by_a_given_name():
     fp = os.path.join(os.path.dirname(__file__), "test-stations.csv")
     stations = Stations(fp)
-
-    station = stations.find("This station doesn't exist")
-
-    assert station is None
+    with pytest.raises(StationNotFoundException):
+        stations.find("This station doesn't exist")
 
 
 def test_can_find_station_by_id():
@@ -37,15 +38,13 @@ def test_can_find_station_by_id():
     station = stations.find("FRFEV")
 
     assert station is not None
-    
 
-def test_return_none_when_cannot_find_station_by_a_given_id():
+
+def test_raises_exception_when_cannot_find_station_by_a_given_id():
     fp = os.path.join(os.path.dirname(__file__), "test-stations.csv")
     stations = Stations(fp)
-
-    station = stations.find("This station ID doesn't exist")
-
-    assert station is None
+    with pytest.raises(StationNotFoundException):
+        stations.find("This station ID doesn't exist")
 
 
 def test_can_retrieve_coords():
@@ -61,7 +60,7 @@ def test_can_retrieve_coords():
     assert coords[0] == 44.9288345
     assert coords[1] == -0.4963844
 
-    
+
 def test_can_compute_distance_between_two_stations():
     fp = os.path.join(os.path.dirname(__file__), "test-stations.csv")
     stations = Stations(fp)
