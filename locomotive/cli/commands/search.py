@@ -7,7 +7,7 @@ import dateparser
 from requests.exceptions import HTTPError
 
 from ...api.oui_v1 import Client
-from ..formatters import JSONFormatter, PrettyFormatter
+from ..formatters import Formatter, JSONFormatter, PrettyFormatter
 
 
 @click.command()
@@ -84,7 +84,7 @@ def search(ctx: click.Context, **args: str) -> None:
 
     # TODO: Option to print raw api response
     if args["format"] == "pretty":
-        formatter = PrettyFormatter()
+        formatter: Formatter = PrettyFormatter()
     else:
         formatter = JSONFormatter()
 
