@@ -10,6 +10,11 @@ install:
 - pip install pytest-cov coverage coveralls
 - python setup.py install
 script:
+# (1) No errors in linter
+- pylint --errors-only locomotive/
+# (2) No errors in type check (minus missing imports)
+- MYPYPATH=stubs/ mypy --ignore-missing-imports locomotive/
+# (3) Test passes
 - coverage run --source locomotive/ -m pytest
 after_success:
 - python setup.py sdist bdist_wheel
