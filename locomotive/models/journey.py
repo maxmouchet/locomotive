@@ -19,6 +19,9 @@ class Segment:
 
     @property
     def duration(self) -> dt.timedelta:
+        """
+        Returns the durations of the segment.
+        """
         return self.arrival_date - self.departure_date
 
 
@@ -38,12 +41,17 @@ class Journey:
 
     @property
     def departure_date(self) -> dt.datetime:
+        # pylint: disable=unsubscriptable-object
         return self.segments[0].departure_date
 
     @property
     def arrival_date(self) -> dt.datetime:
+        # pylint: disable=unsubscriptable-object
         return self.segments[-1].arrival_date
 
     @property
     def duration(self) -> dt.timedelta:
+        """
+        Returns the duration of the journey.
+        """
         return self.arrival_date - self.departure_date

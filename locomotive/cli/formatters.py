@@ -9,7 +9,7 @@ from typing import List
 
 import chevron
 
-from ..models import Journey, Segment, Proposal
+from ..models import Journey, Proposal, Segment
 from ..stores import Stations
 
 
@@ -101,13 +101,11 @@ class PrettyFormatter(Formatter):
     def get_str(self, journeys: List[Journey]) -> str:
         data = list(map(self.__data_for_journey, journeys))
 
-        args = {
-            "template": "{{>journeys}}",
-            "partials_path": str(Path(__file__).parent.joinpath("templates")),
-            "data": {"journeys": data},
-        }
-
-        out = chevron.render(**args)
+        out = chevron.render(
+            template="{{>journeys}}",
+            partials_path=str(Path(__file__).parent.joinpath("templates")),
+            data={"journeys": data},
+        )
         out = out.replace("<b>", "\033[1m")
         out = out.replace("</b>", "\033[0m")
         out = out.strip()

@@ -14,6 +14,12 @@ class PassengerProfile(Enum):
     # TODO: Add other types
 
 
+class Animal:
+    # TODO
+    def sncf_dict(self) -> dict:
+        raise NotImplementedError
+
+
 class Passenger:
     def __init__(self, profile: PassengerProfile, age: int):
         self.profile = profile
@@ -128,11 +134,11 @@ class SNCFTravelRequest:
         self.country = "FR"
         self.language = "fr"
         self.bus_best_price_operator = None
-        self.animals = []
+        self.animals: List[Animal] = []
         self.bike = "NONE"
         self.with_reclining_seat = False
         self.physical_space = None
-        self.fares = []
+        self.fares: List[dict] = []
         self.with_best_prices = False
         self.highlighted_travel = None
         self.next_or_previous = False
@@ -144,6 +150,10 @@ class SNCFTravelRequest:
         self.currency = None
 
     def sncf_dict(self) -> dict:
+        return_date = None
+        if self.return_date:
+            return_date = self.return_date.strftime(SNCF_DATE_FORMAT)
+
         return {
             "origin": self.origin,
             "origin_code": self.origin_code,
@@ -160,9 +170,7 @@ class SNCFTravelRequest:
             "customerAccount": self.customer_account,
             "oneWayTravel": self.one_way_travel,
             "departureDate": self.departure_date.strftime(SNCF_DATE_FORMAT),
-            "returnDate": self.return_date.strftime(SNCF_DATE_FORMAT)
-            if self.return_date
-            else None,
+            "returnDate": return_date,
             "travelClass": self.travel_class.name,
             "country": self.country,
             "language": self.language,

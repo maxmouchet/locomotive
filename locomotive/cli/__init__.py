@@ -2,6 +2,8 @@
 Locomotive CLI.
 """
 
+from typing import Any
+
 import click
 
 from ..stores import Passengers, Stations
@@ -25,7 +27,7 @@ from .commands.search import search
     show_default=True,
 )
 @click.pass_context
-def cli(ctx, **args):
+def cli(ctx: click.Context, **args: Any) -> None:
     """
     🚆 Search SNCF journeys from your terminal.
 

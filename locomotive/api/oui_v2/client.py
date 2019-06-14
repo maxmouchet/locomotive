@@ -8,6 +8,7 @@ from typing import List
 import requests
 
 from ...models import Journey, Passenger, Proposal, Segment, Station
+from ...stores import Stations
 
 
 class Client:
@@ -16,7 +17,7 @@ class Client:
     ENDPOINT = "https://wshoraires.oui.sncf/m610/vmd/maq/v2/proposals/train"
     USER_AGENT = "OUI.sncf/61.2 CFNetwork/978.0.7 Darwin/18.5.0"
 
-    def __init__(self, stations):
+    def __init__(self, stations: Stations) -> None:
         self.stations = stations
 
     def request(self, json: dict) -> requests.Response:

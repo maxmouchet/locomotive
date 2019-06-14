@@ -1,11 +1,12 @@
 import difflib
 import json
 from pathlib import Path
-from typing import List, Optional
+from typing import Iterator, List, Optional
 
 import attr
 import pandas as pd
 
+from .exceptions import PassengerNotFoundException, StationNotFoundException
 from .models import Passenger, Station
 
 
@@ -17,7 +18,7 @@ class Passengers:
     path: Path
     passengers: List[Passenger]
 
-    def __init__(self, path=None):
+    def __init__(self, path: Optional[Path] = None) -> None:
         if path is None:
             path = self.default_path()
 
@@ -28,7 +29,7 @@ class Passengers:
         else:
             self.passengers = [Passenger.dummy()]
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator[Passenger]:
         return self.passengers.__iter__()
 
     @classmethod
@@ -36,9 +37,9 @@ class Passengers:
         return Path.home().joinpath(".locomotive", "passengers.json")
 
     @classmethod
-    def __passengers_from_json(self, fp: str) -> List[Passenger]:
+    def __passengers_from_json(cls, path: Path) -> List[Passenger]:
         passengers = []
-        for obj in json.load(open(fp)):
+        for obj in json.load(open(path)):
             passengers.append(Passenger(**obj))
         return passengers
 
@@ -48,6 +49,10 @@ class Passengers:
 
     def default(self) -> Passenger:
         return Passenger.dummy()
+
+    def find(self, query: str) -> Passenger:
+        # TODO: Implement
+        raise NotImplementedError
 
     def save(self) -> Path:
         self.path.parent.mkdir(parents=True, exist_ok=True)
@@ -62,26 +67,25 @@ class Stations:
     See https://github.com/trainline-eu/stations.
     """
 
-    df: pd.DataFrame
+    frame: pd.DataFrame
     path: Path
 
-    def __init__(self, path=None):
+    def __init__(self, path: Optional[Path] = None) -> None:
         if path is None:
             path = self.default_path()
-        self.df = pd.read_csv(path, sep=";")
+        self.frame = pd.read_csv(path, sep=";")
 
     @classmethod
     def default_path(cls) -> Path:
         return Path(__file__).parent.joinpath("data", "stations-lite.csv")
 
-    def find(self, q: str) -> Optional[Station]:
+    def find(self, query: str) -> Station:
         # Try to find matching IDs
         # TODO: Optimize...
-        if q in self.df.sncf_id.values:
-            return Station.from_row(self.df[self.df.sncf_id == q].iloc[0])
+        if query in self.frame.sncf_id.values:
+            return Station.from_row(self.frame[self.frame.sncf_id == query].iloc[0])
         # Try to find matching name
-        else:
-            matches = difflib.get_close_matches(q, self.df.name.values, n=1)
-            if matches:
-                return Station.from_row(self.df[self.df.name == matches[0]].iloc[0])
-        return None
+        matches = difflib.get_close_matches(query, self.frame.name.values, n=1)
+        if matches:
+            return Station.from_row(self.frame[self.frame.name == matches[0]].iloc[0])
+        raise StationNotFoundException(query)

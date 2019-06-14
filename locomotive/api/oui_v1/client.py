@@ -9,6 +9,8 @@ import requests
 
 # Old structure... oui_v2 client is much cleaner
 from ...models import Journey, Passenger, Proposal, Segment, Station
+from ...stores import Stations
+
 from .types import SNCF_DATE_FORMAT, Location
 from .types import Passenger as SNCFPassenger
 from .types import PassengerProfile, SNCFTravelRequest, TravelClass
@@ -20,7 +22,7 @@ class Client:
     ORIGIN = "https://www.oui.sncf"
     USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
 
-    def __init__(self, stations):
+    def __init__(self, stations: Stations) -> None:
         self.stations = stations
 
     def request(self, req: SNCFTravelRequest) -> requests.Response:
@@ -45,17 +47,17 @@ class Client:
         travel_class: str,
     ) -> List[Journey]:
         # TODO: Naming consistency (origin/departure, ...)
-        passengers = [
+        passengers_ = [
             SNCFPassenger(PassengerProfile.ADULT, passenger.age)
             for passenger in passengers
         ]
 
         origin = Location.from_station_code(origin_station.sncf_id)
         destination = Location.from_station_code(destination_station.sncf_id)
-        travel_class = TravelClass.from_str(travel_class)
+        travel_class_ = TravelClass.from_str(travel_class)
 
         res = self.request(
-            SNCFTravelRequest(origin, destination, passengers, date, travel_class)
+            SNCFTravelRequest(origin, destination, passengers_, date, travel_class_)
         )
 
         # import json
@@ -80,6 +82,6 @@ class Client:
             arrival_date=dt.datetime.strptime(obj["arrivalDate"], SNCF_DATE_FORMAT),
         )
 
-    def __to_proposal(self, obj: dict) -> Segment:
+    def __to_proposal(self, obj: dict) -> Proposal:
         # TODO: Currency
         return Proposal(flexibility_level=obj["type"], price=obj["amount"])

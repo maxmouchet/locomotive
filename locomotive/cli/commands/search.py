@@ -7,18 +7,7 @@ import dateparser
 from requests.exceptions import HTTPError
 
 from ...api.oui_v1 import Client
-
 from ..formatters import PrettyFormatter
-
-
-class PassengerNotFoundException(click.ClickException):
-    def __init__(self, passenger):
-        super().__init__("Passenger {} not found".format(passenger))
-
-
-class StationNotFoundException(click.ClickException):
-    def __init__(self, station):
-        super().__init__("Train station for {} not found".format(station))
 
 
 @click.command()
@@ -44,7 +33,7 @@ class StationNotFoundException(click.ClickException):
     help="Output format.",
 )
 @click.pass_context
-def search(ctx, **args):
+def search(ctx: click.Context, **args: str) -> None:
     """
     Search for trains.
 
@@ -57,24 +46,18 @@ def search(ctx, **args):
     sncf-cli search Brest Paris
     sncf-cli search Brest Paris --class second --date 2019-06-01
     """
-    date = dateparser.parse(args["date"])
-
     passengers = ctx.obj["passengers"]
     stations = ctx.obj["stations"]
+
+    date = dateparser.parse(args["date"])
+    if date is None:
+        raise click.UsageError("Cannot parse date.")
 
     origin_station = stations.find(args["origin"])
     destination_station = stations.find(args["destination"])
 
-    if origin_station is None:
-        raise StationNotFoundException(args["origin"])
-
-    if destination_station is None:
-        raise StationNotFoundException(args["destination"])
-
     if args["passenger"]:
         passenger = passengers.find(args["passenger"])
-        if passenger is None:
-            raise PassengerNotFoundException(args["passenger"])
     else:
         passenger = passengers.default()
 
@@ -96,9 +79,9 @@ def search(ctx, **args):
         res = client.travel_request(
             origin_station, destination_station, [passenger], date, args["travel_class"]
         )
-    except HTTPError as e:
-        click.echo(e.response.content, err=True)
-        raise e
+    except HTTPError as exception:
+        click.echo(exception.response.content, err=True)
+        raise exception
 
     if args["format"] == "pretty":
         formatter = PrettyFormatter(stations=stations)
