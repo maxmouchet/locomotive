@@ -3,6 +3,7 @@ Client for the wshoraires.oui.sncf API
 """
 
 import datetime as dt
+import logging
 from typing import List
 
 import requests
@@ -18,6 +19,7 @@ class Client:
     USER_AGENT = "OUI.sncf/61.2 CFNetwork/978.0.7 Darwin/18.5.0"
 
     def __init__(self, stations: Stations) -> None:
+        self.logger = logging.getLogger(__name__)
         self.stations = stations
 
     def request(self, json: dict) -> requests.Response:
@@ -28,8 +30,17 @@ class Client:
         }
 
         res = requests.post(self.ENDPOINT, headers=headers, json=json, timeout=10)
+
+        self.logger.debug(res.request.url)
+        self.logger.debug(res.request.body)
+        self.logger.debug(res.content)
+
+        if res.status_code == 404:
+            # {"code":"ERR-0102","label":"empty travel result"}
+            return {"journeys": []}
+
         res.raise_for_status()
-        return res
+        return res.json()
 
     def travel_request(
         self,
@@ -67,11 +78,10 @@ class Client:
             "travelClass": travel_class.upper(),
         }
 
-        # TODO: Handle empty travel response (404?)
         # TODO: Handle full trains (no price ?)
         # TODO: Show class in formatter
         res = self.request(sncf_dict)
-        return list(map(self.__to_journey, res.json()["journeys"]))
+        return list(map(self.__to_journey, res["journeys"]))
 
     def __to_journey(self, obj: dict) -> Journey:
         return Journey(
