@@ -3,6 +3,7 @@ Client for the oui.sncf/proposition/rest/search-travels/outward API.
 """
 
 import datetime as dt
+import logging
 from typing import List
 
 import requests
@@ -10,7 +11,6 @@ import requests
 # Old structure... oui_v2 client is much cleaner
 from ...models import Journey, Passenger, Proposal, Segment, Station
 from ...stores import Stations
-
 from .types import SNCF_DATE_FORMAT, Location
 from .types import Passenger as SNCFPassenger
 from .types import PassengerProfile, SNCFTravelRequest, TravelClass
@@ -23,6 +23,7 @@ class Client:
     USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
 
     def __init__(self, stations: Stations) -> None:
+        self.logger = logging.getLogger(__name__)
         self.stations = stations
 
     def request(self, req: SNCFTravelRequest) -> requests.Response:
@@ -35,6 +36,11 @@ class Client:
         res = requests.post(
             self.ENDPOINT, headers=headers, json=req.sncf_dict(), timeout=10
         )
+
+        self.logger.debug(res.request.url)
+        self.logger.debug(res.request.body)
+        self.logger.debug(res.content)
+
         res.raise_for_status()
         return res
 

@@ -2,12 +2,12 @@
 Locomotive CLI.
 """
 
+import logging
 from typing import Any
 
 import click
 
 from ..stores import Passengers, Stations
-
 from .commands.passengers import passengers
 from .commands.search import search
 
@@ -35,6 +35,9 @@ def cli(ctx: click.Context, **args: Any) -> None:
     Examples:
     sncf-cli search Brest Paris
     """
+    if args["debug"]:
+        logging.basicConfig(level=logging.DEBUG)
+
     ctx.ensure_object(dict)
     ctx.obj["passengers"] = Passengers(path=args["passengers_file"])
     ctx.obj["stations"] = Stations(path=args["stations_file"])
