@@ -4,7 +4,7 @@ Client for the wshoraires.oui.sncf API
 
 import datetime as dt
 import logging
-from typing import List
+from typing import Dict, List
 
 import requests
 
@@ -22,7 +22,7 @@ class Client:
         self.logger = logging.getLogger(__name__)
         self.stations = stations
 
-    def request(self, json: dict) -> requests.Response:
+    def request(self, json: dict) -> Dict:
         headers = {
             "User-Agent": self.USER_AGENT,
             "x-vsc-locale": "fr_FR",
