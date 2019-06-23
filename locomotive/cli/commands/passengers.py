@@ -54,7 +54,9 @@ def show(ctx: click.Context) -> None:
         click.echo(passenger)
 
 
-def __parse_if_present(date_string: Optional[str]) -> Optional[dt.datetime]:
+def __parse_if_present(date_string: Optional[str]) -> Optional[dt.date]:
     if date_string:
-        return dp.parse(date_string)
+        datetime = dp.parse(date_string)
+        if datetime:
+            return datetime.date()
     return None

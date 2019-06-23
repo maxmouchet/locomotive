@@ -53,15 +53,21 @@ class Client:
 
         passengers_dict = []
         for passenger in passengers:
+            commercial_card = {"type": "NO_CARD"}
+            if passenger.commercial_card_type:
+                commercial_card = {
+                    "type": passenger.commercial_card_type,
+                    "number": passenger.commercial_card_number,
+                }
+
             passengers_dict.append(
                 {
                     "advantageCode": None,
                     "age": passenger.age,
                     "ageRank": "ADULT",  # TODO
                     "birthday": passenger.birthday.strftime("%Y-%m-%d"),
-                    # TODO
-                    "commercialCard": {"type": "NO_CARD"},
-                    "fidNumber": "",
+                    "commercialCard": commercial_card,
+                    "fidNumber": passenger.fidelity_card_number,
                     "type": "HUMAN",
                 }
             )
