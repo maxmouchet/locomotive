@@ -4,6 +4,7 @@ Client for the wshoraires.oui.sncf API
 
 import datetime as dt
 import logging
+import re
 from typing import Dict, List
 
 import requests
@@ -96,6 +97,14 @@ class Client:
         )
 
     def __to_segment(self, obj: dict) -> Segment:
+        # : separated TZ doesn't work with Python < 3.7
+        # 2019-06-23T16:18:00.000+02:00 -> 2019-06-23T16:18:00.000+0200
+        departure_date_str = re.sub(
+            r"([+-])(\d{2}):(\d{2})$", r"\g<1>\g<2>\g<3>", obj["departureDate"]
+        )
+        arrival_date_str = re.sub(
+            r"([+-])(\d{2}):(\d{2})$", r"\g<1>\g<2>\g<3>", obj["arrivalDate"]
+        )
         return Segment(
             train_label=obj["trainLabel"],
             train_number=obj["trainNumber"],
@@ -105,8 +114,8 @@ class Client:
             destination_station=self.stations.find_or_raise(
                 obj["destinationStation"]["resarailCode"]
             ),
-            departure_date=dt.datetime.strptime(obj["departureDate"], self.DATE_FORMAT),
-            arrival_date=dt.datetime.strptime(obj["arrivalDate"], self.DATE_FORMAT),
+            departure_date=dt.datetime.strptime(departure_date_str, self.DATE_FORMAT),
+            arrival_date=dt.datetime.strptime(arrival_date_str, self.DATE_FORMAT),
         )
 
     def __to_proposal(self, obj: dict) -> Proposal:

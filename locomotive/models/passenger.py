@@ -51,6 +51,7 @@ class Passenger:
         """
         return ((dt.date.today() - self.birthday) / 365).days
 
+
 # Valid commercial cards
 # [
 #   "ABONNEMENT_FORFAIT_1ERE",
