@@ -103,7 +103,7 @@ class Stations:
     def default_path(cls) -> Path:
         return Path(__file__).parent.joinpath("data", "stations-lite.csv")
 
-    def find(self, query: str) -> Station:
+    def find(self, query: str) -> Optional[Station]:
         # Try to find matching IDs
         # TODO: Optimize...
         if query in self.frame.sncf_id.values:
@@ -112,4 +112,10 @@ class Stations:
         matches = difflib.get_close_matches(query, self.frame.name.values, n=1)
         if matches:
             return Station.from_row(self.frame[self.frame.name == matches[0]].iloc[0])
+        return None
+
+    def find_or_raise(self, query: str) -> Station:
+        station = self.find(query)
+        if station:
+            return station
         raise StationNotFoundException(query)

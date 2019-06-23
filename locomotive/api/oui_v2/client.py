@@ -99,10 +99,10 @@ class Client:
         return Segment(
             train_label=obj["trainLabel"],
             train_number=obj["trainNumber"],
-            departure_station=self.stations.find(
+            departure_station=self.stations.find_or_raise(
                 obj["departureStation"]["resarailCode"]
             ),
-            destination_station=self.stations.find(
+            destination_station=self.stations.find_or_raise(
                 obj["destinationStation"]["resarailCode"]
             ),
             departure_date=dt.datetime.strptime(obj["departureDate"], self.DATE_FORMAT),

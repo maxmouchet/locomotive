@@ -82,8 +82,10 @@ class Client:
         return Segment(
             train_label=obj["transporter"],
             train_number=obj["trainNumber"],
-            departure_station=self.stations.find(obj["originStationCode"]),
-            destination_station=self.stations.find(obj["destinationStationCode"]),
+            departure_station=self.stations.find_or_raise(obj["originStationCode"]),
+            destination_station=self.stations.find_or_raise(
+                obj["destinationStationCode"]
+            ),
             departure_date=dt.datetime.strptime(obj["departureDate"], SNCF_DATE_FORMAT),
             arrival_date=dt.datetime.strptime(obj["arrivalDate"], SNCF_DATE_FORMAT),
         )
