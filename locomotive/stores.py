@@ -65,7 +65,7 @@ class Passengers:
     def default(self) -> Passenger:
         return Passenger.dummy()
 
-    def find(self, query: str) -> Passenger:
+    def find(self, query: str) -> Optional[Passenger]:
         # TODO: Optimize
         for passenger in self.passengers:
             if str(passenger.name).lower() == query.lower():

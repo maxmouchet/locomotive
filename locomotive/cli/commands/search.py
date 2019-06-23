@@ -6,7 +6,7 @@ import click
 import dateparser
 from requests.exceptions import HTTPError
 
-from ...api.oui_v1 import Client
+from ...api.oui_v2 import Client
 from ..formatters import Formatter, JSONFormatter, PrettyFormatter
 
 
@@ -54,11 +54,11 @@ def search(ctx: click.Context, **args: str) -> None:
     if date is None:
         raise click.UsageError("Cannot parse date.")
 
-    origin_station = stations.find(args["origin"])
-    destination_station = stations.find(args["destination"])
+    origin_station = stations.find_or_raise(args["origin"])
+    destination_station = stations.find_or_raise(args["destination"])
 
     if args["passenger"]:
-        passenger = passengers.find(args["passenger"])
+        passenger = passengers.find_or_raise(args["passenger"])
     else:
         passenger = passengers.default()
 

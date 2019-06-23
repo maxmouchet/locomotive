@@ -28,7 +28,7 @@ def test_raises_exception_when_cannot_find_station_by_a_given_name():
     fp = os.path.join(os.path.dirname(__file__), "test-stations.csv")
     stations = Stations(fp)
     with pytest.raises(StationNotFoundException):
-        stations.find("This station doesn't exist")
+        stations.find_or_raise("This station doesn't exist")
 
 
 def test_can_find_station_by_id():
@@ -44,7 +44,7 @@ def test_raises_exception_when_cannot_find_station_by_a_given_id():
     fp = os.path.join(os.path.dirname(__file__), "test-stations.csv")
     stations = Stations(fp)
     with pytest.raises(StationNotFoundException):
-        stations.find("This station ID doesn't exist")
+        stations.find_or_raise("This station ID doesn't exist")
 
 
 def test_can_retrieve_coords():
