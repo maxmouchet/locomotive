@@ -45,7 +45,7 @@ class Passengers:
     def __passengers_from_json(cls, path: Path) -> List[Passenger]:
         passengers = []
         for obj in json.load(open(path)):
-            obj["birthday"] = dt.datetime.strptime(obj["birthday"], "%Y-%m-%d")
+            obj["birthday"] = dt.datetime.strptime(obj["birthday"], "%Y-%m-%d").date()
             passengers.append(Passenger(**obj))
         return passengers
 
