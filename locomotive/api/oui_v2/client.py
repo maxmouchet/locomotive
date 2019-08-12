@@ -16,7 +16,7 @@ from ...stores import Stations
 class Client:
 
     DATE_FORMAT = "%Y-%m-%dT%H:%M:%S.%f%z"
-    ENDPOINT = "https://wshoraires.oui.sncf/m610/vmd/maq/v2/proposals/train"
+    ENDPOINT = "https://wshoraires.oui.sncf/m640/vmd/maq/v2/proposals/train"
     USER_AGENT = "OUI.sncf/61.2 CFNetwork/978.0.7 Darwin/18.5.0"
 
     def __init__(self, stations: Stations) -> None:
