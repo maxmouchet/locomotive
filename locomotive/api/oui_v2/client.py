@@ -16,7 +16,7 @@ from ...stores import Stations
 class Client:
 
     DATE_FORMAT = "%Y-%m-%dT%H:%M:%S.%f%z"
-    ENDPOINT = "https://wshoraires.oui.sncf/m640/vmd/maq/v2/proposals/train"
+    ENDPOINT = "https://wshoraires.oui.sncf/m670/vmd/maq/v2/proposals/train"
     USER_AGENT = "OUI.sncf/61.2 CFNetwork/978.0.7 Darwin/18.5.0"
 
     def __init__(self, stations: Stations) -> None:
@@ -32,6 +32,7 @@ class Client:
 
         res = requests.post(self.ENDPOINT, headers=headers, json=json, timeout=10)
 
+        self.logger.debug(res.request.headers)
         self.logger.debug(res.request.url)
         self.logger.debug(res.request.body)
         self.logger.debug(res.content)
