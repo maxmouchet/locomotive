@@ -197,3 +197,4 @@ $RECYCLE.BIN/
 # End of https://www.gitignore.io/api/linux,macos,python,windows
 
 .vscode/
+poetry.lock

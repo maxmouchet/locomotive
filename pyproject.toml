@@ -1,0 +1,62 @@
+[tool.poetry]
+name = "sncf-cli"
+# https://github.com/python-poetry/poetry/issues/140
+version = "0.7.0"
+description = "Search SNCF journeys from the CLI."
+authors = ["Yann Feunteun, Maxime Mouchet"]
+license = "MIT"
+readme = "README.md"
+packages = [
+    { include = "locomotive" }
+]
+repository = "https://github.com/yafeunteun/sncf-cli"
+homepage = "https://github.com/yafeunteun/sncf-cli"
+classifiers=[
+    "Environment :: Console",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3"
+]
+keywords = ["sncf", "train", "tgv", "cli"]
+
+# From the old setup.py
+# Seems it is not necessary anymore
+# package_data={
+#         'locomotive': ['py.typed', '*.csv', '*.mustache'],
+#     },
+
+[tool.poetry.dependencies]
+python = "^3.6"
+attrs = "^19.3"
+chevron = "^0.13"
+click = "^7.0"
+dateparser = "^0.7"
+geopy = "^1.20"
+pandas = ">=0.24"
+requests = "^2.20"
+
+[tool.poetry.dev-dependencies]
+black = {version = "^18.3-alpha.0", allows-prereleases = true}
+coverage = "^4.5"
+coveralls = "^1.9"
+mypy = "^0.750.0"
+# https://github.com/PyCQA/pylint/issues/617
+pylint = { git = "https://github.com/PyCQA/pylint.git", branch = "master" }
+pytest = "^5.3"
+pytest-cov = "^2.8"
+
+[tool.poetry.scripts]
+sncf-cli = 'locomotive.cli:cli'
+
+[tool.pylint.messages_control]
+ignore = "types.py"
+disable = "bad-continuation,no-self-use,too-few-public-methods"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
+[mypy]
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true

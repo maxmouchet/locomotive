@@ -7,17 +7,18 @@ matrix:
   allow_failures:
     - python: nightly
 install:
-- pip install pytest-cov coverage coveralls mypy pylint
-- python setup.py install
+- pip install poetry
+- poetry install
 script:
 # (1) No errors in linter
-- pylint --errors-only locomotive/
 # (2) No errors in type check (minus missing imports)
-- MYPYPATH=stubs/ mypy --ignore-missing-imports locomotive/
 # (3) Test passes
-- coverage run --source locomotive/ -m pytest
+- export MYPYPATH=stubs
+- poetry run pylint --errors-only locomotive
+- poetry run mypy --ignore-missing-imports locomotive
+- poetry run coverage run --source locomotive -m pytest
 after_success:
-- python setup.py sdist bdist_wheel
+- poetry build
 - coveralls
 deploy:
   provider: pypi
