@@ -54,6 +54,10 @@ def search(ctx: click.Context, **args: str) -> None:
     if date is None:
         raise click.UsageError("Cannot parse date.")
 
+    # Hack: if set to 0 (midnight), the API
+    # returns results for the day before.
+    date = date.replace(hour=2)
+
     origin_station = stations.find_or_raise(args["origin"])
     destination_station = stations.find_or_raise(args["destination"])
 
