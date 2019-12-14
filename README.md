@@ -41,15 +41,11 @@ sncf-cli search Brest Paris --date 2019/07/14 --class first
 ## Development
 
 ```bash
-pip install -e .[dev]
-# Code formatter
-black locomotive/ stubs/ tests/
-# Linter
-pylint --rcfile=setup.cfg locomotive/
-# Type checker
-env MYPYPATH=stubs/ mypy locomotive/
-# Unit tests
-pytest
+poetry install
+poetry run sncf-cli
+poetry run mypy --ignore-missing-imports locomotive
+poetry run pylint --errors-only locomotive
+poetry run pytest
 ```
 
 ```
@@ -68,6 +64,7 @@ git push --tags
 **Checklist:**
 
 - [ ] Screenshot in README is up to date.
+- [ ] Set version in `pyproject.toml`
 
 ### Design notes & future plans
 
