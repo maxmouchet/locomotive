@@ -6,7 +6,7 @@ import click
 import dateparser
 from requests.exceptions import HTTPError
 
-from ...api.oui_v2 import Client
+from ...api.oui_v3 import Client
 from ..formatters import Formatter, JSONFormatter, PrettyFormatter
 
 
