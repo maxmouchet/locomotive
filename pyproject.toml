@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "sncf-cli"
 # https://github.com/python-poetry/poetry/issues/140
-version = "0.7.0"
+version = "0.8.0"
 description = "Search SNCF journeys from the CLI."
 authors = ["Yann Feunteun, Maxime Mouchet"]
 license = "MIT"
