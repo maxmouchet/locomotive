@@ -56,7 +56,8 @@ def search(ctx: click.Context, **args: str) -> None:
 
     # Hack: if set to 0 (midnight), the API
     # returns results for the day before.
-    date = date.replace(hour=2)
+    if date.hour < 2:
+        date = date.replace(hour=2)
 
     origin_station = stations.find_or_raise(args["origin"])
     destination_station = stations.find_or_raise(args["destination"])
@@ -71,7 +72,7 @@ def search(ctx: click.Context, **args: str) -> None:
             origin_station.name,
             destination_station.name,
             origin_station.distance_to(destination_station),
-            date.strftime("%b %d %Y"),
+            date.strftime("%b %d %Y at %H:%M"),
         ),
         err=True,
     )
