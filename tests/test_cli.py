@@ -16,7 +16,7 @@ def test_helper():
 
 def test_search_with_origin_and_destination():
     runner = CliRunner()
-    result = runner.invoke(cli, ["search", "FRBES", "FRPAR"])
+    result = runner.invoke(cli, ["search", "FRPAR", "FRLYS"])
 
     assert "km) on" in result.output
     assert result.exit_code == 0
@@ -50,7 +50,7 @@ def test_search_with_date_provided():
 
 def test_search_with_class_provided():
     runner = CliRunner()
-    result = runner.invoke(cli, ["search", "FRBES", "FRPAR", "--class", "first"])
+    result = runner.invoke(cli, ["search", "FRPAR", "FRLYS", "--class", "first"])
 
     assert "km) on" in result.output
     assert result.exit_code == 0
@@ -58,7 +58,7 @@ def test_search_with_class_provided():
 
 def test_search_with_formatter_provided():
     runner = CliRunner()
-    result = runner.invoke(cli, ["search", "FRBES", "FRPAR", "--format", "json"])
+    result = runner.invoke(cli, ["search", "FRPAR", "FRLYS", "--format", "json"])
 
     assert "km) on" in result.output
     assert result.exit_code == 0

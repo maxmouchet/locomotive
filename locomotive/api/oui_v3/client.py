@@ -127,4 +127,4 @@ class Client:
         )
 
     def __to_proposal(self, obj: dict) -> Proposal:
-        return Proposal(flexibility_level=obj["flexibilityLevel"], price=obj["price"])
+        return Proposal(flexibility_level=obj["info"]["miInfo"]["proposalType"], price=obj["price"]['value'])
