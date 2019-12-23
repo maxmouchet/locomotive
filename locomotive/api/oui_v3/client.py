@@ -18,8 +18,9 @@ def strftime_sncf(date):
     # Date *MUST* be tz-aware
     assert date.tzinfo is not None
     s = date.strftime("%Y-%m-%dT%H:%M:%S.000%z")
-    s = s[:-2] + ':' + s[-2:]
+    s = s[:-2] + ":" + s[-2:]
     return s
+
 
 class Client:
 
@@ -83,16 +84,8 @@ class Client:
             )
 
         sncf_dict = {
-            "departureTown": {
-                "codes": {
-                    "resarail": origin_station.sncf_id
-                }
-            },
-            "destinationTown": {
-                "codes": {
-                    "resarail": destination_station.sncf_id
-                }
-            },
+            "departureTown": {"codes": {"resarail": origin_station.sncf_id}},
+            "destinationTown": {"codes": {"resarail": destination_station.sncf_id}},
             "features": ["TRAIN_AND_BUS"],
             "outwardDate": strftime_sncf(date),
             "passengers": passengers_dict,
@@ -133,4 +126,7 @@ class Client:
         )
 
     def __to_proposal(self, obj: dict) -> Proposal:
-        return Proposal(flexibility_level=obj["info"]["miInfo"]["proposalType"], price=obj["price"]['value'])
+        return Proposal(
+            flexibility_level=obj["info"]["miInfo"]["proposalType"],
+            price=obj["price"]["value"],
+        )
