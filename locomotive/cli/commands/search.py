@@ -14,7 +14,7 @@ from ..formatters import Formatter, JSONFormatter, PrettyFormatter
 @click.argument("origin")
 @click.argument("destination")
 @click.option(
-    "--date", default="now", help="Date (e.g 2019-06-01, 1st of June, 1er Juin ...)."
+    "--date", default="now", help="Date (e.g 2019-06-01, 1st of June, 1er Juin ...), France timezone."
 )
 @click.option(
     "--class",
@@ -50,7 +50,7 @@ def search(ctx: click.Context, **args: str) -> None:
     stations = ctx.obj["stations"]
     client = Client(stations)
 
-    date = dateparser.parse(args["date"])
+    date = dateparser.parse(args["date"], settings={'TIMEZONE': 'Europe/Paris', 'RETURN_AS_TIMEZONE_AWARE': True})
     if date is None:
         raise click.UsageError("Cannot parse date.")
 

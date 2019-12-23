@@ -13,6 +13,13 @@ import requests
 from ...models import Journey, Passenger, Proposal, Segment, Station
 from ...stores import Stations
 
+# TODO: Move somewhere else
+def strftime_sncf(date):
+    # Date *MUST* be tz-aware
+    assert date.tzinfo is not None
+    s = date.strftime("%Y-%m-%dT%H:%M:%S.000%z")
+    s = s[:-2] + ':' + s[-2:]
+    return s
 
 class Client:
 
@@ -87,8 +94,7 @@ class Client:
                 }
             },
             "features": ["TRAIN_AND_BUS"],
-            # TODO: microseconds + timezone (needs to be present)
-            "outwardDate": date.strftime("%Y-%m-%dT%H:%M:%S.000+02:00"),
+            "outwardDate": strftime_sncf(date),
             "passengers": passengers_dict,
             "travelClass": travel_class.upper(),
         }
