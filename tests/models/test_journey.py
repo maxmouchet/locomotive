@@ -48,3 +48,9 @@ def test_journey_dates(segments, proposals):
 def test_journey_duration(segments, proposals):
     journey = Journey(segments, proposals)
     assert journey.duration == dt.timedelta(hours=2, minutes=15)
+
+
+def test_journey_stations(segments, proposals):
+    journey = Journey(segments, proposals)
+    assert journey.departure_station == segments[0].departure_station
+    assert journey.destination_station == segments[-1].destination_station

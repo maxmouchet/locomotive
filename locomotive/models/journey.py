@@ -52,6 +52,16 @@ class Journey:
         return self.segments[-1].arrival_date
 
     @property
+    def departure_station(self) -> Station:
+        # pylint: disable=unsubscriptable-object
+        return self.segments[0].departure_station
+
+    @property
+    def destination_station(self) -> Station:
+        # pylint: disable=unsubscriptable-object
+        return self.segments[-1].destination_station
+
+    @property
     def duration(self) -> dt.timedelta:
         """
         Returns the duration of the journey.
