@@ -1,5 +1,5 @@
 import datetime as dt
-from typing import List
+from typing import Tuple
 
 import attr
 
@@ -36,8 +36,10 @@ class Proposal:
 
 @attr.s(frozen=True, slots=True)
 class Journey:
-    segments: List[Segment] = attr.ib()
-    proposals: List[Proposal] = attr.ib()
+    # We use tuples to guaranteed immutability
+    # and make Journey hashable.
+    segments: Tuple[Segment, ...] = attr.ib()
+    proposals: Tuple[Proposal, ...] = attr.ib()
 
     @property
     def departure_date(self) -> dt.datetime:

@@ -74,8 +74,8 @@ class Client:
 
     def __to_journey(self, obj: dict) -> Journey:
         return Journey(
-            segments=list(map(self.__to_segment, obj["segments"])),
-            proposals=list(map(self.__to_proposal, obj["priceProposals"])),
+            segments=tuple(map(self.__to_segment, obj["segments"])),
+            proposals=tuple(map(self.__to_proposal, obj["priceProposals"])),
         )
 
     def __to_segment(self, obj: dict) -> Segment:
