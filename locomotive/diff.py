@@ -54,7 +54,9 @@ class JourneyDiff:
         return None
 
 
-def journeys_diff(old_journeys: List[Journey], new_journeys: List[Journey]):
+def journeys_diff(
+    old_journeys: List[Journey], new_journeys: List[Journey]
+) -> List[JourneyDiff]:
     # We don't use sets here since we don't want to consider the same journey
     # with different prices, as different journeys.
     # We consider that two journeys are the same, if all their segments are identical.
