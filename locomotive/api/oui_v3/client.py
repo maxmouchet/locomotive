@@ -13,6 +13,7 @@ import requests
 from ...models import Journey, Passenger, Proposal, Segment, Station
 from ...stores import Stations
 
+
 # TODO: Move somewhere else
 def strftime_sncf(date):
     # Date *MUST* be tz-aware
