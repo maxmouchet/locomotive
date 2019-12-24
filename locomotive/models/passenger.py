@@ -1,5 +1,5 @@
 import datetime as dt
-from typing import List, Optional, Union
+from typing import List
 
 import attr
 

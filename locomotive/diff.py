@@ -2,8 +2,6 @@ from collections import defaultdict
 from enum import Enum, auto
 from typing import Dict, List, Optional, Tuple
 
-import attr
-
 from .models import Journey, Segment
 
 

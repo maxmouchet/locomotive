@@ -12,7 +12,6 @@ import attr
 import chevron
 
 from ..models import Journey, Proposal, Segment
-from ..stores import Stations
 
 
 class Formatter(ABC):
