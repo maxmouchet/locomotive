@@ -64,8 +64,8 @@ def search(ctx: click.Context, **args: str) -> None:
     if date.hour < 2:
         date = date.replace(hour=2)
 
-    origin_station = stations.find_or_raise(args["origin"])
-    destination_station = stations.find_or_raise(args["destination"])
+    departure_station = stations.find_or_raise(args["origin"])
+    arrival_station = stations.find_or_raise(args["destination"])
 
     if args["passenger"]:
         passenger = passengers.find_or_raise(args["passenger"])
@@ -74,9 +74,9 @@ def search(ctx: click.Context, **args: str) -> None:
 
     click.echo(
         "{} → {} ({:.0f}km) on {}".format(
-            origin_station.name,
-            destination_station.name,
-            origin_station.distance_to(destination_station),
+            departure_station.name,
+            arrival_station.name,
+            departure_station.distance_to(arrival_station),
             date.strftime("%b %d %Y at %H:%M"),
         ),
         err=True,
@@ -86,7 +86,7 @@ def search(ctx: click.Context, **args: str) -> None:
 
     try:
         res = client.travel_request(
-            origin_station, destination_station, [passenger], date, args["travel_class"]
+            departure_station, arrival_station, [passenger], date, args["travel_class"]
         )
     except HTTPError as exception:
         click.echo(exception.response.content, err=True)

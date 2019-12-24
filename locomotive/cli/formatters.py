@@ -82,8 +82,8 @@ class PrettyFormatter(Formatter):
         return {
             "transporter": segment.train_label,
             "train_number": segment.train_number,
-            "origin_station": segment.departure_station.name,
-            "destination_station": segment.destination_station.name,
+            "departure_station": segment.departure_station.name,
+            "arrival_station": segment.arrival_station.name,
             "departure_date": departure_date,
             "arrival_date": arrival_date,
             "duration": duration,

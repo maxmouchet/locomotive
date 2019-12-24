@@ -11,22 +11,22 @@ from locomotive.stores import Stations
 def segments():
     fp = os.path.join(os.path.dirname(__file__), "..", "test-stations.csv")
     stations = Stations(fp)
-    origin_station = stations.find("FRFEV")
-    destination_station = stations.find("FRJFU")
+    departure_station = stations.find("FRFEV")
+    arrival_station = stations.find("FRJFU")
     segments = [
         Segment(
             "TER",
             "0000",
-            origin_station,
-            destination_station,
+            departure_station,
+            arrival_station,
             dt.datetime(2019, 1, 1, 0),
             dt.datetime(2019, 1, 1, 1, 30),
         ),
         Segment(
             "TER",
             "0000",
-            origin_station,
-            destination_station,
+            departure_station,
+            arrival_station,
             dt.datetime(2019, 1, 1, 1, 45),
             dt.datetime(2019, 1, 1, 2, 15),
         ),
@@ -53,4 +53,4 @@ def test_journey_duration(segments, proposals):
 def test_journey_stations(segments, proposals):
     journey = Journey(segments, proposals)
     assert journey.departure_station == segments[0].departure_station
-    assert journey.destination_station == segments[-1].destination_station
+    assert journey.arrival_station == segments[-1].arrival_station

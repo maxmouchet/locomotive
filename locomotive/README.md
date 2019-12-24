@@ -4,8 +4,10 @@
 
 ```bash
 api/               # Clients for SNCF APIs
+# Unmaintained / APIs not available anymore
 api/oui_v1/        # Client for the oui.sncf/proposition/rest/search-travels/outward API
 api/oui_v2/        # Client for the wshoraires.oui.sncf API
+# Currently maintained / API working
 api/oui_v3/        # Client for the wshoraires.oui.sncf v3 API
 
 cli/               # CLI tool (sncf-cli)

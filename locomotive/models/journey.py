@@ -13,7 +13,7 @@ class Segment:
     train_label: str = attr.ib()  # TER, TGV, ...
     train_number: str = attr.ib()
     departure_station: Station = attr.ib()
-    destination_station: Station = attr.ib()
+    arrival_station: Station = attr.ib()
     departure_date: dt.datetime = attr.ib()
     arrival_date: dt.datetime = attr.ib()
 
@@ -57,9 +57,9 @@ class Journey:
         return self.segments[0].departure_station
 
     @property
-    def destination_station(self) -> Station:
+    def arrival_station(self) -> Station:
         # pylint: disable=unsubscriptable-object
-        return self.segments[-1].destination_station
+        return self.segments[-1].arrival_station
 
     @property
     def duration(self) -> dt.timedelta:

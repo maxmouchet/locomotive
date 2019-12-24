@@ -46,8 +46,8 @@ class Client:
 
     def travel_request(
         self,
-        origin_station: Station,
-        destination_station: Station,
+        departure_station: Station,
+        arrival_station: Station,
         passengers: List[Passenger],
         date: dt.datetime,
         travel_class: str,
@@ -58,8 +58,8 @@ class Client:
             for passenger in passengers
         ]
 
-        origin = Location.from_station_code(origin_station.sncf_id)
-        destination = Location.from_station_code(destination_station.sncf_id)
+        origin = Location.from_station_code(departure_station.sncf_id)
+        destination = Location.from_station_code(arrival_station.sncf_id)
         travel_class_ = TravelClass.from_str(travel_class)
 
         res = self.request(
@@ -83,7 +83,7 @@ class Client:
             train_label=obj["transporter"],
             train_number=obj["trainNumber"],
             departure_station=self.stations.find_or_raise(obj["originStationCode"]),
-            destination_station=self.stations.find_or_raise(
+            arrival_station=self.stations.find_or_raise(
                 obj["destinationStationCode"]
             ),
             departure_date=dt.datetime.strptime(obj["departureDate"], SNCF_DATE_FORMAT),

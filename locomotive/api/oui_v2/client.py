@@ -46,8 +46,8 @@ class Client:
 
     def travel_request(
         self,
-        origin_station: Station,
-        destination_station: Station,
+        departure_station: Station,
+        arrival_station: Station,
         passengers: List[Passenger],
         date: dt.datetime,
         travel_class: str,
@@ -75,8 +75,8 @@ class Client:
             )
 
         sncf_dict = {
-            "departureTownCode": origin_station.sncf_id,
-            "destinationTownCode": destination_station.sncf_id,
+            "departureTownCode": departure_station.sncf_id,
+            "destinationTownCode": arrival_station.sncf_id,
             "directTravel": True,
             "features": [],
             # TODO: microseconds + timezone (needs to be present)
@@ -112,7 +112,7 @@ class Client:
             departure_station=self.stations.find_or_raise(
                 obj["departureStation"]["resarailCode"]
             ),
-            destination_station=self.stations.find_or_raise(
+            arrival_station=self.stations.find_or_raise(
                 obj["destinationStation"]["resarailCode"]
             ),
             departure_date=dt.datetime.strptime(departure_date_str, self.DATE_FORMAT),
