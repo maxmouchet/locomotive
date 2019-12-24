@@ -1,5 +1,5 @@
 import datetime as dt
-from typing import Tuple
+from typing import Optional, Tuple
 
 import attr
 
@@ -30,7 +30,8 @@ class Proposal:
     # TODO: Function to get friendly name (non echangeable, ...)
     # Look into fares ?
     flexibility_level: str = attr.ib()  # NOFLEX, FLEX
-    # TODO: Currency ?
+    # TODO: Price/Currency type
+    # https://github.com/vimeo/py-money
     price: float = attr.ib()
 
 
@@ -67,3 +68,12 @@ class Journey:
         Returns the duration of the journey.
         """
         return self.arrival_date - self.departure_date
+
+    @property
+    def lowest_price(self) -> Optional[float]:
+        """
+        Returns the lowest price amongst all proposals.
+        """
+        if not self.proposals:
+            return None
+        return min([x.price for x in self.proposals])
