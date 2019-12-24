@@ -95,7 +95,10 @@ class Client:
         # TODO: Handle full trains (no price ?)
         # TODO: Show class in formatter
         res = self.request(sncf_dict)
-        return list(map(self.__to_journey, res["journeys"]))
+        return self.parse_response(res)
+
+    def parse_response(self, res: dict) -> List[Journey]:
+        return [self.__to_journey(x) for x in res["journeys"]]
 
     def __to_journey(self, obj: dict) -> Journey:
         return Journey(
@@ -118,9 +121,7 @@ class Client:
             departure_station=self.stations.find_or_raise(
                 obj["departureStation"]["code"]
             ),
-            arrival_station=self.stations.find_or_raise(
-                obj["arrivalStation"]["code"]
-            ),
+            arrival_station=self.stations.find_or_raise(obj["arrivalStation"]["code"]),
             departure_date=dt.datetime.strptime(departure_date_str, self.DATE_FORMAT),
             arrival_date=dt.datetime.strptime(arrival_date_str, self.DATE_FORMAT),
         )
