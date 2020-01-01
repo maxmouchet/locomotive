@@ -10,6 +10,7 @@ from typing import Dict, List
 
 import requests
 
+from ..abstract import AbstractClient
 from ...models import Journey, Passenger, Proposal, Segment, Station
 from ...stores import Stations
 
@@ -23,7 +24,7 @@ def strftime_sncf(date):
     return s
 
 
-class Client:
+class Client(AbstractClient):
 
     DATE_FORMAT = "%Y-%m-%dT%H:%M:%S.%f%z"
     ENDPOINT = "https://wshoraires.oui.sncf/m690/vmd/maq/v3/proposals/train"
@@ -93,7 +94,7 @@ class Client:
             "travelClass": travel_class.upper(),
         }
 
-        # TODO: Handle full trains (no price ?)
+        # TODO: Handle cancelled, full trains (no price ?)
         # TODO: Show class in formatter
         res = self.request(sncf_dict)
         return self.parse_response(res)

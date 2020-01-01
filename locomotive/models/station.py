@@ -2,6 +2,7 @@ from typing import Tuple
 
 import attr
 import geopy.distance as gp
+from faker import Faker
 
 
 @attr.s(frozen=True, slots=True)
@@ -38,4 +39,14 @@ class Station:
             sncf_id=row["sncf_id"],
             latitude=row["latitude"],
             longitude=row["longitude"],
+        )
+
+    @classmethod
+    def fake(cls) -> "Station":
+        f = Faker("fr_FR")
+        return cls(
+            name=f.city(),
+            sncf_id="FR" + "".join(f.random_uppercase_letter() for _ in range(3)),
+            latitude=f.latitude(),
+            longitude=f.longitude(),
         )

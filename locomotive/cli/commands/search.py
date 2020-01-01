@@ -9,6 +9,14 @@ from requests.exceptions import HTTPError
 from ...api.oui_v3 import Client
 from ..formatters import Formatter, JSONFormatter, PrettyFormatter
 
+# We use click.echo because:
+# > Click’s echo() function will automatically strip ANSI color codes if the stream is not
+# > connected to a terminal.
+# > the echo() function will transparently connect to the terminal on Windows and translate
+# > ANSI codes to terminal API calls.
+# > This means that colors will work on Windows the same way they do on other operating systems.
+# https://click.palletsprojects.com/en/7.x/utils/#ansi-colors
+
 
 @click.command()
 @click.argument("origin")
@@ -84,25 +92,22 @@ def search(ctx: click.Context, **args: str) -> None:
 
     click.echo("{} ({} years old)\n".format(passenger.name, passenger.age), err=True)
 
-    try:
-        res = client.travel_request(
-            departure_station, arrival_station, [passenger], date, args["travel_class"]
-        )
-    except HTTPError as exception:
-        click.echo(exception.response.content, err=True)
-        raise exception
-
     # TODO: Option to print raw api response
     if args["format"] == "pretty":
         formatter: Formatter = PrettyFormatter()
     else:
         formatter = JSONFormatter()
 
-    # We use click.echo because:
-    # > Click’s echo() function will automatically strip ANSI color codes if the stream is not
-    # > connected to a terminal.
-    # > the echo() function will transparently connect to the terminal on Windows and translate
-    # > ANSI codes to terminal API calls.
-    # > This means that colors will work on Windows the same way they do on other operating systems.
-    # https://click.palletsprojects.com/en/7.x/utils/#ansi-colors
-    click.echo(formatter.get_str(res))
+    click.echo(formatter.start_str())
+
+    try:
+        it = client.travel_request_iter(
+            departure_station, arrival_station, [passenger], date, args["travel_class"]
+        )
+        for journey in it:
+            click.echo(formatter.incr_str(journey))
+    except HTTPError as exception:
+        click.echo(exception.response.content, err=True)
+        raise exception
+
+    click.echo(formatter.end_str())

@@ -1,4 +1,5 @@
 import datetime as dt
+import random
 from typing import Optional, Tuple
 
 import attr
@@ -24,6 +25,21 @@ class Segment:
         """
         return self.arrival_date - self.departure_date
 
+    @classmethod
+    def fake(cls) -> "Segment":
+        departure_date = dt.datetime(2020, random.randint(1, 12), random.randint(1, 28))
+        arrival_date = departure_date + dt.timedelta(
+            hours=random.randint(1, 12), minutes=random.randint(0, 59)
+        )
+        return cls(
+            train_label=random.choice(["TER", "TGV"]),
+            train_number=str(random.randint(1000, 9999)),
+            departure_station=Station.fake(),
+            arrival_station=Station.fake(),
+            departure_date=departure_date,
+            arrival_date=arrival_date,
+        )
+
 
 @attr.s(frozen=True, slots=True)
 class Proposal:
@@ -33,6 +49,13 @@ class Proposal:
     # TODO: Price/Currency type
     # https://github.com/vimeo/py-money
     price: float = attr.ib()
+
+    @classmethod
+    def fake(cls) -> "Proposal":
+        return Proposal(
+            flexibility_level=random.choice(["NOFLEX", "FLEX", "UPSELL"]),
+            price=random.random() * 200,
+        )
 
 
 @attr.s(frozen=True, slots=True)
@@ -77,3 +100,10 @@ class Journey:
         if not self.proposals:
             return None
         return min([x.price for x in self.proposals])
+
+    @classmethod
+    def fake(cls) -> "Journey":
+        return Journey(
+            segments=tuple(Segment.fake() for _ in range(random.randint(1, 3))),
+            proposals=tuple(Proposal.fake() for _ in range(random.randint(0, 3))),
+        )
