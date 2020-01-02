@@ -6,7 +6,7 @@
 [![Build Status](https://github.com/maxmouchet/HMMBase.jl/workflows/CI/badge.svg)](https://github.com/maxmouchet/HMMBase.jl/actions)
 [![Coverage Status](https://coveralls.io/repos/github/yafeunteun/sncf-cli/badge.svg?branch=master&service=github)](https://coveralls.io/github/yafeunteun/sncf-cli?branch=master)
 
-You love SNCF. You love command line tools. sncf-cli is made for you !  
+You love SNCF. You love command line tools. sncf-cli is made for you !
 An handcrafted API client and command line interface for France's national railways :sparkles:
 
 <a href="#installation">Installation</a> •
@@ -35,7 +35,7 @@ sncf-cli search Amsterdam Paris
 # Search by train station code (Amsterdam to Paris here)
 sncf-cli search NLAMA FRPAR
 # Pick a date and even a travel class B-)
-sncf-cli search Brest Paris --date 2019/07/14 --class first 
+sncf-cli search Brest Paris --date 2019/07/14 --class first
 ```
 
 ## Development
@@ -43,9 +43,10 @@ sncf-cli search Brest Paris --date 2019/07/14 --class first
 ```bash
 poetry install
 poetry run sncf-cli
-poetry run mypy --ignore-missing-imports locomotive
-poetry run pylint --errors-only locomotive
-poetry run pytest
+
+# pre-commit
+poetry run pre-commit install
+poetry run pre-commit run --all-files
 ```
 
 ```
@@ -57,7 +58,8 @@ tests/       # Unit tests
 ### Releases
 
 ```bash
-git tag vX.Y.Z # e.g. v0.4.0
+poetry version X.Y.Z # e.g. v0.4.0
+git tag vX.Y.Z
 git push --tags
 ```
 
@@ -74,5 +76,5 @@ We use `attrs` instead of `@dataclass` for Python 3.6 compatibility.
 
 ## Licenses
 
-sncf-cli is released under the [MIT license](https://github.com/yafeunteun/sncf-cli/blob/master/LICENSE).  
+sncf-cli is released under the [MIT license](https://github.com/yafeunteun/sncf-cli/blob/master/LICENSE).
 The train stations database (`stations-lite.csv`) is derived from `stations.csv` ([trainline-eu/stations](https://github.com/trainline-eu/stations)) released under the Open Database License (ODbL) license.
