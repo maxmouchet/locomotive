@@ -6,7 +6,7 @@ Mostly a copy/paste from `oui_v2`, with changes in `__to_segment`
 import datetime as dt
 import logging
 import re
-from typing import Dict, List
+from typing import Any, Dict, List
 
 import requests
 
@@ -16,7 +16,7 @@ from ...stores import Stations
 
 
 # TODO: Move somewhere else
-def strftime_sncf(date):
+def strftime_sncf(date: dt.datetime) -> str:
     # Date *MUST* be tz-aware
     assert date.tzinfo is not None
     s = date.strftime("%Y-%m-%dT%H:%M:%S.000%z")
@@ -34,7 +34,7 @@ class Client(AbstractClient):
         self.logger = logging.getLogger(__name__)
         self.stations = stations
 
-    def request(self, json: dict) -> Dict:
+    def request(self, json: dict) -> Any:
         headers = {
             "User-Agent": self.USER_AGENT,
             "x-vsc-locale": "fr_FR",

@@ -150,9 +150,10 @@ class SNCFTravelRequest:
         self.currency = None
 
     def sncf_dict(self) -> dict:
+        # TODO
+        # if self.return_date:
+        #     return_date = self.return_date.strftime(SNCF_DATE_FORMAT)
         return_date = None
-        if self.return_date:
-            return_date = self.return_date.strftime(SNCF_DATE_FORMAT)
 
         return {
             "origin": self.origin,

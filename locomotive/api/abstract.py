@@ -55,5 +55,5 @@ class AbstractClient(ABC):
                 break
             cur_dt = new_dt
 
-    def travel_request_full(self, *args, **kwargs) -> List[Journey]:
+    def travel_request_full(self, *args, **kwargs) -> List[Journey]:  # type: ignore
         return list(self.travel_request_iter(*args, **kwargs))

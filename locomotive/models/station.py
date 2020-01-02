@@ -27,7 +27,7 @@ class Station:
         """
         Get distance in kilometers between two train stations.
         """
-        return gp.distance(self.coords, station.coords).km
+        return float(gp.distance(self.coords, station.coords).km)
 
     @classmethod
     def from_row(cls, row: dict) -> "Station":
