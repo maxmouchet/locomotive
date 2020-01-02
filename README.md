@@ -3,7 +3,7 @@
 [![Python Version](https://img.shields.io/badge/python-3.6+-blue.svg?style=flat)](https://www.python.org/downloads/)
 [![PyPI](https://img.shields.io/pypi/v/sncf-cli.svg)](https://pypi.org/project/sncf-cli/)
 [![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/yafeunteun/sncf-cli.svg)](https://codeclimate.com/github/yafeunteun/sncf-cli/maintainability)
-[![Build Status](https://github.com/maxmouchet/HMMBase.jl/workflows/CI/badge.svg)](https://github.com/maxmouchet/HMMBase.jl/actions)
+[![Build Status](https://github.com/yafeunteun/sncf-cli/workflows/CI/badge.svg)](https://github.com/yafeunteun/sncf-cli/actions)
 [![Coverage Status](https://coveralls.io/repos/github/yafeunteun/sncf-cli/badge.svg?branch=master&service=github)](https://coveralls.io/github/yafeunteun/sncf-cli?branch=master)
 
 You love SNCF. You love command line tools. sncf-cli is made for you !  
