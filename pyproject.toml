@@ -28,7 +28,6 @@ click = "^7.0"
 dateparser = "^0.7"
 faker = "^3.0.0"
 geopy = "^1.20"
-pandas = ">=0.24"
 requests = "^2.20"
 
 [tool.poetry.dev-dependencies]

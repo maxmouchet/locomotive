@@ -8,7 +8,7 @@ repos:
   rev: v0.761
   hooks:
     - id: mypy
-      exclude: ^tests/.*
+      exclude: ^(tests)|(tools)/.*
 
 - repo: https://github.com/pre-commit/mirrors-pylint
   rev: v2.4.4 # TODO: Update to v2.5.0 when available (for pyproject.toml)
@@ -25,4 +25,3 @@ repos:
     - id: end-of-file-fixer
       exclude: ^tests/traces/.*
     - id: check-yaml
-    - id: check-added-large-files

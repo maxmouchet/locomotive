@@ -1,11 +1,12 @@
+import contextlib
 import datetime as dt
 import difflib
 import json
+import sqlite3
 from pathlib import Path
 from typing import Any, Iterator, List, Optional, Union
 
 import attr
-import pandas as pd
 
 from .exceptions import (
     PassengerAlreadyExistsException,
@@ -91,28 +92,41 @@ class Stations:
     See https://github.com/trainline-eu/stations.
     """
 
-    frame: pd.DataFrame
+    conn: sqlite3.Connection
     path: Path
 
     def __init__(self, path: Optional[Path] = None) -> None:
         if path is None:
             path = self.default_path()
-        self.frame = pd.read_csv(path, sep=";")
+        # TODO: Close DB ?
+        self.conn = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
 
     @classmethod
     def default_path(cls) -> Path:
-        return Path(__file__).parent.joinpath("data", "stations-lite.csv")
+        return Path(__file__).parent.joinpath("data", "stations.sqlite3")
+
+    def count(self) -> int:
+        with contextlib.closing(self.conn.cursor()) as c:
+            c.execute("SELECT COUNT(*) FROM stations")
+            return int(c.fetchone()[0])
 
     def find(self, query: str) -> Optional[Station]:
-        # Try to find matching IDs
-        # TODO: Optimize...
-        if query in self.frame.sncf_id.values:
-            return Station.from_row(self.frame[self.frame.sncf_id == query].iloc[0])
-        # Try to find matching name
-        matches = difflib.get_close_matches(query, self.frame.name.values, n=1)
-        if matches:
-            return Station.from_row(self.frame[self.frame.name == matches[0]].iloc[0])
-        return None
+        with contextlib.closing(self.conn.cursor()) as c:
+            # a) Try to find matching IDs
+            c.execute("SELECT * FROM stations WHERE sncf_id LIKE ?", (query,))
+            row = c.fetchone()
+            if row:
+                return Station.from_row(row)
+
+            # b) Try to find matching name
+            c.execute("SELECT * FROM stations WHERE name LIKE ?", (f"%{query}%",))
+            rows = c.fetchall()
+            matches = difflib.get_close_matches(query, [x[0] for x in rows], n=1)
+            if matches:
+                row = next(x for x in rows if x[0] == matches[0])
+                return Station.from_row(row)
+
+            return None
 
     def find_or_raise(self, query: str) -> Station:
         station = self.find(query)

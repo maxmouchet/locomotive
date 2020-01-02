@@ -30,16 +30,11 @@ class Station:
         return float(gp.distance(self.coords, station.coords).km)
 
     @classmethod
-    def from_row(cls, row: dict) -> "Station":
+    def from_row(cls, row: tuple) -> "Station":
         """
-        Instantiate a Station from a row of stations.csv.
+        Instantiate a Station from a row of stations.sqlite3.
         """
-        return cls(
-            name=row["name"],
-            sncf_id=row["sncf_id"],
-            latitude=row["latitude"],
-            longitude=row["longitude"],
-        )
+        return cls(name=row[0], sncf_id=row[2], latitude=row[3], longitude=row[4])
 
     @classmethod
     def fake(cls) -> "Station":

@@ -10,7 +10,7 @@ from locomotive.stores import Stations
 
 @pytest.fixture
 def segments():
-    fp = os.path.join(os.path.dirname(__file__), "..", "test-stations.csv")
+    fp = os.path.join(os.path.dirname(__file__), "..", "test-stations.sqlite3")
     stations = Stations(fp)
     departure_station = stations.find("FRFEV")
     arrival_station = stations.find("FRJFU")
