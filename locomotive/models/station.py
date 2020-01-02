@@ -42,6 +42,6 @@ class Station:
         return cls(
             name=f.city(),
             sncf_id="FR" + "".join(f.random_uppercase_letter() for _ in range(3)),
-            latitude=f.latitude(),
-            longitude=f.longitude(),
+            latitude=float(f.latitude()),
+            longitude=float(f.longitude()),
         )
