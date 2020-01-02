@@ -100,8 +100,8 @@ class PrettyFormatter(Formatter):
         duration = self.__format_timedelta(segment.duration)
 
         return {
-            "transporter": segment.train_label,
-            "train_number": segment.train_number,
+            "transporter": segment.transport.label,
+            "train_number": segment.transport.number,
             "departure_station": segment.departure_station.name,
             "arrival_station": segment.arrival_station.name,
             "departure_date": departure_date,

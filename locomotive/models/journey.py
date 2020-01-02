@@ -8,11 +8,27 @@ from .station import Station
 
 
 @attr.s(frozen=True, slots=True)
-class Segment:
-    # TODO: Move to a "Train" class ?
+class Transport:
     # TODO: Onboard services
-    train_label: str = attr.ib()  # TER, TGV, ...
-    train_number: str = attr.ib()
+    # http://www.raileurope.fr/Extranet/Practical_information/Euronet_Equipment_Codes.pdf
+    equipment: str = attr.ib()  # TGA, TGB, CAR, ...
+    label: str = attr.ib()  # TER, TGV, Autocar, ...
+    number: str = attr.ib()
+    type: str = attr.ib()  # TRAIN, BUS, ...
+
+    @classmethod
+    def fake(cls) -> "Transport":
+        return cls(
+            equipment=random.choice(["TGA", "TGB", "TGC", "TGD"]),
+            label=random.choice(["TER", "TGV"]),
+            number=str(random.randint(1000, 9999)),
+            type="TRAIN",
+        )
+
+
+@attr.s(frozen=True, slots=True)
+class Segment:
+    transport: Transport = attr.ib()
     departure_station: Station = attr.ib()
     arrival_station: Station = attr.ib()
     departure_date: dt.datetime = attr.ib()
@@ -32,8 +48,7 @@ class Segment:
             hours=random.randint(1, 12), minutes=random.randint(0, 59)
         )
         return cls(
-            train_label=random.choice(["TER", "TGV"]),
-            train_number=str(random.randint(1000, 9999)),
+            transport=Transport.fake(),
             departure_station=Station.fake(),
             arrival_station=Station.fake(),
             departure_date=departure_date,

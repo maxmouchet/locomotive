@@ -53,12 +53,7 @@ ignore = "types.py"
 disable = "bad-continuation,no-self-use,too-few-public-methods"
 
 [tool.coverage.run]
-# Ignore data and unmaintained clients
-omit = [
-	"locomotive/data/*",
-	"locomotive/api/oui_v1/*",
-	"locomotive/api/oui_v2/*"
-]
+omit = ["locomotive/data/*"]
 
 [build-system]
 requires = ["poetry>=0.12"]

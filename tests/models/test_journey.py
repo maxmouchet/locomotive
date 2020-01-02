@@ -4,7 +4,7 @@ import os
 import pytest
 
 from locomotive.diff import JourneyDiff, JourneyDiffType, journeys_diff
-from locomotive.models.journey import Journey, Proposal, Segment
+from locomotive.models import Journey, Proposal, Segment, Transport
 from locomotive.stores import Stations
 
 
@@ -16,16 +16,14 @@ def segments():
     arrival_station = stations.find("FRJFU")
     segments = [
         Segment(
-            "TER",
-            "0000",
+            Transport("TER", "TER", "0000", "TRAIN"),
             departure_station,
             arrival_station,
             dt.datetime(2019, 1, 1, 0),
             dt.datetime(2019, 1, 1, 1, 30),
         ),
         Segment(
-            "TER",
-            "0000",
+            Transport("TER", "TER", "0000", "TRAIN"),
             departure_station,
             arrival_station,
             dt.datetime(2019, 1, 1, 1, 45),
