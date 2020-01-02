@@ -135,4 +135,4 @@ class PrettyFormatter(Formatter):
         )
         out = out.replace("<b>", "\033[1m")
         out = out.replace("</b>", "\033[0m")
-        return out
+        return str(out)

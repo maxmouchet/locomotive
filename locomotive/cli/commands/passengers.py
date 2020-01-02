@@ -58,5 +58,6 @@ def __parse_if_present(date_string: Optional[str]) -> Optional[dt.date]:
     if date_string:
         datetime = dp.parse(date_string)
         if datetime:
-            return datetime.date()
+            date: dt.date = datetime.date()
+            return date
     return None
