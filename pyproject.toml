@@ -35,8 +35,8 @@ requests = "^2.20"
 # https://github.com/python-poetry/poetry/issues/649
 # => This is required because there are no release versions of black at all.
 black = {version = "^19.10b0", allow-prereleases = true}
-coverage = "^4.5"
-coveralls = "^1.9"
+coverage = {extras = ["toml"], version = "^5.0.1"}
+coveralls = "^1.10.0"
 mypy = "^0.761.0"
 # https://github.com/PyCQA/pylint/issues/617
 # => Search pylint configuration in setup.cfg and pyproject.toml
@@ -52,6 +52,14 @@ sncf-cli = 'locomotive.cli:cli'
 [tool.pylint.messages_control]
 ignore = "types.py"
 disable = "bad-continuation,no-self-use,too-few-public-methods"
+
+[tool.coverage.run]
+# Ignore data and unmaintained clients
+omit = [
+	"locomotive/data/*",
+	"locomotive/api/oui_v1/*",
+	"locomotive/api/oui_v2/*"
+]
 
 [build-system]
 requires = ["poetry>=0.12"]
