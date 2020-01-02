@@ -55,7 +55,7 @@ class JSONFormatter(Formatter):
         raise TypeError
 
     def incr_str(self, journey: Journey) -> str:
-        return json.dumps(journey, default=self.__serialize, indent=4) + ','
+        return json.dumps(journey, default=self.__serialize, indent=4) + ","
 
     def start_str(self) -> str:
         return "["
@@ -131,7 +131,7 @@ class PrettyFormatter(Formatter):
         out = chevron.render(
             template="{{> journey}}",
             partials_path=str(Path(__file__).parent.joinpath("templates")),
-            data=data
+            data=data,
         )
         out = out.replace("<b>", "\033[1m")
         out = out.replace("</b>", "\033[0m")
