@@ -23,6 +23,10 @@ class JourneyDiffType(Enum):
 
 # Enjoy this beauty :-)
 class JourneyDiff:
+    old: Optional[Journey]
+    new: Optional[Journey]
+    diff_type: Optional[JourneyDiffType]
+
     def __init__(self, old: Optional[Journey], new: Optional[Journey]):
         self.old = old
         self.new = new
@@ -44,6 +48,10 @@ class JourneyDiff:
                     self.diff_type = JourneyDiffType.HigherPrice
                 else:
                     self.diff_type = JourneyDiffType.NoChange
+            else:
+                self.diff_type = JourneyDiffType.NoChange
+        else:
+            self.diff_type = None
 
     @property
     def price_diff(self) -> Optional[float]:

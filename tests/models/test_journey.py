@@ -90,6 +90,12 @@ def test_journey_diff(segments, proposals):
     assert diff.diff_type == JourneyDiffType.Added
     assert diff.price_diff == None
 
+    old = None
+    new = None
+    diff = JourneyDiff(old, new)
+    assert diff.diff_type == None
+    assert diff.price_diff == None
+
     old = Journey(segments, [Proposal("", 10.0)])
     new = Journey(segments, [])
     diff = JourneyDiff(old, new)
@@ -100,6 +106,12 @@ def test_journey_diff(segments, proposals):
     new = Journey(segments, [Proposal("", 10.0)])
     diff = JourneyDiff(old, new)
     assert diff.diff_type == JourneyDiffType.Available
+    assert diff.price_diff == None
+
+    old = Journey(segments, [])
+    new = Journey(segments, [])
+    diff = JourneyDiff(old, new)
+    assert diff.diff_type == JourneyDiffType.NoChange
     assert diff.price_diff == None
 
     old = Journey(segments, [Proposal("", 10.0)])
