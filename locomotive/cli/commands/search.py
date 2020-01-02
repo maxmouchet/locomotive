@@ -6,6 +6,7 @@ import click
 import dateparser
 from requests.exceptions import HTTPError
 
+from ...api.abstract import TravelRequest
 from ...api.oui_v3 import Client
 from ..formatters import Formatter, JSONFormatter, PrettyFormatter
 
@@ -101,9 +102,14 @@ def search(ctx: click.Context, **args: str) -> None:
     click.echo(formatter.start_str())
 
     try:
-        it = client.travel_request_iter(
-            departure_station, arrival_station, [passenger], date, args["travel_class"]
+        req = TravelRequest(
+            departure_station=departure_station,
+            arrival_station=arrival_station,
+            passengers=[passenger],
+            date=date,
+            travel_class=args["travel_class"],
         )
+        it = client.travel_request_iter(req)
         for journey in it:
             click.echo(formatter.incr_str(journey))
     except HTTPError as exception:

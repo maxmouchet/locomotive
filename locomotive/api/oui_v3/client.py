@@ -10,12 +10,12 @@ from typing import Any, Dict, List
 
 import requests
 
-from ..abstract import AbstractClient
+from ..abstract import AbstractClient, TravelRequest
 from ...models import Journey, Passenger, Proposal, Segment, Station
 from ...stores import Stations
 
 
-# TODO: Move somewhere else
+# TODO: Move somewhere else (in TravelRequest ?)
 def strftime_sncf(date: dt.datetime) -> str:
     # Date *MUST* be tz-aware
     assert date.tzinfo is not None
@@ -55,17 +55,9 @@ class Client(AbstractClient):
         res.raise_for_status()
         return res.json()
 
-    def travel_request(
-        self,
-        departure_station: Station,
-        arrival_station: Station,
-        passengers: List[Passenger],
-        date: dt.datetime,
-        travel_class: str,
-    ) -> List[Journey]:
-
+    def travel_request(self, req: TravelRequest) -> List[Journey]:
         passengers_dict = []
-        for passenger in passengers:
+        for passenger in req.passengers:
             commercial_card = {"type": "NO_CARD"}
             if passenger.commercial_card_type:
                 commercial_card = {
@@ -86,12 +78,12 @@ class Client(AbstractClient):
             )
 
         sncf_dict = {
-            "departureTown": {"codes": {"resarail": departure_station.sncf_id}},
-            "destinationTown": {"codes": {"resarail": arrival_station.sncf_id}},
+            "departureTown": {"codes": {"resarail": req.departure_station.sncf_id}},
+            "destinationTown": {"codes": {"resarail": req.arrival_station.sncf_id}},
             "features": ["TRAIN_AND_BUS"],
-            "outwardDate": strftime_sncf(date),
+            "outwardDate": strftime_sncf(req.date),
             "passengers": passengers_dict,
-            "travelClass": travel_class.upper(),
+            "travelClass": req.travel_class.upper(),
         }
 
         # TODO: Handle cancelled, full trains (no price ?)
