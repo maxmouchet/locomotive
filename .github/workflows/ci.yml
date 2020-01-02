@@ -35,4 +35,9 @@ jobs:
       run: poetry run mypy --ignore-missing-imports locomotive
 
     - name: Run tests
-      run: poetry run coverage run --source locomotive -m pytest
+      run: poetry run pytest --cov=locomotive
+
+    - name: Uploade coverage
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      run: poetry run coveralls
