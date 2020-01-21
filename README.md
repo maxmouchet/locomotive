@@ -84,3 +84,5 @@ We use `attrs` instead of `@dataclass` for Python 3.6 compatibility.
 
 sncf-cli is released under the [MIT license](https://github.com/yafeunteun/sncf-cli/blob/master/LICENSE).
 The train stations database (`stations-lite.csv`) is derived from `stations.csv` ([trainline-eu/stations](https://github.com/trainline-eu/stations)) released under the Open Database License (ODbL) license.
+
+*Logo: Train Tickets by b farias from the Noun Project.*
