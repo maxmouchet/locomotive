@@ -39,9 +39,7 @@ def test_search_display_error_when_destination_not_found():
 
 def test_search_with_date_provided():
     runner = CliRunner()
-    result = runner.invoke(
-        cli, ["search", "FRBES", "FRPAR", "--date", str(dt.date.today())]
-    )
+    result = runner.invoke(cli, ["search", "FRBES", "FRPAR", "--date", "tomorrow"])
 
     assert "km) on" in result.output
     assert result.exit_code == 0
