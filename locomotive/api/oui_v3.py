@@ -10,9 +10,9 @@ from typing import Any, Dict, List
 
 import requests
 
-from .abstract import AbstractClient, TravelRequest
 from ..models import Journey, Passenger, Proposal, Segment, Station, Transport
 from ..stores import Stations
+from .abstract import AbstractClient, TravelRequest
 
 
 # TODO: Move somewhere else (in TravelRequest ?)

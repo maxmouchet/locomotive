@@ -1,3 +1,4 @@
+# pylint: disable=E0611
 from typing import Tuple
 
 import attr

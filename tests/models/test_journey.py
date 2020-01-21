@@ -2,7 +2,6 @@ import datetime as dt
 import os
 
 import pytest
-
 from locomotive.diff import JourneyDiff, JourneyDiffType, journeys_diff
 from locomotive.models import Journey, Proposal, Segment, Transport
 from locomotive.stores import Stations

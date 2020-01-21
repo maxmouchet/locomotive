@@ -1,4 +1,5 @@
 import json
+
 from locomotive.api.oui_v3 import Client
 from locomotive.stores import Stations
 

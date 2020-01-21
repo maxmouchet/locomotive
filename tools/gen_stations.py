@@ -1,6 +1,7 @@
 import csv
-import requests
 import sqlite3
+
+import requests
 
 stations_url = "https://github.com/trainline-eu/stations/raw/master/stations.csv"
 

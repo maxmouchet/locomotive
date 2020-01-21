@@ -1,4 +1,5 @@
 import os
+
 import pytest
 from locomotive.exceptions import StationNotFoundException
 from locomotive.stores import Stations
