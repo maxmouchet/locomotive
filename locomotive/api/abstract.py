@@ -1,9 +1,10 @@
-import attr
 import datetime as dt
-import pytz
-
 from abc import ABC, abstractmethod
 from typing import Iterator, List, Set, Union
+
+import attr
+import pytz
+
 from ..models import Journey, Passenger, Station
 
 
@@ -46,7 +47,7 @@ class AbstractClient(ABC):
                 yield journey
             journeys = journeys.union(journeys_)
             new_dt = max(x.departure_date for x in journeys)
-            if (new_dt == cur_dt) or (new_dt.day > cur_dt.day):
+            if (new_dt == cur_dt) or (new_dt.day > req.date.day):
                 break
             cur_dt = new_dt
 
