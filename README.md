@@ -1,13 +1,19 @@
-# :train2: sncf-cli
-
-[![Python Version](https://img.shields.io/badge/python-3.6+-blue.svg?style=flat)](https://www.python.org/downloads/)
-[![PyPI](https://img.shields.io/pypi/v/sncf-cli.svg)](https://pypi.org/project/sncf-cli/)
-[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/yafeunteun/sncf-cli.svg)](https://codeclimate.com/github/yafeunteun/sncf-cli/maintainability)
-[![Build Status](https://github.com/yafeunteun/sncf-cli/workflows/CI/badge.svg)](https://github.com/yafeunteun/sncf-cli/actions)
-[![Coverage Status](https://coveralls.io/repos/github/yafeunteun/sncf-cli/badge.svg?branch=master&service=github)](https://coveralls.io/github/yafeunteun/sncf-cli?branch=master)
-
-You love SNCF. You love command line tools. sncf-cli is made for you !
-An handcrafted API client and command line interface for France's national railways :sparkles:
+<p align="center">
+  <img src="/assets/logo.png" height="150"><br/>
+  <i>Handcrafted API client and CLI to France's trains :sparkles:</i><br/><br/>
+  <a href="https://github.com/yafeunteun/sncf-cli/actions">
+    <img src="https://github.com/yafeunteun/sncf-cli/workflows/CI/badge.svg">
+  </a>
+  <a href="https://coveralls.io/github/yafeunteun/sncf-cli?branch=master">
+    <img src="https://coveralls.io/repos/github/yafeunteun/sncf-cli/badge.svg?branch=master&service=github">
+  </a>
+  <a href="https://codeclimate.com/github/yafeunteun/sncf-cli/maintainability">
+    <img src="https://img.shields.io/codeclimate/maintainability/yafeunteun/sncf-cli.svg">
+  </a>
+  <a href="https://pypi.org/project/sncf-cli/">
+    <img src="https://img.shields.io/pypi/v/sncf-cli.svg">
+  </a>
+</p>
 
 <a href="#installation">Installation</a> •
 <a href="#usage">Usage</a> •
