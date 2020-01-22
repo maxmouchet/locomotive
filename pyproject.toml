@@ -45,6 +45,7 @@ pylint = { git = "https://github.com/PyCQA/pylint.git", rev = "3fc8c98" }
 pytest = "^5.3"
 pytest-cov = "^2.8"
 pre-commit = "^1.20.0"
+sphinx = "^2.3.1"
 
 [tool.poetry.scripts]
 sncf-cli = 'locomotive.cli:cli'
