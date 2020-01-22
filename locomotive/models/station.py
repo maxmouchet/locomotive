@@ -14,6 +14,7 @@ class Station:
 
     name: str = attr.ib()
     sncf_id: str = attr.ib()
+    sncf_tvs_id: str = attr.ib()
     latitude: float = attr.ib()
     longitude: float = attr.ib()
 
@@ -35,7 +36,13 @@ class Station:
         """
         Instantiate a Station from a row of stations.sqlite3.
         """
-        return cls(name=row[0], sncf_id=row[2], latitude=row[3], longitude=row[4])
+        return cls(
+            name=row[0],
+            sncf_id=row[2],
+            sncf_tvs_id=row[3],
+            latitude=row[4],
+            longitude=row[5],
+        )
 
     @classmethod
     def fake(cls) -> "Station":
@@ -43,6 +50,7 @@ class Station:
         return cls(
             name=f.city(),
             sncf_id="FR" + "".join(f.random_uppercase_letter() for _ in range(3)),
+            sncf_tvs_id="".join(f.random_uppercase_letter() for _ in range(3)),
             latitude=float(f.latitude()),
             longitude=float(f.longitude()),
         )

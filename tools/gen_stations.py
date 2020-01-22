@@ -8,26 +8,27 @@ stations_url = "https://github.com/trainline-eu/stations/raw/master/stations.csv
 sql = """
 DROP TABLE IF EXISTS stations;
 CREATE TABLE stations (
-    name      TEXT NOT NULL,
-    country   TEXT NOT NULL,
-    sncf_id   TEXT,
-    latitude  REAL,
-    longitude REAL
+    name        TEXT NOT NULL,
+    country     TEXT NOT NULL,
+    sncf_id     TEXT,
+    sncf_tvs_id TEXT,
+    latitude    REAL,
+    longitude   REAL
 );
 """
 
 stations_csv_test = """
-name;sncf_id;latitude;longitude;country
-Le Porage;FREHF;;;FR
-St-Pons;FRIMM;43.516667;3.516667;FR
-La Gorp;FRFEV;44.9288345;-0.4963844;FR
-Villefranche-sur-Saône;FRXVF;45.9845;4.72077;FR
-Corps-Nuds;FRDXD;47.9851669;-1.5754723999999998;FR
-Rennes;FRRBW;48.083333;-1.683333;FR
-Poitiers;FRPIS;46.582275;0.333241;FR
-Jeumont Frontière;FRCMW;;;FR
-Nolay Place Carnot;FRJFU;46.944266999999996;4.6366;FR
-Douarnenez Ancienne Gare;FREAN;;;FR
+name;sncf_id;sncf_tvs_id;latitude;longitude;country
+Le Porage;FREHF;;;;FR
+St-Pons;FRIMM;;43.516667;3.516667;FR
+La Gorp;FRFEV;;44.9288345;-0.4963844;FR
+Villefranche-sur-Saône;FRXVF;;45.9845;4.72077;FR
+Corps-Nuds;FRDXD;;47.9851669;-1.5754723999999998;FR
+Rennes;FRRBW;;48.083333;-1.683333;FR
+Poitiers;FRPIS;;46.582275;0.333241;FR
+Jeumont Frontière;;FRCMW;;;FR
+Nolay Place Carnot;FRJFU;;46.944266999999996;4.6366;FR
+Douarnenez Ancienne Gare;FREAN;;;;FR
 """.strip().split(
     "\n"
 )
@@ -40,7 +41,14 @@ def extract_stations(csvfile):
     print("Extracting stations...")
     rdr = csv.DictReader(csvfile, delimiter=";")
     return [
-        (row["name"], row["country"], row["sncf_id"], row["latitude"], row["longitude"])
+        (
+            row["name"],
+            row["country"],
+            row["sncf_id"],
+            row["sncf_tvs_id"],
+            row["latitude"],
+            row["longitude"],
+        )
         for row in rdr
     ]
 
@@ -54,7 +62,7 @@ def create_database(path, stations):
         c.executescript(sql)
 
         print("Inserting stations...")
-        c.executemany("INSERT INTO stations VALUES (?,?,?,?,?)", stations)
+        c.executemany("INSERT INTO stations VALUES (?,?,?,?,?,?)", stations)
 
         conn.commit()
 
