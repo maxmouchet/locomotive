@@ -30,6 +30,7 @@ faker = "^3.0.0"
 geopy = "^1.20"
 requests = "^2.20"
 tableformatter = "^0.1.4"
+py-money = "^0.4.0"
 
 [tool.poetry.dev-dependencies]
 # https://github.com/python-poetry/poetry/issues/649

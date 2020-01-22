@@ -5,6 +5,8 @@ import random
 from typing import Optional, Tuple
 
 import attr
+from money.currency import Currency
+from money.money import Money
 
 from .station import Station
 
@@ -73,13 +75,13 @@ class Proposal:
     flexibility_level: str = attr.ib()  # NOFLEX, FLEX
     # TODO: Price/Currency type
     # https://github.com/vimeo/py-money
-    price: float = attr.ib()
+    price: Money = attr.ib()
 
     @classmethod
     def fake(cls) -> "Proposal":
         return Proposal(
             flexibility_level=random.choice(["NOFLEX", "FLEX", "UPSELL"]),
-            price=random.random() * 200,
+            price=Money.from_sub_units(random.randint(100, 10000), Currency.EUR),
         )
 
 
@@ -117,7 +119,7 @@ class Journey:
         return self.arrival_date - self.departure_date
 
     @property
-    def lowest_price(self) -> Optional[float]:
+    def lowest_price(self) -> Optional[Money]:
         """
         Lowest price for the journey, amongst all proposals.
         """

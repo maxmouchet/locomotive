@@ -2,6 +2,8 @@ from collections import defaultdict
 from enum import Enum, auto
 from typing import Dict, List, Optional, Tuple
 
+from money.money import Money
+
 from .models import Journey, Segment
 
 
@@ -54,7 +56,7 @@ class JourneyDiff:
             self.diff_type = None
 
     @property
-    def price_diff(self) -> Optional[float]:
+    def price_diff(self) -> Optional[Money]:
         if self.old and self.new and self.old.lowest_price and self.new.lowest_price:
             return self.new.lowest_price - self.old.lowest_price
         return None

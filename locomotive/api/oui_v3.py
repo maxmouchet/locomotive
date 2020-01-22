@@ -9,6 +9,8 @@ import re
 from typing import Any, Dict, List
 
 import requests
+from money.currency import Currency
+from money.money import Money
 
 from ..models import Journey, Passenger, Proposal, Segment, Station, Transport
 from ..stores import Stations
@@ -126,7 +128,8 @@ class Client(AbstractClient):
         )
 
     def __to_proposal(self, obj: dict) -> Proposal:
+        # TODO: Proper currency inference
         return Proposal(
             flexibility_level=obj["info"]["miInfo"]["proposalType"],
-            price=obj["price"]["value"],
+            price=Money(str(obj["price"]["value"]), Currency.EUR),
         )

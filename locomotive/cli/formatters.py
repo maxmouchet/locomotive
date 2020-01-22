@@ -89,8 +89,8 @@ class PrettyFormatter(Formatter):
 
     def __data_for_proposal(self, proposal: Proposal) -> dict:
         return {
-            "amount": proposal.price,
-            "currency": "EUR",  # TODO
+            "amount": proposal.price.amount,
+            "currency": proposal.price.currency.name,
             "type": proposal.flexibility_level,
         }
 
