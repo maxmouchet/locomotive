@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/assets/logo.png" height="150"><br/>
+  <img src="/docs/_assets/logo.png" height="150"><br/>
   <i>Handcrafted API client and CLI to France's trains :sparkles:</i><br/><br/>
   <a href="https://github.com/yafeunteun/sncf-cli/actions">
     <img src="https://github.com/yafeunteun/sncf-cli/workflows/CI/badge.svg">
@@ -19,7 +19,7 @@
 <a href="#usage">Usage</a> •
 <a href="#development">Development</a>
 
-<img src="https://raw.githubusercontent.com/yafeunteun/sncf-cli/master/assets/carbon.png">
+<img src="/docs/_assets/carbon.png">
 
 ## Installation
 
