@@ -1,3 +1,5 @@
+# pylint: disable=unsubscriptable-object
+
 import datetime as dt
 import random
 from typing import Optional, Tuple
@@ -10,11 +12,19 @@ from .station import Station
 @attr.s(frozen=True, slots=True)
 class Transport:
     # TODO: Onboard services
-    # http://www.raileurope.fr/Extranet/Practical_information/Euronet_Equipment_Codes.pdf
-    equipment: str = attr.ib()  # TGA, TGB, CAR, ...
-    label: str = attr.ib()  # TER, TGV, Autocar, ...
+    equipment: str = attr.ib()
+    """
+    Euronet equipment code (TGA, TGB, CAR...).
+    http://www.raileurope.fr/Extranet/Practical_information/Euronet_Equipment_Codes.pdf
+    """
+
+    label: str = attr.ib()
+    "TER, TGV, Autocar..."
+
     number: str = attr.ib()
-    type: str = attr.ib()  # TRAIN, BUS, ...
+
+    type: str = attr.ib()
+    "TRAIN, BUS..."
 
     @classmethod
     def fake(cls) -> "Transport":
@@ -75,42 +85,41 @@ class Proposal:
 
 @attr.s(frozen=True, slots=True)
 class Journey:
+    """A Train Journey."""
+
     # We use tuples to guaranteed immutability
     # and make Journey hashable.
+
     segments: Tuple[Segment, ...] = attr.ib()
+    """Journey segments, from departure to arrival."""
+
     proposals: Tuple[Proposal, ...] = attr.ib()
+    """Journey proposals."""
 
     @property
     def departure_date(self) -> dt.datetime:
-        # pylint: disable=unsubscriptable-object
         return self.segments[0].departure_date
 
     @property
     def arrival_date(self) -> dt.datetime:
-        # pylint: disable=unsubscriptable-object
         return self.segments[-1].arrival_date
 
     @property
     def departure_station(self) -> Station:
-        # pylint: disable=unsubscriptable-object
         return self.segments[0].departure_station
 
     @property
     def arrival_station(self) -> Station:
-        # pylint: disable=unsubscriptable-object
         return self.segments[-1].arrival_station
 
     @property
     def duration(self) -> dt.timedelta:
-        """
-        Returns the duration of the journey.
-        """
         return self.arrival_date - self.departure_date
 
     @property
     def lowest_price(self) -> Optional[float]:
         """
-        Returns the lowest price amongst all proposals.
+        Lowest price for the journey, amongst all proposals.
         """
         if not self.proposals:
             return None
