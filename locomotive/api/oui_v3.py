@@ -128,8 +128,7 @@ class Client(AbstractClient):
         )
 
     def __to_proposal(self, obj: dict) -> Proposal:
-        # TODO: Proper currency inference
         return Proposal(
             flexibility_level=obj["info"]["miInfo"]["proposalType"],
-            price=Money(str(obj["price"]["value"]), Currency.EUR),
+            price=Money(str(obj["price"]["value"]), Currency(obj["price"]["currency"])),
         )

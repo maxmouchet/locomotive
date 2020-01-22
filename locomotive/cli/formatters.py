@@ -10,6 +10,7 @@ from typing import Any, List, Union
 
 import attr
 import chevron
+from money.money import Money
 
 from ..models import Journey, Proposal, Segment
 
@@ -48,10 +49,13 @@ class JSONFormatter(Formatter):
 
     @classmethod
     def __serialize(cls, obj: Any) -> Union[dict, str]:
+        print(type(obj))
         if hasattr(obj, "__attrs_attrs__"):
             return attr.asdict(obj)
         elif isinstance(obj, dt.datetime):
             return obj.isoformat()
+        elif isinstance(obj, Money):
+            return {"amount": float(obj.amount), "currency": obj.currency.name}
         raise TypeError
 
     def incr_str(self, journey: Journey) -> str:
