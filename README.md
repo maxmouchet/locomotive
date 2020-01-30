@@ -1,14 +1,11 @@
 <p align="center">
   <img src="/docs/_assets/logo.png" height="150"><br/>
   <i>Python API clients and a CLI for France's railways :sparkles:</i><br/><br/>
-  <a href="https://codeclimate.com/github/yafeunteun/sncf-cli/maintainability">
-    <img src="https://img.shields.io/codeclimate/maintainability/yafeunteun/sncf-cli.svg">
+  <a href="https://github.com/maxmouchet/sncf-cli/actions">
+    <img src="https://github.com/maxmouchet/sncf-cli/workflows/CI/badge.svg">
   </a>
-  <a href="https://github.com/yafeunteun/sncf-cli/actions">
-    <img src="https://github.com/yafeunteun/sncf-cli/workflows/CI/badge.svg">
-  </a>
-  <a href="https://coveralls.io/github/yafeunteun/sncf-cli?branch=master">
-    <img src="https://coveralls.io/repos/github/yafeunteun/sncf-cli/badge.svg?branch=master&service=github">
+  <a href="https://coveralls.io/github/maxmouchet/sncf-cli?branch=master">
+    <img src="https://coveralls.io/repos/github/maxmouchet/sncf-cli/badge.svg?branch=master&service=github">
   </a>
 </p>
 
@@ -26,7 +23,7 @@ pip install sncf-cli
 
 Module | Features | Status
 -------|----------|-------
-[oui_v3](/locomotive/api/oui_v3.py) | Travel Request | ![oui_v3](https://github.com/yafeunteun/sncf-cli/workflows/oui_v3/badge.svg)
+[oui_v3](/locomotive/api/oui_v3.py) | Travel Request | ![oui_v3](https://github.com/maxmouchet/sncf-cli/workflows/oui_v3/badge.svg)
 
 ## CLI
 
@@ -80,7 +77,7 @@ We use `attrs` instead of `@dataclass` for Python 3.6 compatibility.
 
 ## Licenses
 
-sncf-cli is released under the [MIT license](https://github.com/yafeunteun/sncf-cli/blob/master/LICENSE).
+sncf-cli is released under the [MIT license](https://github.com/maxmouchet/sncf-cli/blob/master/LICENSE).
 The train stations database (`stations-lite.csv`) is derived from `stations.csv` ([trainline-eu/stations](https://github.com/trainline-eu/stations)) released under the Open Database License (ODbL) license.
 
 *Logo: Train Tickets by b farias from the Noun Project.*
