@@ -2,8 +2,8 @@
 name = "sncf-cli"
 # https://github.com/python-poetry/poetry/issues/140
 # => Support automatic versioning setuptools_scm-style?
-version = "v0.8.7"
-description = "Search SNCF journeys from the CLI."
+version = "v0.9.0"
+description = "Python API clients and a CLI for France's railways."
 authors = ["Yann Feunteun, Maxime Mouchet"]
 license = "MIT"
 readme = "README.md"
