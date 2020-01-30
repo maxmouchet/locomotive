@@ -42,6 +42,8 @@ class AbstractClient(ABC):
         for _ in range(10):
             cur_req = attr.evolve(req, date=cur_dt)
             journeys_ = self.travel_request(cur_req)
+            if not journeys_:
+                break
             diff = set(journeys_).difference(journeys)
             for journey in sorted(diff, key=lambda x: x.departure_date):
                 yield journey
