@@ -70,7 +70,6 @@ class Stations:
             # b) Try to find matching name
             # Normalize query first:
             query_norm = normalize(fix_abbr(query))
-            print(query, query_norm)
             c.execute(
                 "SELECT * FROM stations WHERE name_norm LIKE ?", (f"%{query_norm}%",)
             )
