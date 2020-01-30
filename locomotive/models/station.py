@@ -13,6 +13,7 @@ class Station:
     """
 
     name: str = attr.ib()
+    name_ascii: str = attr.ib()
     sncf_id: str = attr.ib()
     sncf_tvs_id: str = attr.ib()
     latitude: float = attr.ib()
@@ -38,17 +39,20 @@ class Station:
         """
         return cls(
             name=row[0],
-            sncf_id=row[2],
-            sncf_tvs_id=row[3],
-            latitude=row[4],
-            longitude=row[5],
+            name_ascii=row[1],
+            sncf_id=row[3],
+            sncf_tvs_id=row[4],
+            latitude=row[5],
+            longitude=row[6],
         )
 
     @classmethod
     def fake(cls) -> "Station":
         f = Faker("fr_FR")
+        name = f.city()
         return cls(
-            name=f.city(),
+            name=name,
+            name_ascii=name,
             sncf_id="FR" + "".join(f.random_uppercase_letter() for _ in range(3)),
             sncf_tvs_id="".join(f.random_uppercase_letter() for _ in range(3)),
             latitude=float(f.latitude()),

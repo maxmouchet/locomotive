@@ -24,6 +24,10 @@ def test_can_find_station_by_name():
     assert stations.find("LE PORAGE")
     assert stations.find("le porage")
 
+    # Accents
+    assert stations.find("Jeumont Frontière")
+    assert stations.find("Jeumont Frontiere")
+
 
 def test_raises_exception_when_cannot_find_station_by_a_given_name():
     fp = os.path.join(os.path.dirname(__file__), "test-stations.sqlite3")

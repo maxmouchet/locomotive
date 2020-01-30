@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Optional
 
 import attr
+from text_unidecode import unidecode
 
 from .exceptions import StationNotFoundException
 from .models import Station
@@ -37,7 +38,7 @@ class Stations:
             return int(c.fetchone()[0])
 
     def find(self, query: str) -> Optional[Station]:
-        query = query.lower()
+        query = unidecode(query.lower())
         with self._conn() as conn:
             c = conn.cursor()
 
@@ -49,7 +50,7 @@ class Stations:
 
             # b) Try to find matching name
             c.execute(
-                "SELECT * FROM stations WHERE lower(name) LIKE ?", (f"%{query}%",)
+                "SELECT * FROM stations WHERE lower(name_ascii) LIKE ?", (f"%{query}%",)
             )
             rows = c.fetchall()
             matches = difflib.get_close_matches(query, [x[0] for x in rows], n=1)

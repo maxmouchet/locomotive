@@ -2,6 +2,7 @@ import csv
 import sqlite3
 
 import requests
+from text_unidecode import unidecode
 
 stations_url = "https://github.com/trainline-eu/stations/raw/master/stations.csv"
 
@@ -9,6 +10,7 @@ sql = """
 DROP TABLE IF EXISTS stations;
 CREATE TABLE stations (
     name        TEXT NOT NULL,
+    name_ascii  TEXT NOT NULL,
     country     TEXT NOT NULL,
     sncf_id     TEXT,
     sncf_tvs_id TEXT,
@@ -43,6 +45,7 @@ def extract_stations(csvfile):
     return [
         (
             row["name"],
+            unidecode(row["name"]),
             row["country"],
             row["sncf_id"],
             row["sncf_tvs_id"],
@@ -62,7 +65,7 @@ def create_database(path, stations):
         c.executescript(sql)
 
         print("Inserting stations...")
-        c.executemany("INSERT INTO stations VALUES (?,?,?,?,?,?)", stations)
+        c.executemany("INSERT INTO stations VALUES (?,?,?,?,?,?,?)", stations)
 
         conn.commit()
 
