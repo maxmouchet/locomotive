@@ -6,7 +6,7 @@
 api/               # Clients for SNCF APIs
 api/oui_v3.py      # Client for the wshoraires.oui.sncf v3 API
 
-cli/               # CLI tool (sncf-cli)
+cli/               # CLI (locomotive)
 cli/__init__.py    # CLI entrypoint
 cli/commands/      # CLI commands (search, ...)
 cli/formatters.py  # Output formatters

@@ -52,8 +52,8 @@ def search(ctx: click.Context, **args: str) -> None:
 
     \b
     Examples:
-    sncf-cli search Brest Paris
-    sncf-cli search Brest Paris --class second --date 2019-06-01
+    locomotive search Brest Paris
+    locomotive search Brest Paris --class second --date 2019-06-01
     """
     stations = ctx.obj["stations"]
     client = Client(stations)

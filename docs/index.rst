@@ -8,6 +8,6 @@ locomotive
    cli.rst
    models.rst
 
-Work in progress. See https://github.com/maxmouchet/sncf-cli.
+Work in progress. See https://github.com/maxmouchet/locomotive.
 
 *Logo: Train Tickets by b farias from the Noun Project.*

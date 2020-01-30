@@ -10,8 +10,8 @@ readme = "README.md"
 packages = [
     { include = "locomotive" }
 ]
-repository = "https://github.com/yafeunteun/sncf-cli"
-homepage = "https://github.com/yafeunteun/sncf-cli"
+repository = "https://github.com/maxmouchet/locomotive"
+homepage = "https://github.com/maxmouchet/locomotive"
 classifiers=[
     "Environment :: Console",
     "License :: OSI Approved :: MIT License",
@@ -50,7 +50,7 @@ pre-commit = "^1.20.0"
 sphinx = "^2.3.1"
 
 [tool.poetry.scripts]
-sncf-cli = 'locomotive.cli:cli'
+locomotive = 'locomotive.cli:cli'
 
 [tool.pylint.messages_control]
 ignore = "types.py"

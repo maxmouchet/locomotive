@@ -1,11 +1,11 @@
 <p align="center">
   <img src="/docs/_assets/logo.png" height="150"><br/>
   <i>Python API clients and a CLI for France's railways :sparkles:</i><br/><br/>
-  <a href="https://github.com/maxmouchet/sncf-cli/actions">
-    <img src="https://github.com/maxmouchet/sncf-cli/workflows/CI/badge.svg">
+  <a href="https://github.com/maxmouchet/locomotive/actions">
+    <img src="https://github.com/maxmouchet/locomotive/workflows/CI/badge.svg">
   </a>
-  <a href="https://coveralls.io/github/maxmouchet/sncf-cli?branch=master">
-    <img src="https://coveralls.io/repos/github/maxmouchet/sncf-cli/badge.svg?branch=master&service=github">
+  <a href="https://coveralls.io/github/maxmouchet/locomotive?branch=master">
+    <img src="https://coveralls.io/repos/github/maxmouchet/locomotive/badge.svg?branch=master&service=github">
   </a>
 </p>
 
@@ -13,7 +13,7 @@
 
 ## Installation
 
-`sncf-cli` requires Python 3.6+ and can be installed using [pip](https://pip.pypa.io/en/stable/):
+`locomotive` requires Python 3.6+ and can be installed using [pip](https://pip.pypa.io/en/stable/):
 
 ```bash
 pip install sncf-cli
@@ -23,27 +23,27 @@ pip install sncf-cli
 
 Module | Features | Status
 -------|----------|-------
-[oui_v3](/locomotive/api/oui_v3.py) | Travel Request | ![oui_v3](https://github.com/maxmouchet/sncf-cli/workflows/oui_v3/badge.svg)
+[oui_v3](/locomotive/api/oui_v3.py) | Travel Request | ![oui_v3](https://github.com/maxmouchet/locomotive/workflows/oui_v3/badge.svg)
 
 ## CLI
 
-sncf-cli is easy to use. Find below simple examples:
+locomotive is easy to use. Find below simple examples:
 
 ```bash
-sncf-cli search --help
+locomotive search --help
 # Search by city name
-sncf-cli search Amsterdam Paris
+locomotive search Amsterdam Paris
 # Search by train station code (Amsterdam to Paris here)
-sncf-cli search NLAMA FRPAR
+locomotive search NLAMA FRPAR
 # Pick a date and even a travel class
-sncf-cli search Brest Paris --date 2019/07/14 --class first
+locomotive search Brest Paris --date 2019/07/14 --class first
 ```
 
 ## Development
 
 ```bash
 poetry install
-poetry run sncf-cli
+poetry run locomotive
 
 # pre-commit
 poetry run pre-commit install
@@ -77,7 +77,7 @@ We use `attrs` instead of `@dataclass` for Python 3.6 compatibility.
 
 ## Licenses
 
-sncf-cli is released under the [MIT license](https://github.com/maxmouchet/sncf-cli/blob/master/LICENSE).
+locomotive is released under the [MIT license](https://github.com/maxmouchet/locomotive/blob/master/LICENSE).
 The train stations database (`stations-lite.csv`) is derived from `stations.csv` ([trainline-eu/stations](https://github.com/trainline-eu/stations)) released under the Open Database License (ODbL) license.
 
 *Logo: Train Tickets by b farias from the Noun Project.*

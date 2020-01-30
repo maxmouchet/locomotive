@@ -9,7 +9,7 @@ def test_helper():
     runner = CliRunner()
     result = runner.invoke(cli)
 
-    assert "🚆 Search SNCF journeys from your terminal" in result.output
+    assert "🚆 Search train journeys from your terminal" in result.output
     assert result.exit_code == 0
 
 
