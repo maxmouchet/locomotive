@@ -29,7 +29,13 @@
 pip install sncf-cli
 ```
 
-## Usage
+## API Clients
+
+Module | Features | Status
+-------|----------|-------
+[oui_v3](/locomotive/api/oui_v3.py) | Travel Request | ![oui_v3](https://github.com/yafeunteun/sncf-cli/workflows/oui_v3/badge.svg)
+
+## CLI
 
 sncf-cli is easy to use. Find below simple examples:
 
