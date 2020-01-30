@@ -1,6 +1,6 @@
 <p align="center">
   <img src="/docs/_assets/logo.png" height="150"><br/>
-  <i>Python API clients and a CLI for France's railways :train2:</i><br/><br/>
+  <i>Python API clients and a CLI for France's railways :sparkles:</i><br/><br/>
   <a href="https://codeclimate.com/github/yafeunteun/sncf-cli/maintainability">
     <img src="https://img.shields.io/codeclimate/maintainability/yafeunteun/sncf-cli.svg">
   </a>
