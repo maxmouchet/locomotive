@@ -1,0 +1,36 @@
+name: Documentation
+
+on:
+  push:
+    branches: ['master']
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.6'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install poetry
+        poetry install
+
+    - name: Build documentation
+      run: poetry run make -C docs html
+
+    - name: Deploy
+      if: success()
+      uses: crazy-max/ghaction-github-pages@955519f7bd78a04272fdfc66260f332c48b79f73
+      with:
+        target_branch: gh-pages
+        build_dir: docs/_build/html
+      env:
+        GITHUB_PAT: ${{ secrets.DOCS_TOKEN }}
