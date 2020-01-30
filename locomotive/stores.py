@@ -1,5 +1,6 @@
 import contextlib
 import difflib
+import re
 import sqlite3
 from pathlib import Path
 from typing import Optional
@@ -9,6 +10,14 @@ from text_unidecode import unidecode
 
 from .exceptions import StationNotFoundException
 from .models import Station
+
+
+# HACK
+# Clermont Fd. => Clermont F
+# Paris MP => Paris M
+def fix_abbr(s: str) -> str:
+    p = re.compile("\s(\w)\w\.?$")
+    return p.sub(r" \1", s)
 
 
 # TODO: Use same function as in tools/gen_stations.py
@@ -60,12 +69,15 @@ class Stations:
 
             # b) Try to find matching name
             # Normalize query first:
-            query_norm = normalize(query)
+            query_norm = normalize(fix_abbr(query))
+            print(query, query_norm)
             c.execute(
                 "SELECT * FROM stations WHERE name_norm LIKE ?", (f"%{query_norm}%",)
             )
             rows = c.fetchall()
-            matches = difflib.get_close_matches(query_norm, [x[1] for x in rows], n=1)
+            matches = difflib.get_close_matches(
+                query_norm, [x[1] for x in rows], cutoff=0.1, n=1
+            )
             if matches:
                 row = next(x for x in rows if x[1] == matches[0])
                 return Station.from_row(row)
