@@ -55,7 +55,7 @@ class Client:
         transport = Transport("", obj["type"], obj["num"], "")
         time = self.__parse_time(obj["heure"])
         delay = self.__parse_delay(obj["retard"])
-        return BoardEntry(tofrom, transport, time, delay)
+        return BoardEntry(tofrom, transport, time, delay, obj["voie"])
 
     def __parse_delay(self, s: str) -> int:
         # TODO: Is is really that ?

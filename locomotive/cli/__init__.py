@@ -8,6 +8,7 @@ from typing import Any
 import click
 
 from ..stores import Stations
+from .commands.live import live
 from .commands.search import search
 
 
@@ -35,4 +36,5 @@ def cli(ctx: click.Context, **args: Any) -> None:
     ctx.obj["stations"] = Stations(path=args["stations_file"])
 
 
+cli.add_command(live)
 cli.add_command(search)

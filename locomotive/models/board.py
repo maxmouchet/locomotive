@@ -16,3 +16,5 @@ class BoardEntry:
 
     delay: int = attr.ib()
     "Delay in minutes"
+
+    platform: str = attr.ib()
