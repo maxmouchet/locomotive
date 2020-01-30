@@ -1,17 +1,14 @@
 <p align="center">
   <img src="/docs/_assets/logo.png" height="150"><br/>
-  <i>Handcrafted API client and CLI to France's trains :sparkles:</i><br/><br/>
+  <i>Python API clients and a CLI for France's railways :train2:</i><br/><br/>
+  <a href="https://codeclimate.com/github/yafeunteun/sncf-cli/maintainability">
+    <img src="https://img.shields.io/codeclimate/maintainability/yafeunteun/sncf-cli.svg">
+  </a>
   <a href="https://github.com/yafeunteun/sncf-cli/actions">
     <img src="https://github.com/yafeunteun/sncf-cli/workflows/CI/badge.svg">
   </a>
   <a href="https://coveralls.io/github/yafeunteun/sncf-cli?branch=master">
     <img src="https://coveralls.io/repos/github/yafeunteun/sncf-cli/badge.svg?branch=master&service=github">
-  </a>
-  <a href="https://codeclimate.com/github/yafeunteun/sncf-cli/maintainability">
-    <img src="https://img.shields.io/codeclimate/maintainability/yafeunteun/sncf-cli.svg">
-  </a>
-  <a href="https://pypi.org/project/sncf-cli/">
-    <img src="https://img.shields.io/pypi/v/sncf-cli.svg">
   </a>
 </p>
 
@@ -40,13 +37,12 @@ Module | Features | Status
 sncf-cli is easy to use. Find below simple examples:
 
 ```bash
-# RTFM bro (just kidding)
 sncf-cli search --help
 # Search by city name
 sncf-cli search Amsterdam Paris
 # Search by train station code (Amsterdam to Paris here)
 sncf-cli search NLAMA FRPAR
-# Pick a date and even a travel class B-)
+# Pick a date and even a travel class
 sncf-cli search Brest Paris --date 2019/07/14 --class first
 ```
 
