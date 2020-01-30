@@ -22,11 +22,11 @@ from .commands.search import search
 @click.pass_context
 def cli(ctx: click.Context, **args: Any) -> None:
     """
-    🚆 Search SNCF journeys from your terminal.
+    🚆 Search train journeys from your terminal.
 
     \b
     Examples:
-    sncf-cli search Brest Paris
+    locomotive search Brest Paris
     """
     if args["debug"]:
         logging.basicConfig(level=logging.DEBUG)
