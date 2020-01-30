@@ -20,9 +20,9 @@ def test_can_find_station_by_name():
     fp = os.path.join(os.path.dirname(__file__), "test-stations.sqlite3")
     stations = Stations(fp)
 
-    station = stations.find("Le Porage")
-
-    assert station is not None
+    assert stations.find("Le Porage")
+    assert stations.find("LE PORAGE")
+    assert stations.find("le porage")
 
 
 def test_raises_exception_when_cannot_find_station_by_a_given_name():
@@ -36,9 +36,9 @@ def test_can_find_station_by_id():
     fp = os.path.join(os.path.dirname(__file__), "test-stations.sqlite3")
     stations = Stations(fp)
 
-    station = stations.find("FRFEV")
-
-    assert station is not None
+    assert stations.find("FRFEV")
+    assert stations.find("frfev")
+    assert stations.find("frFeV")
 
 
 def test_raises_exception_when_cannot_find_station_by_a_given_id():

@@ -113,17 +113,20 @@ class Stations:
             return int(c.fetchone()[0])
 
     def find(self, query: str) -> Optional[Station]:
+        query = query.lower()
         with self._conn() as conn:
             c = conn.cursor()
 
             # a) Try to find matching IDs
-            c.execute("SELECT * FROM stations WHERE sncf_id LIKE ?", (query,))
+            c.execute("SELECT * FROM stations WHERE lower(sncf_id) LIKE ?", (query,))
             row = c.fetchone()
             if row:
                 return Station.from_row(row)
 
             # b) Try to find matching name
-            c.execute("SELECT * FROM stations WHERE name LIKE ?", (f"%{query}%",))
+            c.execute(
+                "SELECT * FROM stations WHERE lower(name) LIKE ?", (f"%{query}%",)
+            )
             rows = c.fetchall()
             matches = difflib.get_close_matches(query, [x[0] for x in rows], n=1)
             if matches:
