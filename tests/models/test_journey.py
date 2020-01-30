@@ -34,15 +34,16 @@ def segments():
 
 @pytest.fixture
 def proposals():
-    return tuple([Proposal("FLEX", 32.10), Proposal("NOFLEX", 10.0)])
+    return (Proposal("FLEX", 32.10), Proposal("NOFLEX", 10.0))
 
 
 def test_journey_base(segments, proposals):
     journey = Journey(segments, proposals)
-    assert journey == journey
-    assert journey is journey
-    # Should be hashable
-    set([journey])
+    # Test equality by value and identity
+    assert journey == journey  # skipcq: PYL-R0124
+    assert journey is journey  # skipcq: PYL-R0124
+    # Test hashing
+    assert {journey, journey} == {journey}
 
 
 def test_journey_dates(segments, proposals):

@@ -125,7 +125,7 @@ class Journey:
         """
         if not self.proposals:
             return None
-        return min([x.price for x in self.proposals])
+        return min(x.price for x in self.proposals)
 
     @classmethod
     def fake(cls) -> "Journey":

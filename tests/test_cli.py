@@ -1,6 +1,3 @@
-import datetime as dt
-
-import click
 from click.testing import CliRunner
 from locomotive.cli import cli
 

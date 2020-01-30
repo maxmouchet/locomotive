@@ -51,9 +51,9 @@ class JSONFormatter(Formatter):
     def __serialize(cls, obj: Any) -> Union[dict, str]:
         if hasattr(obj, "__attrs_attrs__"):
             return attr.asdict(obj)
-        elif isinstance(obj, dt.datetime):
+        if isinstance(obj, dt.datetime):
             return obj.isoformat()
-        elif isinstance(obj, Money):
+        if isinstance(obj, Money):
             return {"amount": float(obj.amount), "currency": obj.currency.name}
         raise TypeError
 

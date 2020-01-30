@@ -78,8 +78,13 @@ def create_database(path, stations):
         conn.commit()
 
 
-stations = extract_stations(stations_csv)
-create_database("locomotive/data/stations.sqlite3", stations)
+def main():
+    stations = extract_stations(stations_csv)
+    create_database("locomotive/data/stations.sqlite3", stations)
 
-stations = extract_stations(stations_csv_test)
-create_database("tests/test-stations.sqlite3", stations)
+    stations = extract_stations(stations_csv_test)
+    create_database("tests/test-stations.sqlite3", stations)
+
+
+if __name__ == "__main__":
+    main()

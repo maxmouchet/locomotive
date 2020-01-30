@@ -6,21 +6,21 @@ Mostly a copy/paste from `oui_v2`, with changes in `__to_segment`
 import datetime as dt
 import logging
 import re
-from typing import Any, Dict, List
+from typing import Any, List
 
 import requests
 from money.currency import Currency
 from money.money import Money
 
-from ..models import Journey, Passenger, Proposal, Segment, Station, Transport
+from ..models import Journey, Proposal, Segment, Transport
 from ..stores import Stations
 from .abstract import AbstractClient, TravelRequest
 
 
 # TODO: Move somewhere else (in TravelRequest ?)
 def strftime_sncf(date: dt.datetime) -> str:
-    # Date *MUST* be tz-aware
-    assert date.tzinfo is not None
+    if not date.tzinfo:
+        raise ValueError("`date` must be tz-aware")
     s = date.strftime("%Y-%m-%dT%H:%M:%S.000%z")
     s = s[:-2] + ":" + s[-2:]
     return s

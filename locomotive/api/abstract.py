@@ -1,6 +1,6 @@
 import datetime as dt
 from abc import ABC, abstractmethod
-from typing import Iterator, List, Set, Union
+from typing import Iterator, List, Set
 
 import attr
 import pytz

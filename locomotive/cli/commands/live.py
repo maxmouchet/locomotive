@@ -2,16 +2,14 @@
 CLI command for live departures and arrivals information.
 """
 
-from typing import Any, List
+from typing import List
 
 import click
-import dateparser
-import requests
 import tableformatter as tf
 from colored import bg
 
 from ...api.gc import BoardRequest, Client
-from ...models import BoardEntry, Station
+from ...models import BoardEntry
 
 
 def get_rows(entries: List[BoardEntry]) -> List[tuple]:

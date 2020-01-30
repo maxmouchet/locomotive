@@ -1,5 +1,4 @@
 import datetime as dt
-import json
 
 import pytz
 from locomotive.api.abstract import TravelRequest

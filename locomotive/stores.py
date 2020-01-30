@@ -1,11 +1,9 @@
-import contextlib
 import difflib
 import re
 import sqlite3
 from pathlib import Path
 from typing import Optional
 
-import attr
 from text_unidecode import unidecode
 
 from .exceptions import StationNotFoundException
@@ -16,7 +14,7 @@ from .models import Station
 # Clermont Fd. => Clermont F
 # Paris MP => Paris M
 def fix_abbr(s: str) -> str:
-    p = re.compile("\s(\w)\w\.?$")
+    p = re.compile(r"\s(\w)\w\.?$")
     return p.sub(r" \1", s)
 
 

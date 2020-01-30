@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath(".."))
 # -- Project information -----------------------------------------------------
 
 project = "locomotive"
-copyright = "2020, yafeunteun & maxmouchet"
+copyright = "2020, yafeunteun & maxmouchet"  # skipcq: PYL-W0622
 author = "Yann Feunteun, Maxime Mouchet"
 
 
