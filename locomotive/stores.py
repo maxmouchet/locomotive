@@ -11,6 +11,15 @@ from .exceptions import StationNotFoundException
 from .models import Station
 
 
+# TODO: Use same function as in tools/gen_stations.py
+def normalize(s: str) -> str:
+    s = s.lower()
+    s = unidecode(s)
+    s = s.replace("-", " ")
+    s = s.replace(".", "")
+    return s
+
+
 class Stations:
     """
     A train stations database.
@@ -38,24 +47,27 @@ class Stations:
             return int(c.fetchone()[0])
 
     def find(self, query: str) -> Optional[Station]:
-        query = unidecode(query.lower())
         with self._conn() as conn:
             c = conn.cursor()
 
             # a) Try to find matching IDs
-            c.execute("SELECT * FROM stations WHERE lower(sncf_id) LIKE ?", (query,))
+            c.execute(
+                "SELECT * FROM stations WHERE lower(sncf_id) LIKE ?", (query.lower(),)
+            )
             row = c.fetchone()
             if row:
                 return Station.from_row(row)
 
             # b) Try to find matching name
+            # Normalize query first:
+            query_norm = normalize(query)
             c.execute(
-                "SELECT * FROM stations WHERE lower(name_ascii) LIKE ?", (f"%{query}%",)
+                "SELECT * FROM stations WHERE name_norm LIKE ?", (f"%{query_norm}%",)
             )
             rows = c.fetchall()
-            matches = difflib.get_close_matches(query, [x[0] for x in rows], n=1)
+            matches = difflib.get_close_matches(query_norm, [x[1] for x in rows], n=1)
             if matches:
-                row = next(x for x in rows if x[0] == matches[0])
+                row = next(x for x in rows if x[1] == matches[0])
                 return Station.from_row(row)
 
             return None

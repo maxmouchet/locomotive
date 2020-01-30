@@ -10,7 +10,7 @@ sql = """
 DROP TABLE IF EXISTS stations;
 CREATE TABLE stations (
     name        TEXT NOT NULL,
-    name_ascii  TEXT NOT NULL,
+    name_norm   TEXT NOT NULL,
     country     TEXT NOT NULL,
     sncf_id     TEXT,
     sncf_tvs_id TEXT,
@@ -39,13 +39,21 @@ print("Downloading trainline-eu/stations/stations.csv...")
 stations_csv = requests.get(stations_url).content.decode("utf-8").split("\n")
 
 
+def normalize(s):
+    s = s.lower()
+    s = unidecode(s)
+    s = s.replace("-", " ")
+    s = s.replace(".", "")
+    return s
+
+
 def extract_stations(csvfile):
     print("Extracting stations...")
     rdr = csv.DictReader(csvfile, delimiter=";")
     return [
         (
             row["name"],
-            unidecode(row["name"]),
+            normalize(row["name"]),
             row["country"],
             row["sncf_id"],
             row["sncf_tvs_id"],

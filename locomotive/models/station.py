@@ -13,7 +13,7 @@ class Station:
     """
 
     name: str = attr.ib()
-    name_ascii: str = attr.ib()
+    name_norm: str = attr.ib()
     sncf_id: str = attr.ib()
     sncf_tvs_id: str = attr.ib()
     latitude: float = attr.ib()
@@ -39,7 +39,7 @@ class Station:
         """
         return cls(
             name=row[0],
-            name_ascii=row[1],
+            name_norm=row[1],
             sncf_id=row[3],
             sncf_tvs_id=row[4],
             latitude=row[5],
@@ -52,7 +52,8 @@ class Station:
         name = f.city()
         return cls(
             name=name,
-            name_ascii=name,
+            # TODO: Normalize
+            name_norm=name,
             sncf_id="FR" + "".join(f.random_uppercase_letter() for _ in range(3)),
             sncf_tvs_id="".join(f.random_uppercase_letter() for _ in range(3)),
             latitude=float(f.latitude()),
