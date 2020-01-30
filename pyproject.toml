@@ -58,7 +58,10 @@ ignore = "types.py"
 disable = "bad-continuation,no-self-use,too-few-public-methods"
 
 [tool.coverage.run]
-omit = ["locomotive/data/*"]
+omit = [
+    "locomotive/data/*",
+    "locomotive/cli/templates/*"
+]
 
 [build-system]
 requires = ["poetry>=0.12"]
