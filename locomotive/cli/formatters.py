@@ -49,7 +49,6 @@ class JSONFormatter(Formatter):
 
     @classmethod
     def __serialize(cls, obj: Any) -> Union[dict, str]:
-        print(type(obj))
         if hasattr(obj, "__attrs_attrs__"):
             return attr.asdict(obj)
         elif isinstance(obj, dt.datetime):
