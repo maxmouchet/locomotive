@@ -1,6 +1,9 @@
 <p align="center">
   <img src="/docs/_assets/logo.png" height="150"><br/>
   <i>Python API clients and a CLI for France's railways :sparkles:</i><br/><br/>
+  <a href="https://maxmouchet.github.io/locomotive">
+    <img src="https://img.shields.io/badge/docs-master-blue.svg?style=flat">
+  </a>
   <a href="https://github.com/maxmouchet/locomotive/actions">
     <img src="https://github.com/maxmouchet/locomotive/workflows/CI/badge.svg">
   </a>
