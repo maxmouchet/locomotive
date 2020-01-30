@@ -8,6 +8,7 @@ from requests.exceptions import HTTPError
 
 from ...api.abstract import TravelRequest
 from ...api.oui_v3 import Client
+from ...models import Passenger
 from ..formatters import Formatter, JSONFormatter, PrettyFormatter
 
 # We use click.echo because:
@@ -35,9 +36,6 @@ from ..formatters import Formatter, JSONFormatter, PrettyFormatter
     help="Travel class.",
 )
 @click.option(
-    "--passenger", metavar="NAME", help="Passenger profile (see `sncf-cli passengers`)."
-)
-@click.option(
     "--format",
     type=click.Choice(["pretty", "json"]),
     default="pretty",
@@ -57,7 +55,6 @@ def search(ctx: click.Context, **args: str) -> None:
     sncf-cli search Brest Paris
     sncf-cli search Brest Paris --class second --date 2019-06-01
     """
-    passengers = ctx.obj["passengers"]
     stations = ctx.obj["stations"]
     client = Client(stations)
 
@@ -75,11 +72,7 @@ def search(ctx: click.Context, **args: str) -> None:
 
     departure_station = stations.find_or_raise(args["origin"])
     arrival_station = stations.find_or_raise(args["destination"])
-
-    if args["passenger"]:
-        passenger = passengers.find_or_raise(args["passenger"])
-    else:
-        passenger = passengers.default()
+    passenger = Passenger.dummy()
 
     click.echo(
         "{} → {} ({:.0f}km) on {}".format(
