@@ -12,10 +12,6 @@
   </a>
 </p>
 
-<a href="#installation">Installation</a> •
-<a href="#usage">Usage</a> •
-<a href="#development">Development</a>
-
 <img src="/docs/_assets/carbon.png">
 
 ## Installation
