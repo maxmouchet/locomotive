@@ -5,6 +5,7 @@ locomotive
    :maxdepth: 2
    :caption: Contents:
 
+   api.rst
    cli.rst
    models.rst
 
