@@ -1,8 +1,8 @@
 import datetime as dt
 
 import pytz
-from locomotive.api.abstract import TravelRequest
 from locomotive.api.oui_v3 import Client
+from locomotive.api.requests import TravelRequest
 from locomotive.models import Passenger
 from locomotive.stores import Stations
 

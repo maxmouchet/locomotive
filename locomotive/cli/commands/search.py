@@ -4,10 +4,10 @@ CLI command for searching train journeys.
 
 import click
 import dateparser
-from requests.exceptions import HTTPError
+from requests.exceptions import HTTPError  # pylint: disable=no-name-in-module
 
-from ...api.abstract import TravelRequest
 from ...api.oui_v3 import Client
+from ...api.requests import TravelRequest
 from ...models import Passenger
 from ..formatters import Formatter, JSONFormatter, PrettyFormatter
 

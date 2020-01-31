@@ -1,38 +1,38 @@
+"""
+We use mulitple inheritance to allow the implementation
+of clients supporting several types of requests.
+"""
+
 import datetime as dt
-from abc import ABC, abstractmethod
 from typing import Iterator, List, Set
 
 import attr
 import pytz
 
-from ..models import Journey, Passenger, Station
+from ..models import BoardEntry, Journey
+from .requests import BoardRequest, TravelRequest
 
 
-@attr.s(frozen=True, slots=True)
-class TravelRequest:
-    departure_station: Station = attr.ib()
-    arrival_station: Station = attr.ib()
-    passengers: List[Passenger] = attr.ib()
-    date: dt.datetime = attr.ib()
-    travel_class: str = attr.ib()
+class BoardClient:
+    def board_request(self, req: BoardRequest) -> List[BoardEntry]:
+        "Request the arrival or departure board for a train station."
+        raise NotImplementedError
 
 
-class AbstractClient(ABC):
-    @abstractmethod
+class TravelClient:
     def travel_request(self, req: TravelRequest) -> List[Journey]:
         """
-        This is not needed to return all possible journeys for a given day,
-        this is handled by `travel_request_full`.
+        Request the available journeys and prices
+        for a departure and arrival train station.
         """
-        ...
+        raise NotImplementedError
 
     def travel_request_iter(self, req: TravelRequest) -> Iterator[Journey]:
-        """
-        Fetch a full day, iteratively.
-        """
+        "Iteratively fetch a full day."
         # TODO: Verify date overlaps and timezones...
         tz = pytz.timezone("Europe/Paris")
-        cur_dt = dt.datetime(req.date.year, req.date.month, req.date.day, tzinfo=tz)
+        cur_dt = dt.datetime(req.date.year, req.date.month, req.date.day)
+        cur_dt = tz.localize(cur_dt)
 
         journeys: Set[Journey] = set()
 
@@ -54,4 +54,5 @@ class AbstractClient(ABC):
             cur_dt = new_dt
 
     def travel_request_full(self, req: TravelRequest) -> List[Journey]:
+        "Batch fetch a full day."
         return list(self.travel_request_iter(req))

@@ -1,7 +1,3 @@
-"""
-Client for the www.garesetconnexions.sncf/fr/train-time API.
-"""
-
 import datetime as dt
 import logging
 from typing import Any, List
@@ -12,17 +8,14 @@ import requests
 
 from ..models import BoardEntry, Station, Transport
 from ..stores import Stations
-
-# from .abstract import BoardRequest
-
-# TODO: Move to abstract
-@attr.s(frozen=True, slots=True)
-class BoardRequest:
-    station: Station = attr.ib()
-    type_: str = attr.ib()  # departure/arrival
+from .client import BoardClient
+from .requests import BoardRequest
 
 
-class Client:
+class Client(BoardClient):
+    """
+    Client for the www.garesetconnexions.sncf/fr/train-time API.
+    """
 
     ENDPOINT = "https://www.garesetconnexions.sncf/fr/train-times"
     TZ = pytz.timezone("Europe/Paris")
@@ -33,6 +26,7 @@ class Client:
 
     def request(self, tvs_id: str, type_: str) -> Any:
         url = f"{self.ENDPOINT}/{tvs_id}/{type_}"
+        # pylint: disable=no-member
         res = requests.get(url, timeout=10)
 
         self.logger.debug(res.request.headers)

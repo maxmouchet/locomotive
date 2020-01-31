@@ -1,8 +1,3 @@
-"""
-Client for the wshoraires.oui.sncf V3 API
-Mostly a copy/paste from `oui_v2`, with changes in `__to_segment`
-"""
-
 import datetime as dt
 import logging
 import re
@@ -14,7 +9,8 @@ from money.money import Money
 
 from ..models import Journey, Proposal, Segment, Transport
 from ..stores import Stations
-from .abstract import AbstractClient, TravelRequest
+from .client import TravelClient
+from .requests import TravelRequest
 
 
 # TODO: Move somewhere else (in TravelRequest ?)
@@ -26,7 +22,10 @@ def strftime_sncf(date: dt.datetime) -> str:
     return s
 
 
-class Client(AbstractClient):
+class Client(TravelClient):
+    """
+    Client for the wshoraires.oui.sncf V3 API
+    """
 
     DATE_FORMAT = "%Y-%m-%dT%H:%M:%S.%f%z"
     ENDPOINT = "https://wshoraires.oui.sncf/m690/vmd/maq/v3/proposals/train"
@@ -43,6 +42,7 @@ class Client(AbstractClient):
             "x-Device-Type": "IOS",
         }
 
+        # pylint: disable=no-member
         res = requests.post(self.ENDPOINT, headers=headers, json=json, timeout=10)
 
         self.logger.debug(res.request.headers)
