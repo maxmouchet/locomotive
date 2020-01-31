@@ -2,11 +2,10 @@ import datetime as dt
 import logging
 from typing import Any, List
 
-import attr
 import pytz
 import requests
 
-from ..models import BoardEntry, Station, Transport
+from ..models import BoardEntry, Transport
 from ..stores import Stations
 from .client import BoardClient
 from .requests import BoardRequest

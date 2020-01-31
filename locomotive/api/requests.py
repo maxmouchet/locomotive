@@ -3,7 +3,7 @@ from typing import List
 
 import attr
 
-from ..models import BoardEntry, Passenger, Station
+from ..models import Passenger, Station
 
 
 @attr.s(frozen=True)
