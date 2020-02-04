@@ -3,12 +3,10 @@ We use mulitple inheritance to allow the implementation
 of clients supporting several types of requests.
 """
 
-import datetime as dt
 import logging
 from typing import Iterator, List, Set
 
 import attr
-import pytz
 
 from ..models import BoardEntry, Journey
 from .requests import BoardRequest, TravelRequest

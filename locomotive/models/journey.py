@@ -73,8 +73,6 @@ class Proposal:
     # TODO: Function to get friendly name (non echangeable, ...)
     # Look into fares ?
     flexibility_level: str = attr.ib()  # NOFLEX, FLEX
-    # TODO: Price/Currency type
-    # https://github.com/vimeo/py-money
     price: Money = attr.ib()
 
     @classmethod
