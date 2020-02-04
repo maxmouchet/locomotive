@@ -2,7 +2,7 @@
 name = "sncf-cli"
 # https://github.com/python-poetry/poetry/issues/140
 # => Support automatic versioning setuptools_scm-style?
-version = "v0.9.0"
+version = "v0.9.1"
 description = "Python API clients and a CLI for France's railways."
 authors = ["Yann Feunteun, Maxime Mouchet"]
 license = "MIT"
@@ -11,7 +11,7 @@ packages = [
     { include = "locomotive" }
 ]
 repository = "https://github.com/maxmouchet/locomotive"
-homepage = "https://github.com/maxmouchet/locomotive"
+documentation = "https://maxmouchet.github.io/locomotive/"
 classifiers=[
     "Environment :: Console",
     "License :: OSI Approved :: MIT License",
