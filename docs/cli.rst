@@ -1,6 +1,6 @@
 Command Line
 ============
 
-.. code-block:: bash
-
-    locomotive search Paris Lyon
+.. click:: locomotive.cli:cli
+   :prog: locomotive
+   :show-nested:
