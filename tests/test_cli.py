@@ -56,3 +56,9 @@ def test_search_with_formatter_provided():
 
     assert "km) on" in result.output
     assert result.exit_code == 0
+
+
+def test_live():
+    runner = CliRunner()
+    result = runner.invoke(cli, ["live", "Lyon Part-Dieu"])
+    assert result.exit_code == 0
