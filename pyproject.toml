@@ -55,8 +55,7 @@ sphinx-click = "^2.3.1"
 locomotive = 'locomotive.cli:cli'
 
 [tool.pylint.messages_control]
-ignore = "types.py"
-disable = "bad-continuation,no-self-use,too-few-public-methods"
+disable = "bad-continuation,invalid-name,missing-module-docstring,missing-class-docstring,missing-function-docstring,no-self-use,too-few-public-methods"
 
 [tool.coverage.run]
 omit = [
