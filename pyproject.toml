@@ -12,11 +12,12 @@ packages = [
 ]
 repository = "https://github.com/maxmouchet/locomotive"
 documentation = "https://maxmouchet.github.io/locomotive/"
+# License and Python classifiers are added automatically
+# https://python-poetry.org/docs/pyproject/#classifiers
 classifiers=[
     "Environment :: Console",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3"
+    "Typing :: Typed"
 ]
 keywords = ["api", "cli", "sncf", "train", "france", "tgv", "ter"]
 
