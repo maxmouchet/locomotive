@@ -27,6 +27,7 @@ pip install sncf-cli
 Module | Features | Status
 -------|----------|-------
 [oui_v3](/locomotive/api/oui_v3.py) | Travel Request | ![oui_v3](https://github.com/maxmouchet/locomotive/workflows/oui_v3/badge.svg)
+[gc](/locomotive/api/gc.py) | Board Request | ![oui_v3](https://github.com/maxmouchet/locomotive/workflows/gc/badge.svg)
 
 ## CLI
 
