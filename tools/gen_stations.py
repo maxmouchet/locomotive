@@ -44,6 +44,7 @@ def normalize(s):
     s = unidecode(s)
     s = s.replace("-", " ")
     s = s.replace(".", "")
+    s = s.replace("gare de ", "")
     return s
 
 

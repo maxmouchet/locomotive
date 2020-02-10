@@ -1,4 +1,5 @@
 import difflib
+import logging
 import re
 import sqlite3
 from pathlib import Path
@@ -19,12 +20,17 @@ def fix_abbr(s: str) -> str:
 
 
 # TODO: Use same function as in tools/gen_stations.py
+# TODO: Remove multiple spaces
 def normalize(s: str) -> str:
     s = s.lower()
     s = unidecode(s)
     s = s.replace("-", " ")
-    s = s.replace(".", "")
-    return s
+    s = s.replace(".", " ")
+    s = s.replace("gare de ", "")
+    s = s.replace("saint ", "st ")
+    s = s.replace("pche", "perrache")
+    s = s.replace("zuerich", "zurich")
+    return s.strip()
 
 
 class Stations:
@@ -54,6 +60,7 @@ class Stations:
             return int(c.fetchone()[0])
 
     def find(self, query: str) -> Optional[Station]:
+        logging.debug("Query: %s", query)
         with self._conn() as conn:
             c = conn.cursor()
 
@@ -68,10 +75,14 @@ class Stations:
             # b) Try to find matching name
             # Normalize query first:
             query_norm = normalize(fix_abbr(query))
+            logging.debug("Query normalized: %s", query_norm)
+
             c.execute(
                 "SELECT * FROM stations WHERE name_norm LIKE ?", (f"%{query_norm}%",)
             )
             rows = c.fetchall()
+            logging.debug("Rows: %s", rows)
+
             matches = difflib.get_close_matches(
                 query_norm, [x[1] for x in rows], cutoff=0.1, n=1
             )
