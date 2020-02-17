@@ -142,7 +142,7 @@ class Stations:
             for row in rdr
         ]
 
-        with sqlite3.connect(path) as conn:
+        with sqlite3.connect(str(path)) as conn:
             print("Inserting stations...")
             conn.executescript(cls.schema)
             conn.executemany("INSERT INTO stations VALUES (?,?,?,?,?,?,?)", stations)
