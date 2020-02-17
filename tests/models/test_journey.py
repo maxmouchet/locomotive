@@ -1,5 +1,4 @@
 import datetime as dt
-import os
 
 import pytest
 from locomotive.diff import JourneyDiff, JourneyDiffType, journeys_diff
@@ -9,8 +8,7 @@ from locomotive.stores import Stations
 
 @pytest.fixture
 def segments():
-    fp = os.path.join(os.path.dirname(__file__), "..", "test-stations.sqlite3")
-    stations = Stations(fp)
+    stations = Stations()
     departure_station = stations.find("FRFEV")
     arrival_station = stations.find("FRJFU")
     segments = [
