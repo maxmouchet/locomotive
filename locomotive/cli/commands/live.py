@@ -33,7 +33,7 @@ def get_rows(entries: List[BoardEntry]) -> List[tuple]:
 #    default="pretty",
 #    help="Output format.",
 # )
-@click.option("--color/--no-color", default=False)
+@click.option("--color/--no-color", default=True)
 @click.pass_context
 def live(ctx: click.Context, **args: str) -> None:
     """
