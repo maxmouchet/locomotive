@@ -1,3 +1,6 @@
+import datetime as dt
+from typing import Any
+
 import click
 import dateparser
 from requests.exceptions import HTTPError  # pylint: disable=no-name-in-module
@@ -5,15 +8,8 @@ from requests.exceptions import HTTPError  # pylint: disable=no-name-in-module
 from ...api.oui_v3 import Client
 from ...api.requests import TravelRequest
 from ...models import Passenger
+from ..ext import DateParseParamType
 from ..formatters import Formatter, JSONFormatter, PrettyFormatter
-
-# We use click.echo because:
-# > Click’s echo() function will automatically strip ANSI color codes if the stream is not
-# > connected to a terminal.
-# > the echo() function will transparently connect to the terminal on Windows and translate
-# > ANSI codes to terminal API calls.
-# > This means that colors will work on Windows the same way they do on other operating systems.
-# https://click.palletsprojects.com/en/7.x/utils/#ansi-colors
 
 
 @click.command()
@@ -21,7 +17,9 @@ from ..formatters import Formatter, JSONFormatter, PrettyFormatter
 @click.argument("destination")
 @click.option(
     "--date",
+    type=DateParseParamType(),
     default="now",
+    show_default=True,
     help="Date (e.g 2019-06-01, 1st of June, 1er Juin ...), France timezone.",
 )
 @click.option(
@@ -29,16 +27,18 @@ from ..formatters import Formatter, JSONFormatter, PrettyFormatter
     "travel_class",
     type=click.Choice(["first", "second"]),
     default="second",
+    show_default=True,
     help="Travel class.",
 )
 @click.option(
     "--format",
     type=click.Choice(["pretty", "json"]),
     default="pretty",
+    show_default=True,
     help="Output format.",
 )
 @click.pass_context
-def search(ctx: click.Context, **args: str) -> None:
+def search(ctx: click.Context, **args: Any) -> None:
     """
     Search for trains.
 
@@ -54,10 +54,7 @@ def search(ctx: click.Context, **args: str) -> None:
     stations = ctx.obj["stations"]
     client = Client(stations)
 
-    date = dateparser.parse(
-        args["date"],
-        settings={"TIMEZONE": "Europe/Paris", "RETURN_AS_TIMEZONE_AWARE": True},
-    )
+    date: dt.datetime = args["date"]
     if date is None:
         raise click.UsageError("Cannot parse date.")
 
