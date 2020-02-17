@@ -3,7 +3,6 @@ from typing import Any, Union
 
 import click
 from requests.exceptions import HTTPError  # pylint: disable=no-name-in-module
-from tqdm import tqdm
 
 from ...api.oui_v3 import Client
 from ...api.requests import TravelRequest
@@ -92,8 +91,8 @@ def search(ctx: click.Context, **args: Any) -> None:
             date=date,
             travel_class=args["travel_class"],
         )
-        it = tqdm(client.travel_request_iter(req), leave=False)
-        click.echo(formatter.format(it))
+        it = client.travel_request_iter(req)
+        formatter.print(it, fn=click.echo)
     except HTTPError as exception:
         click.echo(exception.response.content, err=True)
         raise exception

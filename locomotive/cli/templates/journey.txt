@@ -1,0 +1,10 @@
+<b>Proposal {{ journey.departure_date|format_datetime }} - {{ journey.arrival_date|format_datetime }} ({{ journey.duration|format_timedelta }})</b>
+<b>Prices</b>
+{% for proposal in journey.proposals %}
++ {{ proposal.price.amount }} {{ proposal.price.currency.name }} ({{ proposal.flexibility_level }})
+{% endfor %}
+<b>Trains</b>
+{% for segment in journey.segments %}
++ {{ segment.transport.label }} {{ segment.transport.number }} from {{ segment.departure_station.name }} to {{ segment.arrival_station.name }}
+  {{ segment.departure_date|format_time }} - {{ segment.arrival_date|format_time }} ({{ segment.duration|format_timedelta }})
+{% endfor %}
