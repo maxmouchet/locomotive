@@ -1,15 +1,15 @@
 import datetime as dt
-from typing import Any
+from typing import Any, Union
 
 import click
-import dateparser
 from requests.exceptions import HTTPError  # pylint: disable=no-name-in-module
+from tqdm import tqdm
 
 from ...api.oui_v3 import Client
 from ...api.requests import TravelRequest
 from ...models import Passenger
 from ..ext import DateParseParamType
-from ..formatters import Formatter, JSONFormatter, PrettyFormatter
+from ..formatters import JSONFormatter, PrettyFormatter
 
 
 @click.command()
@@ -57,6 +57,7 @@ def search(ctx: click.Context, **args: Any) -> None:
     date: dt.datetime = args["date"]
     if date is None:
         raise click.UsageError("Cannot parse date.")
+    # TODO: date.start_of("day")
 
     # Hack: if set to 0 (midnight), the API
     # returns results for the day before.
@@ -79,13 +80,9 @@ def search(ctx: click.Context, **args: Any) -> None:
 
     click.echo("{} ({} years old)\n".format(passenger.name, passenger.age), err=True)
 
-    # TODO: Option to print raw api response
-    if args["format"] == "pretty":
-        formatter: Formatter = PrettyFormatter()
-    else:
+    formatter: Union[PrettyFormatter, JSONFormatter] = PrettyFormatter()
+    if args["format"] == "json":
         formatter = JSONFormatter()
-
-    click.echo(formatter.start_str())
 
     try:
         req = TravelRequest(
@@ -95,11 +92,8 @@ def search(ctx: click.Context, **args: Any) -> None:
             date=date,
             travel_class=args["travel_class"],
         )
-        it = client.travel_request_iter(req)
-        for journey in it:
-            click.echo(formatter.incr_str(journey))
+        it = tqdm(client.travel_request_iter(req), leave=False)
+        click.echo(formatter.format(it))
     except HTTPError as exception:
         click.echo(exception.response.content, err=True)
         raise exception
-
-    click.echo(formatter.end_str())

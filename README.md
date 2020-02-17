@@ -54,12 +54,6 @@ poetry run pre-commit install
 poetry run pre-commit run --all-files
 ```
 
-```
-assets/      # Images used in the README
-locomotive/  # Python module (see locomotive/README.md)
-tests/       # Unit tests
-```
-
 ### Releases
 
 ```bash
@@ -67,17 +61,6 @@ poetry version X.Y.Z # e.g. v0.4.0
 git tag vX.Y.Z
 git push --tags
 ```
-
-**Checklist:**
-
-- [ ] Screenshot in README is up to date.
-- [ ] Set version in `pyproject.toml`
-
-### Design notes & future plans
-
-Currently the `Formatter`s are tightly coupled with the API response format. In the future we may implement an abstraction over different APIs versions.
-
-We use `attrs` instead of `@dataclass` for Python 3.6 compatibility.
 
 ## Licenses
 
