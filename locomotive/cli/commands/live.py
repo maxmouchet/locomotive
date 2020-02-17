@@ -1,7 +1,3 @@
-"""
-CLI command for live departures and arrivals information.
-"""
-
 from typing import List
 
 import click

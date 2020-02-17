@@ -1,7 +1,3 @@
-"""
-CLI command for searching train journeys.
-"""
-
 import click
 import dateparser
 from requests.exceptions import HTTPError  # pylint: disable=no-name-in-module
