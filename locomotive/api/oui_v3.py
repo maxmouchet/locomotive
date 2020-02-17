@@ -28,7 +28,7 @@ class Client(TravelClient):
     """
 
     DATE_FORMAT = "%Y-%m-%dT%H:%M:%S.%f%z"
-    ENDPOINT = "https://wshoraires.oui.sncf/m690/vmd/maq/v3/proposals/train"
+    ENDPOINT = "https://wshoraires.oui.sncf/m710/vmd/maq/v3/proposals/train"
     USER_AGENT = "OUI.sncf/69.0.4 CFNetwork/1121.2.2 Darwin/19.2.0"
 
     def __init__(self, stations: Stations) -> None:
