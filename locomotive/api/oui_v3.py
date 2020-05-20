@@ -28,8 +28,8 @@ class Client(TravelClient):
     """
 
     DATE_FORMAT = "%Y-%m-%dT%H:%M:%S.%f%z"
-    ENDPOINT = "https://wshoraires.oui.sncf/m710/vmd/maq/v3/proposals/train"
-    USER_AGENT = "OUI.sncf/69.0.4 CFNetwork/1121.2.2 Darwin/19.2.0"
+    ENDPOINT = "https://wshoraires.oui.sncf/m730/vmd/maq/v3/proposals/train"
+    USER_AGENT = "OUI.sncf/73.2.0 CFNetwork/1125.2 Darwin/19.4.0"
 
     def __init__(self, stations: Stations) -> None:
         self.logger = logging.getLogger(__name__)
@@ -37,9 +37,19 @@ class Client(TravelClient):
 
     def request(self, json: dict) -> Any:
         headers = {
+            "Accept": "application/json",
+            "Accept-Language": "fr-FR",
+            "Content-Type": "application/json;charset=UTF8",
+            "Cookie": "",
             "User-Agent": self.USER_AGENT,
+            "application-user-agent": "iPhone (iOS 13.4.1) - [320x568@2x]",
             "x-vsc-locale": "fr_FR",
-            "x-Device-Type": "IOS",
+            "X-Device-Class": "SMARTPHONE",
+            "X-Device-Type": "IOS",
+            "X-HR-Version": "73.2",
+            "x-vsc-currency": "EUR",
+            "x-vsc-token": "",
+            "x-screen-density-qualifier": "xhdpi",
         }
 
         # pylint: disable=no-member
@@ -120,15 +130,17 @@ class Client(TravelClient):
         return Segment(
             transport=transport,
             departure_station=self.stations.find_or_raise(
-                obj["departureStation"]["code"]
+                obj["departureStation"]["info"]["miInfo"]["code"]
             ),
-            arrival_station=self.stations.find_or_raise(obj["arrivalStation"]["code"]),
+            arrival_station=self.stations.find_or_raise(
+                obj["arrivalStation"]["info"]["miInfo"]["code"]
+            ),
             departure_date=dt.datetime.strptime(departure_date_str, self.DATE_FORMAT),
             arrival_date=dt.datetime.strptime(arrival_date_str, self.DATE_FORMAT),
         )
 
     def __to_proposal(self, obj: dict) -> Proposal:
         return Proposal(
-            flexibility_level=obj["info"]["miInfo"]["proposalType"],
+            flexibility_level=obj["flexibility"],
             price=Money(str(obj["price"]["value"]), Currency(obj["price"]["currency"])),
         )
