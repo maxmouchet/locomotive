@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "sncf-cli"
+name = "locomotive"
 # https://github.com/python-poetry/poetry/issues/140
 # => Support automatic versioning setuptools_scm-style?
 version = "v0.9.2"
@@ -7,9 +7,6 @@ description = "Python API clients and a CLI for France's railways."
 authors = ["Yann Feunteun, Maxime Mouchet"]
 license = "MIT"
 readme = "README.md"
-packages = [
-    { include = "locomotive" }
-]
 repository = "https://github.com/maxmouchet/locomotive"
 documentation = "https://maxmouchet.github.io/locomotive/"
 # License and Python classifiers are added automatically
@@ -44,10 +41,7 @@ black = {version = "^19.10b0", allow-prereleases = true}
 coverage = {extras = ["toml"], version = "^5.0.1"}
 coveralls = "^1.10.0"
 mypy = "^0.761.0"
-# https://github.com/PyCQA/pylint/issues/617
-# => Search pylint configuration in setup.cfg and pyproject.toml
-# => This will be merged in pylint 2.5.0
-pylint = { git = "https://github.com/PyCQA/pylint.git", rev = "3fc8c98" }
+pylint = "^2.5"
 pytest = "^5.3"
 pytest-cov = "^2.8"
 pre-commit = "^1.20.0"

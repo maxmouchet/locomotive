@@ -19,7 +19,7 @@
 `locomotive` requires Python 3.6+ and can be installed using [pip](https://pip.pypa.io/en/stable/):
 
 ```bash
-pip install sncf-cli
+pip install locomotive
 ```
 
 ## API Clients
