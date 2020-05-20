@@ -12,7 +12,10 @@
   </a>
 </p>
 
-<img src="/docs/_assets/carbon.png">
+<p align="center">
+  <img src="/docs/_assets/screen_search.png" width="800px">
+  <img src="/docs/_assets/screen_live.png" width="800px">
+</p>
 
 ## Installation
 
@@ -39,7 +42,7 @@ locomotive search --help
 locomotive search Amsterdam Paris
 # Search by train station code (Amsterdam to Paris here)
 locomotive search NLAMA FRPAR
-# Pick a date and even a travel class
+# Specify the date and the travel class
 locomotive search Brest Paris --date 2019/07/14 --class first
 ```
 
