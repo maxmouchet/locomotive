@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>locomotive.api.client &#8212; locomotive  documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for locomotive.api.client</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">We use mulitple inheritance to allow the implementation</span>
+<span class="sd">of clients supporting several types of requests.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Set</span>
+
+<span class="kn">import</span> <span class="nn">attr</span>
+
+<span class="kn">from</span> <span class="nn">..models</span> <span class="kn">import</span> <span class="n">BoardEntry</span><span class="p">,</span> <span class="n">Journey</span>
+<span class="kn">from</span> <span class="nn">.requests</span> <span class="kn">import</span> <span class="n">BoardRequest</span><span class="p">,</span> <span class="n">TravelRequest</span>
+
+
+<div class="viewcode-block" id="BoardClient"><a class="viewcode-back" href="../../../api.html#locomotive.api.client.BoardClient">[docs]</a><span class="k">class</span> <span class="nc">BoardClient</span><span class="p">:</span>
+<div class="viewcode-block" id="BoardClient.board_request"><a class="viewcode-back" href="../../../api.html#locomotive.api.client.BoardClient.board_request">[docs]</a>    <span class="k">def</span> <span class="nf">board_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">:</span> <span class="n">BoardRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">BoardEntry</span><span class="p">]:</span>
+        <span class="s2">&quot;Request the arrival or departure board for a train station.&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
+
+
+<div class="viewcode-block" id="TravelClient"><a class="viewcode-back" href="../../../api.html#locomotive.api.client.TravelClient">[docs]</a><span class="k">class</span> <span class="nc">TravelClient</span><span class="p">:</span>
+<div class="viewcode-block" id="TravelClient.travel_request"><a class="viewcode-back" href="../../../api.html#locomotive.api.client.TravelClient.travel_request">[docs]</a>    <span class="k">def</span> <span class="nf">travel_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">:</span> <span class="n">TravelRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Journey</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Request the available journeys and prices</span>
+<span class="sd">        for a departure and arrival train station.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="TravelClient.travel_request_iter"><a class="viewcode-back" href="../../../api.html#locomotive.api.client.TravelClient.travel_request_iter">[docs]</a>    <span class="k">def</span> <span class="nf">travel_request_iter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">:</span> <span class="n">TravelRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Journey</span><span class="p">]:</span>
+        <span class="s2">&quot;Iteratively fetch a full day.&quot;</span>
+        <span class="c1"># TODO: Verify date overlaps and timezones...</span>
+        <span class="n">cur_dt</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">journeys</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Journey</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="c1"># Finite loop to avoid sending too many requests</span>
+        <span class="c1"># in case something goes wrong.</span>
+        <span class="n">max_iter</span> <span class="o">=</span> <span class="mi">10</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+            <span class="c1"># 1) Fetch results for the current date, and abort if no results.</span>
+            <span class="n">cur_req</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">evolve</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="n">cur_dt</span><span class="p">)</span>
+            <span class="n">journeys_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">travel_request</span><span class="p">(</span><span class="n">cur_req</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">journeys_</span><span class="p">:</span>
+                <span class="k">break</span>
+
+            <span class="c1"># 2) Keep only new results, and yield them sorted by departure date.</span>
+            <span class="n">diff</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">journeys_</span><span class="p">)</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">journeys</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">journey</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">departure_date</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">journey</span>
+
+            <span class="c1"># 3) Store the results.</span>
+            <span class="n">journeys</span> <span class="o">=</span> <span class="n">journeys</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">journeys_</span><span class="p">)</span>
+
+            <span class="c1"># 4) Set the new current date to the latest departure date.</span>
+            <span class="n">new_dt</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">departure_date</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">journeys</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">new_dt</span> <span class="o">==</span> <span class="n">cur_dt</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">new_dt</span><span class="o">.</span><span class="n">day</span> <span class="o">&gt;</span> <span class="n">req</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">day</span><span class="p">):</span>
+                <span class="k">break</span>
+            <span class="n">cur_dt</span> <span class="o">=</span> <span class="n">new_dt</span>
+
+        <span class="c1"># Nice tip from Fluent Python</span>
+        <span class="c1"># p.464 &quot;else Blocks Beyond If&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;More than </span><span class="si">%s</span><span class="s2"> pages found, results will be incomplete.&quot;</span><span class="p">,</span> <span class="n">max_iter</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="TravelClient.travel_request_full"><a class="viewcode-back" href="../../../api.html#locomotive.api.client.TravelClient.travel_request_full">[docs]</a>    <span class="k">def</span> <span class="nf">travel_request_full</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">:</span> <span class="n">TravelRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Journey</span><span class="p">]:</span>
+        <span class="s2">&quot;Batch fetch a full day.&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">travel_request_iter</span><span class="p">(</span><span class="n">req</span><span class="p">))</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../../index.html">
+              <img class="logo" src="../../../_static/logo.png" alt="Logo"/>
+            </a></p>
+<h1 class="logo"><a href="../../../index.html">locomotive</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../models.html">Models</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, yafeunteun & maxmouchet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

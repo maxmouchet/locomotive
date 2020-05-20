@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Models &#8212; locomotive  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Command Line" href="cli.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-locomotive.models.journey">
+<span id="models"></span><h1>Models<a class="headerlink" href="#module-locomotive.models.journey" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="locomotive.models.journey.Journey">
+<em class="property">class </em><code class="sig-prename descclassname">locomotive.models.journey.</code><code class="sig-name descname">Journey</code><span class="sig-paren">(</span><em class="sig-param">segments: Tuple[locomotive.models.journey.Segment, ...], proposals: Tuple[locomotive.models.journey.Proposal, ...]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/locomotive/models/journey.html#Journey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.models.journey.Journey" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Train Journey.</p>
+<dl class="method">
+<dt id="locomotive.models.journey.Journey.fake">
+<em class="property">classmethod </em><code class="sig-name descname">fake</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; locomotive.models.journey.Journey<a class="reference internal" href="_modules/locomotive/models/journey.html#Journey.fake"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.models.journey.Journey.fake" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="locomotive.models.journey.Journey.arrival_date">
+<em class="property">property </em><code class="sig-name descname">arrival_date</code><a class="headerlink" href="#locomotive.models.journey.Journey.arrival_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="locomotive.models.journey.Journey.arrival_station">
+<em class="property">property </em><code class="sig-name descname">arrival_station</code><a class="headerlink" href="#locomotive.models.journey.Journey.arrival_station" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="locomotive.models.journey.Journey.departure_date">
+<em class="property">property </em><code class="sig-name descname">departure_date</code><a class="headerlink" href="#locomotive.models.journey.Journey.departure_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="locomotive.models.journey.Journey.departure_station">
+<em class="property">property </em><code class="sig-name descname">departure_station</code><a class="headerlink" href="#locomotive.models.journey.Journey.departure_station" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="locomotive.models.journey.Journey.duration">
+<em class="property">property </em><code class="sig-name descname">duration</code><a class="headerlink" href="#locomotive.models.journey.Journey.duration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="locomotive.models.journey.Journey.lowest_price">
+<em class="property">property </em><code class="sig-name descname">lowest_price</code><a class="headerlink" href="#locomotive.models.journey.Journey.lowest_price" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lowest price for the journey, amongst all proposals.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.models.journey.Journey.proposals">
+<code class="sig-name descname">proposals</code><a class="headerlink" href="#locomotive.models.journey.Journey.proposals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Journey proposals.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.models.journey.Journey.segments">
+<code class="sig-name descname">segments</code><a class="headerlink" href="#locomotive.models.journey.Journey.segments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Journey segments, from departure to arrival.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="locomotive.models.journey.Proposal">
+<em class="property">class </em><code class="sig-prename descclassname">locomotive.models.journey.</code><code class="sig-name descname">Proposal</code><span class="sig-paren">(</span><em class="sig-param">flexibility_level: str</em>, <em class="sig-param">price: money.money.Money</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/locomotive/models/journey.html#Proposal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.models.journey.Proposal" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="locomotive.models.journey.Proposal.fake">
+<em class="property">classmethod </em><code class="sig-name descname">fake</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; locomotive.models.journey.Proposal<a class="reference internal" href="_modules/locomotive/models/journey.html#Proposal.fake"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.models.journey.Proposal.fake" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.models.journey.Proposal.flexibility_level">
+<code class="sig-name descname">flexibility_level</code><a class="headerlink" href="#locomotive.models.journey.Proposal.flexibility_level" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.models.journey.Proposal.price">
+<code class="sig-name descname">price</code><a class="headerlink" href="#locomotive.models.journey.Proposal.price" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="locomotive.models.journey.Segment">
+<em class="property">class </em><code class="sig-prename descclassname">locomotive.models.journey.</code><code class="sig-name descname">Segment</code><span class="sig-paren">(</span><em class="sig-param">transport: locomotive.models.journey.Transport</em>, <em class="sig-param">departure_station: locomotive.models.station.Station</em>, <em class="sig-param">arrival_station: locomotive.models.station.Station</em>, <em class="sig-param">departure_date: datetime.datetime</em>, <em class="sig-param">arrival_date: datetime.datetime</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/locomotive/models/journey.html#Segment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.models.journey.Segment" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="locomotive.models.journey.Segment.fake">
+<em class="property">classmethod </em><code class="sig-name descname">fake</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; locomotive.models.journey.Segment<a class="reference internal" href="_modules/locomotive/models/journey.html#Segment.fake"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.models.journey.Segment.fake" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.models.journey.Segment.arrival_date">
+<code class="sig-name descname">arrival_date</code><a class="headerlink" href="#locomotive.models.journey.Segment.arrival_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.models.journey.Segment.arrival_station">
+<code class="sig-name descname">arrival_station</code><a class="headerlink" href="#locomotive.models.journey.Segment.arrival_station" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.models.journey.Segment.departure_date">
+<code class="sig-name descname">departure_date</code><a class="headerlink" href="#locomotive.models.journey.Segment.departure_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.models.journey.Segment.departure_station">
+<code class="sig-name descname">departure_station</code><a class="headerlink" href="#locomotive.models.journey.Segment.departure_station" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="locomotive.models.journey.Segment.duration">
+<em class="property">property </em><code class="sig-name descname">duration</code><a class="headerlink" href="#locomotive.models.journey.Segment.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the durations of the segment.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.models.journey.Segment.transport">
+<code class="sig-name descname">transport</code><a class="headerlink" href="#locomotive.models.journey.Segment.transport" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="locomotive.models.journey.Transport">
+<em class="property">class </em><code class="sig-prename descclassname">locomotive.models.journey.</code><code class="sig-name descname">Transport</code><span class="sig-paren">(</span><em class="sig-param">equipment: str</em>, <em class="sig-param">label: str</em>, <em class="sig-param">number: str</em>, <em class="sig-param">type: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/locomotive/models/journey.html#Transport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.models.journey.Transport" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="locomotive.models.journey.Transport.fake">
+<em class="property">classmethod </em><code class="sig-name descname">fake</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; locomotive.models.journey.Transport<a class="reference internal" href="_modules/locomotive/models/journey.html#Transport.fake"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.models.journey.Transport.fake" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.models.journey.Transport.equipment">
+<code class="sig-name descname">equipment</code><a class="headerlink" href="#locomotive.models.journey.Transport.equipment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Euronet equipment code (TGA, TGB, CAR…).
+<a class="reference external" href="http://www.raileurope.fr/Extranet/Practical_information/Euronet_Equipment_Codes.pdf">http://www.raileurope.fr/Extranet/Practical_information/Euronet_Equipment_Codes.pdf</a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.models.journey.Transport.label">
+<code class="sig-name descname">label</code><a class="headerlink" href="#locomotive.models.journey.Transport.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>TER, TGV, Autocar…</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.models.journey.Transport.number">
+<code class="sig-name descname">number</code><a class="headerlink" href="#locomotive.models.journey.Transport.number" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.models.journey.Transport.type">
+<code class="sig-name descname">type</code><a class="headerlink" href="#locomotive.models.journey.Transport.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>TRAIN, BUS…</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+<h1 class="logo"><a href="index.html">locomotive</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Models</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="cli.html" title="previous chapter">Command Line</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, yafeunteun & maxmouchet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/models.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

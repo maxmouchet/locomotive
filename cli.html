@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Command Line &#8212; locomotive  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Models" href="models.html" />
+    <link rel="prev" title="API Clients" href="api.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="command-line">
+<h1>Command Line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="locomotive">
+<h2>locomotive<a class="headerlink" href="#locomotive" title="Permalink to this headline">¶</a></h2>
+<p>🚆 Search train journeys from your terminal.</p>
+<div class="line-block">
+<div class="line">Examples:</div>
+<div class="line">locomotive search Brest Paris</div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>locomotive <span class="o">[</span>OPTIONS<span class="o">]</span> COMMAND <span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-locomotive-debug">
+<code class="sig-name descname">--debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-locomotive-debug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-locomotive-stations-file">
+<code class="sig-name descname">--stations-file</code><code class="sig-prename descclassname"> &lt;stations_file&gt;</code><a class="headerlink" href="#cmdoption-locomotive-stations-file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="section" id="locomotive-live">
+<h3>live<a class="headerlink" href="#locomotive-live" title="Permalink to this headline">¶</a></h3>
+<p>Show live departures and arrivals for a train station.</p>
+<div class="line-block">
+<div class="line">Examples:</div>
+<div class="line">locomotive live “Paris Montparnasse”</div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>locomotive live <span class="o">[</span>OPTIONS<span class="o">]</span> STATION
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-locomotive-live-color">
+<code class="sig-name descname">--color</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-color</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-locomotive-live-color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="option">
+<dt id="cmdoption-locomotive-live-arg-station">
+<code class="sig-name descname">STATION</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-locomotive-live-arg-station" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+<div class="section" id="locomotive-search">
+<h3>search<a class="headerlink" href="#locomotive-search" title="Permalink to this headline">¶</a></h3>
+<p>Search for trains.</p>
+<p>Origin and destination can be city names (Paris),
+train station names (Paris Montparnasse),
+or train station codes (FRPMO).</p>
+<div class="line-block">
+<div class="line">Examples:</div>
+<div class="line">locomotive search Brest Paris</div>
+<div class="line">locomotive search Brest Paris –class second –date 2019-06-01</div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>locomotive search <span class="o">[</span>OPTIONS<span class="o">]</span> ORIGIN DESTINATION
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-locomotive-search-date">
+<code class="sig-name descname">--date</code><code class="sig-prename descclassname"> &lt;date&gt;</code><a class="headerlink" href="#cmdoption-locomotive-search-date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Date (e.g 2019-06-01, 1st of June, 1er Juin …), France timezone.  [default: now]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-locomotive-search-class">
+<code class="sig-name descname">--class</code><code class="sig-prename descclassname"> &lt;travel_class&gt;</code><a class="headerlink" href="#cmdoption-locomotive-search-class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Travel class.  [default: second]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Options</dt>
+<dd class="field-odd"><p>first|second</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-locomotive-search-format">
+<code class="sig-name descname">--format</code><code class="sig-prename descclassname"> &lt;format&gt;</code><a class="headerlink" href="#cmdoption-locomotive-search-format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output format.  [default: pretty]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Options</dt>
+<dd class="field-odd"><p>pretty|json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="option">
+<dt id="cmdoption-locomotive-search-arg-origin">
+<code class="sig-name descname">ORIGIN</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-locomotive-search-arg-origin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-locomotive-search-arg-destination">
+<code class="sig-name descname">DESTINATION</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-locomotive-search-arg-destination" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+<h1 class="logo"><a href="index.html">locomotive</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Clients</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Command Line</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#locomotive">locomotive</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">Models</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="api.html" title="previous chapter">API Clients</a></li>
+      <li>Next: <a href="models.html" title="next chapter">Models</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, yafeunteun & maxmouchet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/cli.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

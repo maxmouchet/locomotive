@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>API Clients &#8212; locomotive  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Command Line" href="cli.html" />
+    <link rel="prev" title="locomotive" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="api-clients">
+<h1>API Clients<a class="headerlink" href="#api-clients" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-locomotive.api.client">
+<span id="base-classes"></span><h2>Base Classes<a class="headerlink" href="#module-locomotive.api.client" title="Permalink to this headline">¶</a></h2>
+<p>We use mulitple inheritance to allow the implementation
+of clients supporting several types of requests.</p>
+<dl class="class">
+<dt id="locomotive.api.client.BoardClient">
+<em class="property">class </em><code class="sig-prename descclassname">locomotive.api.client.</code><code class="sig-name descname">BoardClient</code><a class="reference internal" href="_modules/locomotive/api/client.html#BoardClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.api.client.BoardClient" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="locomotive.api.client.BoardClient.board_request">
+<code class="sig-name descname">board_request</code><span class="sig-paren">(</span><em class="sig-param">req: locomotive.api.requests.BoardRequest</em><span class="sig-paren">)</span> &#x2192; List[locomotive.models.board.BoardEntry]<a class="reference internal" href="_modules/locomotive/api/client.html#BoardClient.board_request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.api.client.BoardClient.board_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request the arrival or departure board for a train station.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="locomotive.api.client.TravelClient">
+<em class="property">class </em><code class="sig-prename descclassname">locomotive.api.client.</code><code class="sig-name descname">TravelClient</code><a class="reference internal" href="_modules/locomotive/api/client.html#TravelClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.api.client.TravelClient" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="locomotive.api.client.TravelClient.travel_request">
+<code class="sig-name descname">travel_request</code><span class="sig-paren">(</span><em class="sig-param">req: locomotive.api.requests.TravelRequest</em><span class="sig-paren">)</span> &#x2192; List[locomotive.models.journey.Journey]<a class="reference internal" href="_modules/locomotive/api/client.html#TravelClient.travel_request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.api.client.TravelClient.travel_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request the available journeys and prices
+for a departure and arrival train station.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="locomotive.api.client.TravelClient.travel_request_full">
+<code class="sig-name descname">travel_request_full</code><span class="sig-paren">(</span><em class="sig-param">req: locomotive.api.requests.TravelRequest</em><span class="sig-paren">)</span> &#x2192; List[locomotive.models.journey.Journey]<a class="reference internal" href="_modules/locomotive/api/client.html#TravelClient.travel_request_full"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.api.client.TravelClient.travel_request_full" title="Permalink to this definition">¶</a></dt>
+<dd><p>Batch fetch a full day.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="locomotive.api.client.TravelClient.travel_request_iter">
+<code class="sig-name descname">travel_request_iter</code><span class="sig-paren">(</span><em class="sig-param">req: locomotive.api.requests.TravelRequest</em><span class="sig-paren">)</span> &#x2192; Iterator[locomotive.models.journey.Journey]<a class="reference internal" href="_modules/locomotive/api/client.html#TravelClient.travel_request_iter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.api.client.TravelClient.travel_request_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iteratively fetch a full day.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-locomotive.api.requests">
+<span id="requests"></span><h2>Requests<a class="headerlink" href="#module-locomotive.api.requests" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="locomotive.api.requests.BoardRequest">
+<em class="property">class </em><code class="sig-prename descclassname">locomotive.api.requests.</code><code class="sig-name descname">BoardRequest</code><span class="sig-paren">(</span><em class="sig-param">station: locomotive.models.station.Station</em>, <em class="sig-param">type_: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/locomotive/api/requests.html#BoardRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.api.requests.BoardRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request the arrival or departure board for a train station.</p>
+<dl class="attribute">
+<dt id="locomotive.api.requests.BoardRequest.station">
+<code class="sig-name descname">station</code><em class="property">: Station</em><em class="property"> = None</em><a class="headerlink" href="#locomotive.api.requests.BoardRequest.station" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.api.requests.BoardRequest.type_">
+<code class="sig-name descname">type_</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#locomotive.api.requests.BoardRequest.type_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="locomotive.api.requests.TravelRequest">
+<em class="property">class </em><code class="sig-prename descclassname">locomotive.api.requests.</code><code class="sig-name descname">TravelRequest</code><span class="sig-paren">(</span><em class="sig-param">departure_station: locomotive.models.station.Station, arrival_station: locomotive.models.station.Station, passengers: List[locomotive.models.passenger.Passenger], date: datetime.datetime, travel_class: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/locomotive/api/requests.html#TravelRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.api.requests.TravelRequest" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="locomotive.api.requests.TravelRequest.arrival_station">
+<code class="sig-name descname">arrival_station</code><em class="property">: Station</em><em class="property"> = None</em><a class="headerlink" href="#locomotive.api.requests.TravelRequest.arrival_station" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.api.requests.TravelRequest.date">
+<code class="sig-name descname">date</code><em class="property">: dt.datetime</em><em class="property"> = None</em><a class="headerlink" href="#locomotive.api.requests.TravelRequest.date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.api.requests.TravelRequest.departure_station">
+<code class="sig-name descname">departure_station</code><em class="property">: Station</em><em class="property"> = None</em><a class="headerlink" href="#locomotive.api.requests.TravelRequest.departure_station" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.api.requests.TravelRequest.passengers">
+<code class="sig-name descname">passengers</code><em class="property">: List[Passenger]</em><em class="property"> = None</em><a class="headerlink" href="#locomotive.api.requests.TravelRequest.passengers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="locomotive.api.requests.TravelRequest.travel_class">
+<code class="sig-name descname">travel_class</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#locomotive.api.requests.TravelRequest.travel_class" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-locomotive.api.gc">
+<span id="implemented-clients"></span><h2>Implemented Clients<a class="headerlink" href="#module-locomotive.api.gc" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="locomotive.api.gc.Client">
+<em class="property">class </em><code class="sig-prename descclassname">locomotive.api.gc.</code><code class="sig-name descname">Client</code><span class="sig-paren">(</span><em class="sig-param">stations: locomotive.stores.Stations</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/locomotive/api/gc.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.api.gc.Client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Client for the www.garesetconnexions.sncf/fr/train-time API.</p>
+<dl class="method">
+<dt id="locomotive.api.gc.Client.board_request">
+<code class="sig-name descname">board_request</code><span class="sig-paren">(</span><em class="sig-param">req: locomotive.api.requests.BoardRequest</em><span class="sig-paren">)</span> &#x2192; List[locomotive.models.board.BoardEntry]<a class="reference internal" href="_modules/locomotive/api/gc.html#Client.board_request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.api.gc.Client.board_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request the arrival or departure board for a train station.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-locomotive.api.oui_v3"></span><dl class="class">
+<dt id="locomotive.api.oui_v3.Client">
+<em class="property">class </em><code class="sig-prename descclassname">locomotive.api.oui_v3.</code><code class="sig-name descname">Client</code><span class="sig-paren">(</span><em class="sig-param">stations: locomotive.stores.Stations</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/locomotive/api/oui_v3.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.api.oui_v3.Client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Client for the wshoraires.oui.sncf V3 API</p>
+<dl class="method">
+<dt id="locomotive.api.oui_v3.Client.travel_request">
+<code class="sig-name descname">travel_request</code><span class="sig-paren">(</span><em class="sig-param">req: locomotive.api.requests.TravelRequest</em><span class="sig-paren">)</span> &#x2192; List[locomotive.models.journey.Journey]<a class="reference internal" href="_modules/locomotive/api/oui_v3.html#Client.travel_request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#locomotive.api.oui_v3.Client.travel_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request the available journeys and prices
+for a departure and arrival train station.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+<h1 class="logo"><a href="index.html">locomotive</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Clients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-locomotive.api.client">Base Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-locomotive.api.requests">Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-locomotive.api.gc">Implemented Clients</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">Models</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">locomotive</a></li>
+      <li>Next: <a href="cli.html" title="next chapter">Command Line</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, yafeunteun & maxmouchet.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/api.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
