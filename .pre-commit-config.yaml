@@ -17,7 +17,7 @@ repos:
       exclude: ^(tests)|(tools)/.*
 
 - repo: https://github.com/pre-commit/mirrors-pylint
-  rev: v2.4.4 # TODO: Update to v2.5.0 when available (for pyproject.toml)
+  rev: v2.5.2
   hooks:
     - id: pylint
       # We disable import-error since this is run outside poetry venv
