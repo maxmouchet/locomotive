@@ -12,27 +12,29 @@ from text_unidecode import unidecode
 from .exceptions import StationNotFoundException
 from .models import Station
 
-
-# HACK
-# Clermont Fd. => Clermont F
-# Paris MP => Paris M
-def fix_abbr(s: str) -> str:
-    p = re.compile(r"\s(\w)\w\.?$")
-    return p.sub(r" \1", s)
+# TODO: Update normalized names in stations db.
+# when `normalize()` is changed.
 
 
-# TODO: Use same function as in tools/gen_stations.py
-# TODO: Remove multiple spaces
 def normalize(s: str) -> str:
-    s = s.lower()
-    s = unidecode(s)
-    s = s.replace("-", " ")
-    s = s.replace(".", " ")
-    s = s.replace("gare de ", "")
-    s = s.replace("saint ", "st ")
-    s = s.replace("pche", "perrache")
-    s = s.replace("zuerich", "zurich")
-    return s.strip()
+    s = (
+        unidecode(s.lower())
+        .replace("-", " ")
+        .replace(".", " ")
+        .replace("gare de ", "")
+        .replace("charles de gaulle", "cdg")
+        .replace("provence", "pce")
+        .replace("perrache", "pche")
+        .replace("saint ", "st ")
+        .replace("zuerich", "zurich")
+        .strip()
+    )
+    # Clermont Fd. => Clermont F
+    # Paris MP => Paris M
+    s = re.sub(r"\s(\w)\w\.?$", r" \1", s)
+    # Remove multiple spaces
+    s = re.sub(r"\s+", " ", s)
+    return s
 
 
 class Stations:
@@ -92,7 +94,7 @@ class Stations:
         return None
 
     def find_by_name(self, query: str) -> Optional[Station]:
-        query_norm = normalize(fix_abbr(query))
+        query_norm = normalize(query)
         sql = "SELECT * FROM stations WHERE name_norm LIKE ?"
         rows = self.fetchall(sql, (f"%{query_norm}%",))
         matches = difflib.get_close_matches(
@@ -109,11 +111,17 @@ class Stations:
             station = self.find_by_name(query)
         return station
 
+    def find_or_create(self, query: str) -> Station:
+        station = self.find(query)
+        if not station:
+            station = Station(query, normalize(query), None, None, None, None)
+        return station
+
     def find_or_raise(self, query: str) -> Station:
         station = self.find(query)
-        if station:
-            return station
-        raise StationNotFoundException(query)
+        if not station:
+            raise StationNotFoundException(query)
+        return station
 
     @classmethod
     def default_path(cls) -> Path:

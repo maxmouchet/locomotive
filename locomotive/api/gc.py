@@ -44,7 +44,7 @@ class Client(BoardClient):
         return [self.__to_entry(x) for x in res["trains"]]
 
     def __to_entry(self, obj: dict) -> BoardEntry:
-        tofrom = self.stations.find_or_raise(obj["origdest"])
+        tofrom = self.stations.find_or_create(obj["origdest"])
         transport = Transport("", obj["type"], obj["num"], "")
         time = self.__parse_time(obj["heure"])
         delay = self.__parse_delay(obj["retard"])
