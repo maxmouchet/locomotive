@@ -19,11 +19,8 @@
 
 ## Installation
 
-`locomotive` requires Python 3.6+ and can be installed using [pip](https://pip.pypa.io/en/stable/):
-
-```bash
-pip install locomotive
-```
+> [!WARNING]
+> As of February 26th 2026 the `locomotive` package on PyPI has been transferred to [`dariaa`](https://pypi.org/user/dariaa/) for reuse on another project.
 
 ## API Clients
 
