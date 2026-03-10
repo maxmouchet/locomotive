@@ -60,7 +60,7 @@ class Client(TravelClient):
         self.logger.debug(res.request.body)
         self.logger.debug(res.content)
 
-        if res.status_code == 404:
+        if res.status_code == 404 or "error" in res.json():
             # {"code":"ERR-0102","label":"empty travel result"}
             return {"journeys": []}
 
